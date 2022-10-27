@@ -1104,7 +1104,7 @@ a.em-active-button:hover {
 CUROUSEL SLIDER AREA
 ====================*/
 .slider_area {
-	background: url(assets/images/slider-bg.jpg);
+	/*background: url(assets/images/imagesslider-bg.jpg);*/
 	background-size: cover;
 	background-position: center center;
 	position: relative;
@@ -1112,13 +1112,13 @@ CUROUSEL SLIDER AREA
 }
 
 .home-2.slider_area {
-	background: url(img/slider/s4.jpg);
+	/*background: url(img/slider_area/s4.jpg);*/
 	background-size: cover;
 	background-position: center center;
 }
 
 .home-3.slider_area {
-	background: url(img/slider/s4.jpg);
+	/*background: url(img/slider/s4.jpg);*/
 	background-size: cover;
 	background-position: center center;
 }
@@ -1218,6 +1218,7 @@ Slick Slider Area Css
 .slick-slider-area {}
 
 .slick-single-slider {
+    background-size: cover !important;
 	height: 100vh;
 	position: relative;
 	z-index: 999;
@@ -1430,15 +1431,15 @@ Slick Slider Area Css
 }
 
 .hero-slider-area .slide-one-bg {
-	background: rgba(41, 38, 51, 0.8) url("assets/images/slider-1.jpg") no-repeat scroll center center / cover;
+	/*background: rgba(41, 38, 51, 0.8) url("assets/images/slider-1.jpg") no-repeat scroll center center / cover;*/
 }
 
 .hero-slider-area .slide-two-bg {
-	background: rgba(41, 38, 51, 0.8) url("assets/images/slider-2.jpg") no-repeat scroll center center / cover;
+	/*background: rgba(41, 38, 51, 0.8) url("assets/images/slider-2.jpg") no-repeat scroll center center / cover;*/
 }
 
 .hero-slider-area .slide-three-bg {
-	background: rgba(41, 38, 51, 0.8) url("assets/images/slider-3.jpg") no-repeat scroll center center / cover;
+	/*background: rgba(41, 38, 51, 0.8) url("assets/images/slider-3.jpg") no-repeat scroll center center / cover;*/
 }
 
 .hero-slider-area .banner-content {
@@ -1932,7 +1933,7 @@ POPULAR PACKAGE AREA
 /* eduzone COUNTDOWN AREA CSS
 ===============================*/
 .count_down_area {
-	background-image: url(assets/images/countdown-bg.jpg);
+	/*background-image: url(assets/images/countdown-bg.jpg);*/
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -2236,7 +2237,7 @@ FEATURE AREA CSS
 ===========================*/
 .feature_area_head {
 	padding: 81px 0 205px;
-	background: url(assets/images/feature-bg.jpg);
+	/*background: url(assets/images/feature-bg.jpg);*/
 	background-attachment: fixed;
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -2331,7 +2332,7 @@ FEATURE AREA CSS
 dreamit VIDEO  CSS
 =========================*/
 .video_area {
-	background-image: url(assets/images/newsletter-bg.jpg);
+	/*background-image: url(assets/images/newsletter-bg.jpg);*/
 	background-position: center center;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -3368,7 +3369,7 @@ dreamit TESTIMONIAL AREA CSS
 	margin: 0 2px;
 }
 .single_widget{
-	background-image:url(assets/images/add.jpg);
+	/*background-image:url(assets/images/add.jpg);*/
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -3608,7 +3609,7 @@ dreamit BLOG AREA CSS
 /* Subscribe Area */
 .subscribe_area {
 	padding: 81px 0 100px;
-	background: url(assets/images/newsletter-bg.jpg);
+	/*background: url(assets/images/newsletter-bg.jpg);*/
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -3638,7 +3639,7 @@ dreamit BLOG AREA CSS
 	border: 0;
 	padding-left: 33px;
 	border-radius: 30px;
-	color: #fff;
+	color: #000000;
 }
 .quote_form_field input:focus {
 	border-color: #ff6363;
@@ -3981,8 +3982,6 @@ dreamit BLOG DETAILS AREA CSS
 	margin-bottom: 30px;
 	text-align: center;
 	padding-top: 15px;
-	align-content: ;
-	align-content: ;
 }
 
 /*===============================
@@ -4542,10 +4541,10 @@ dreamit INSTAGRAM AREA CSS
 =================================*/
 
 .instadram_area {
-	background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.87)), to(rgba(0, 0, 0, 0.87))), transparent url(assets/images/cn.jpg) 0% 0%/cover repeat scroll;
-	background: -webkit-linear-gradient(rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.87)), transparent url(assets/images/cn.jpg) 0% 0%/cover repeat scroll;
-	background: -o-linear-gradient(rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.87)), transparent url(assets/images/cn.jpg) 0% 0%/cover repeat scroll;
-	background: linear-gradient(rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.87)), transparent url(assets/images/cn.jpg) 0% 0%/cover repeat scroll;
+	/*background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.87)), to(rgba(0, 0, 0, 0.87))), transparent url(assets/images/cn.jpg) 0% 0%/cover repeat scroll;*/
+	/*background: -webkit-linear-gradient(rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.87)), transparent url(assets/images/cn.jpg) 0% 0%/cover repeat scroll;*/
+	/*background: -o-linear-gradient(rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.87)), transparent url(assets/images/cn.jpg) 0% 0%/cover repeat scroll;*/
+	/*background: linear-gradient(rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.87)), transparent url(assets/images/cn.jpg) 0% 0%/cover repeat scroll;*/
 	background-repeat: no-repeat;
 	background-size: cover;
 	padding: 80px 0 100px;
@@ -4578,7 +4577,7 @@ dreamit BREADCRUMB AREA CSS
 =============================*/
 
 .breatcome_area {
-	background:url(assets/images/brd-bg.jpg);
+	/*background:url(assets/images/brd-bg.jpg);*/
 	background-position: center center;
 	background-size: cover;
 	background-repeat: no-repeat;

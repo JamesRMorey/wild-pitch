@@ -6,7 +6,7 @@
             <div class="col-xs-12 col-md-8 col-sm-7">
                 <div class="top-address">
                     <p>
-                        join the <b>@wildpitch</b> club on our socials
+                        join the <b>@wildpitchcamping</b> club on our socials
                     </p>
                 </div>
             </div>

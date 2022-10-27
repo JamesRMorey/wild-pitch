@@ -1,0 +1,15 @@
+.box-shadow {
+    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.15);
+}
+
+.medium-container {
+    padding: 30px 5%;
+}
+
+.weather-stat {
+    margin-bottom: 5px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

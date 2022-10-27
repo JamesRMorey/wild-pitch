@@ -3,9 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>dreamit - Tour & Travel HTML5 Template</title>
+	<title>@if (isset($title)) {{ $title }} @else Wild Pitch @endif</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+    {{-- jQuery--}}
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" sizes="56x56" href="assets/images/fav-icon/icon.png">
 	<!-- bootstrap CSS -->
@@ -22,6 +24,7 @@
 	<link rel="stylesheet" 	href="{{ asset('dream-it-assets') }}/css/owl.transitions.css" type="text/css" media="all" />
 	<!-- font-awesome CSS -->
 	<link rel="stylesheet"  href="{{ asset('dream-it-assets') }}/css/font-awesome.min.css" type="text/css" media="all" />
+	<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" type="text/css" media="all" />
 	<!-- meanmenu CSS -->
 	<link rel="stylesheet"  href="{{ asset('dream-it-assets') }}/css/meanmenu.min.css" type="text/css" media="all" />
 	<!-- theme-default CSS -->
@@ -34,6 +37,8 @@
 	<link rel="stylesheet"  href="{{ asset('dream-it-assets') }}/css/style.css" type="text/css" media="all" />
 	<!-- responsive CSS -->
 	<link rel="stylesheet"  href="{{ asset('dream-it-assets') }}/css/responsive.css" type="text/css" media="all" />
+    <!-- fronted custom CSS -->
+    <link rel="stylesheet"  href="{{ asset('frontend') }}/css/frontend.css" type="text/css" media="all" />
 	<!-- modernizr js -->
 	<script type="text/javascript" src="{{ asset('dream-it-assets') }}/js/vendor/modernizr-3.5.0.min.js"></script>
 
@@ -44,18 +49,20 @@
         <![endif]-->
 
 
-	@include('frontend._layouts.partials.top_banner')
+        @include('frontend._layouts.partials.top_banner')
 
-	@include('frontend._layouts.partials.header_menu')
+        @include('frontend._layouts.partials.header_menu')
 
-	@include('frontend._layouts.partials.mobile_menu')
+        @include('frontend._layouts.partials.mobile_menu')
 
-    @yield('content')
+        @yield('content')
 
-	@include('frontend._layouts.partials.footer')
+        @include('frontend._layouts.partials.footer')
 
 	<!-- Main jquery js -->
 	<script type="text/javascript" src="{{ asset('dream-it-assets') }}/js/vendor/jquery-3.2.1.min.js"></script>
+    <!-- moment js -->
+	<script type="text/javascript" src="{{ asset('dream-it-assets') }}/js/vendor/moment.min.js"></script>
 	<!-- bootstrap js -->
 	<script type="text/javascript" src="{{ asset('dream-it-assets') }}/js/bootstrap.min.js"></script>
 	<!-- directional js -->
@@ -90,5 +97,6 @@
 	<!-- Main js -->
 	<script type="text/javascript" src="{{ asset('dream-it-assets') }}/js/theme.js"></script>
 	<script type="text/javascript" src="//themera.net/embed/themera.js?id=79364"></script>
+{{--        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>--}}
 	</body>
 </html>
