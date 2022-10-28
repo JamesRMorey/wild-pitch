@@ -18,13 +18,6 @@
             <div class="package_btn">
                 <a href="{{ route('pitch.details') }}?pitch_id={{ $pitch->id }}">Details</a>
             </div>
-            <div class="package_ratting">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-            </div>
         </div>
     </div>
 </div>

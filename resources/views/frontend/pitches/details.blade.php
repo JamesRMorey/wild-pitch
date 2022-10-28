@@ -36,7 +36,7 @@
         <!-- BLOG_AREA END -->
     </div>
 @endsection
-{{-- jQuery--}}
+{{--jquery--}}
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 {{--<script type="text/javascript" src="{{ asset('js') }}/frontend/pitches/pitch-details.js"></script>--}}
 <script>
@@ -44,6 +44,7 @@
 
     $(document).ready(function() {
         getWeatherData(pitch);
+        drawMap(pitch);
     });
 
     function getWeatherData(pitch) {
@@ -51,7 +52,8 @@
             url: '{{ route('pitch.weather') }}',
             type: 'GET',
             data: {
-                pitch_id: pitch.id
+                pitch_id: pitch.id,
+                days: 5
             },
             success: function(response) {
                 for(let day of response.days) {
@@ -121,6 +123,21 @@
             error: function(response) {
                 console.log(response);
             }
+        });
+    }
+
+    function drawMap(pitch) {
+        let position = {lat: parseFloat(pitch.lat), lng: parseFloat(pitch.lon)};
+        let map = new google.maps.Map(document.getElementById('map'), {
+            center: position,
+            zoom: 8,
+            type: 'terrain'
+        });
+
+        new google.maps.Marker({
+            position: position,
+            map,
+            title: pitch.title
         });
     }
 

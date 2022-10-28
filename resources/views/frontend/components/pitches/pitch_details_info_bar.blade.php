@@ -2,8 +2,7 @@
 {{--    <div class="course_title">--}}
 {{--        <h1>Lets Get Going</h1>--}}
 {{--    </div>--}}
-    <div class="em_contact_form">
-
+    <div class="em_contact_form" id="map">
     </div>
     <div class="em_contact_form" id="weather_form">
         <h6>Weather <i class="fa fa-spinner fa-spin" style="margin-left: 10px;" aria-hidden="true"></i></h6>

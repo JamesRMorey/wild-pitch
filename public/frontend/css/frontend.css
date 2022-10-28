@@ -13,3 +13,7 @@
     justify-content: center;
     align-items: center;
 }
+
+.pitch-up-details #map {
+    aspect-ratio: 1;
+}

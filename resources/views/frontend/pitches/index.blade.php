@@ -150,7 +150,7 @@
                 </div>
                 <div class="col-lg-8 col-md-8">
                     @foreach($pitches as $pitch)
-                        @include('frontend.components.pitches.pitch-details-box', ['pitch' => $pitch])
+                        @include('frontend.components.pitches.pitch_details_box', ['pitch' => $pitch])
                     @endforeach
                 </div>
             </div>

@@ -33,6 +33,8 @@
 	<link rel="stylesheet"  href="{{ asset('dream-it-assets') }}/css/widget.css" type="text/css" media="all" />
 	<!-- unittest CSS -->
 	<link rel="stylesheet"  href="{{ asset('dream-it-assets') }}/css/unittest.css" type="text/css" media="all" />
+    <!-- leaflet CSS -->
+    <link rel="stylesheet"  href="{{ asset('assets') }}/css/leaflet.css" type="text/css" media="all" />
 	<!-- Main Style CSS -->
 	<link rel="stylesheet"  href="{{ asset('dream-it-assets') }}/css/style.css" type="text/css" media="all" />
 	<!-- responsive CSS -->
@@ -94,6 +96,11 @@
 	<!-- waypoints js -->
 	<script type="text/javascript" src="{{ asset('dream-it-assets') }}/js/waypoints.min.js"></script>
 	<script type="text/javascript" src="{{ asset('dream-it-assets') }}/js/jquery.countdown.min.js"></script>
+    {{--leaflet--}}
+    <script type="text/javascript" src="{{ asset('assets') }}/js/leaflet-src.js"></script>
+
+    {{-- google maps api--}}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNUrYCkPswcjrl8YUE110fo1saIf6sQik&callback=initMap"></script>
 	<!-- Main js -->
 	<script type="text/javascript" src="{{ asset('dream-it-assets') }}/js/theme.js"></script>
 	<script type="text/javascript" src="//themera.net/embed/themera.js?id=79364"></script>
