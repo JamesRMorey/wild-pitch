@@ -102,7 +102,9 @@
     {{-- google maps api--}}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNUrYCkPswcjrl8YUE110fo1saIf6sQik&callback=initMap"></script>
 	<!-- Main js -->
+    <script type="text/javascript" src="{{ asset('js') }}/app.js"></script>
 	<script type="text/javascript" src="{{ asset('dream-it-assets') }}/js/theme.js"></script>
+
 	<script type="text/javascript" src="//themera.net/embed/themera.js?id=79364"></script>
 {{--        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>--}}
 	</body>

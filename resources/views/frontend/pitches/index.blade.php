@@ -4,7 +4,7 @@
         @include('frontend.components.breadcrumb', ['breadcrumbs' => '<a href="#">Home<i class="fa fa-angle-right"></i></a>Find A Pitch'])
         <div class="row" class="main-search-container" style="margin: 15px 0;">
             <div class="col-lg-12 col-md-12 col-xs-12">
-                @include('frontend.components.search_bar', ['search_bar_button_text' => 'lets go!', 'search_bar_place_holder' => 'Where are you going?'])
+                @include('frontend.components.search_bar', ['show_button' => false, 'search_bar_place_holder' => 'Where are you going...'])
             </div>
         </div>
 
@@ -149,9 +149,11 @@
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-8">
-                    @foreach($pitches as $pitch)
-                        @include('frontend.components.pitches.pitch_details_box', ['pitch' => $pitch])
-                    @endforeach
+                    <div id="pitches">
+                        @foreach($pitches as $pitch)
+                            @include('frontend.components.pitches.pitch_details_box', ['pitch' => $pitch])
+                        @endforeach
+                    </div>
                 </div>
             </div>
 
@@ -159,4 +161,131 @@
 
     </div>
 @endsection
+{{--jquery--}}
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        $('#search_bar_submit').on('click', function() {
+            let searchbar = $('#search_bar');
+            processSearch(searchbar);
+        });
+        $('#search_bar').on('input', debounce(() => {
+            let searchTerm = $('#search_bar').val();
+            if(searchTerm.length > 0) {
+                updateAutoComplete(searchTerm);
+            } else {
+                $('#autocom_box').html('');
+                $('#autocom_box').removeClass('inactive');
+            }
+        }));
+        $('#search_bar').on('focus', function() {
+            $('#autocom_box').removeClass('inactive');
+            $('#autocom_box').addClass('active');
+        });
+        $('#search_bar').on('focusout', debounce(() => {
+            $('#autocom_box').removeClass('active');
+            $('#autocom_box').addClass('inactive');
+        },100));
+        $('#autocom_box').on('click', 'li', function() {
+            let locationId = $(this).data('location-id');
+            $('#autocom_box').removeClass('active');
+            $('#autocom_box').addClass('inactive');
+            $('#search_bar').val($(this).text());
+            processSearch(locationId);
+        });
+    });
+
+    function processSearch(locationId) {
+        $.ajax({
+            url: '{{ route('pitches.process.search') }}',
+            type: 'GET',
+            data: {
+                location_id: locationId,
+                offset: 1
+            },
+            success: function(response) {
+                let pitches = response.data;
+                updateResults(pitches);
+            },
+            error: function(response) {
+                updateResultsNoResults(response.responseJSON.message);
+            }
+        })
+    }
+
+    function updateResults(pitches) {
+        $('#pitches').html('');
+        for(let pitch of pitches) {
+            $('#pitches').append(`
+               <div class="row">
+                    <div class="col-md-12">
+                        <div class="single_testimonial" style="display: flex; align-content: space-between;">
+                            <div style="flex: 2">
+                                <div class="em_testi_text">
+                                    <p>` + pitch.title +`</p>
+                                </div>
+                                <div class="em_testi_content">
+                                    <div class="em_testi_title">
+                                        <h2>Something Here<span>` + pitch.subtitle +`</span></h2>
+                                    </div>
+                                    <div>
+                                        <a class="btn" href="{{ route('pitch.details') }}?pitch_id=` + pitch.id +`">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="em_test_thumb" style="flex: 1; text-align: right; padding: 0; max-height: 150px;">
+                                <img style="aspect-ratio: 1; object-fit: contain; height: 100%" src="{{ url('dream-it-assets') }}/images/dest2.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `);
+        }
+    }
+
+    function updateResultsNoResults(message) {
+        console.log(message)
+        $('#pitches').html('');
+        $('#pitches').html('<h6>' + message + '</h6>');
+    }
+
+    function updateAutoComplete(searchTerm) {
+        $.ajax({
+            url: '{{ route('locations.for.search') }}',
+            type: 'GET',
+            data: {
+                search_term: searchTerm
+            },
+            success: function(response) {
+                let locations = response.data;
+                updateAutoCompleteResults(locations);
+            },
+            error: function(response) {
+                updateAutoCompleteResultsNoResults("We couldn't find that location :(");
+            }
+        })
+    }
+
+    function updateAutoCompleteResults(results) {
+        $('#autocom_box').html('');
+        for (let result of results) {
+            $('#autocom_box').append(`
+                <li data-location-id="` + result.id +`">` + result.name + `</span>, ` + result.county + `</li>
+            `)
+        }
+        $('#autocom_box').removeClass('inactive');
+        $('#autocom_box').addClass('active');
+    }
+
+    function updateAutoCompleteResultsNoResults(message=null) {
+        $('#autocom_box').html(``);
+        if(message != null) {
+            $('#autocom_box').html(`<li>` + message +`</li>`);
+            $('#autocom_box').removeClass('inactive');
+            $('#autocom_box').addClass('active');
+            return;
+        }
+        $('#autocom_box').removeClass('inactive');
+    }
+</script>
 

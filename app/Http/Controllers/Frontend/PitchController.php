@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Models\Frontend\Pitch;
 
+use App\Providers\ResponseServiceProvider;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -30,29 +31,33 @@ class PitchController extends BaseController
 
         $pitch = Pitch::find($pitch_id);
 
+        if(!isset($pitch)) abort(404, "We couldn't find that pitch");
+
         return view('frontend.pitches.details', [
             'title' => 'Pitch Details',
             'pitch' => $pitch
         ]);
     }
 
-    public function PitchWeather(Request $request)
+    public function PitchOthersInArea(Request $request)
     {
         $params = $request->query();
 
         $pitch_id = $params['pitch_id'];
 
         $pitch = Pitch::find($pitch_id);
+        $lat = (float)$pitch->lat;
+        $lng = (float)$pitch->lon;
 
-        /** get forecast for next 5 days */
-        $start = Carbon::now()->startOf('day')->format('Y-m-d');
-        $end = Carbon::now()->startOf('day')->addDays(4)->format('Y-m-d');
+        $pitches = Pitch::where('verified', 1)
+            ->whereBetween('lat', [$lat-0.45, $lat+0.45])
+            ->whereBetween('lon', [$lng-0.8, $lng+0.8])
+            ->where('id', '!=', $pitch->id)
+            ->get()->take(3);
 
-        $response = Http::get('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/' . $pitch->lat .',' . $pitch->lon . '/' . $start .'/' . $end .'?key=ARRP3L8VYS7ALS5TZYA9WVJPS&unitGroup=metric');
+        if(count($pitches) == 0) return $this->respondError(400, 'We dont have any other pitches around this area :(');
 
-        $body = $response->json();
-
-        return Response()->json($body, 200, [], JSON_PRETTY_PRINT);
+        return $this->respondSuccess(200, 'pitches found in the area', $pitches);
     }
 
 }

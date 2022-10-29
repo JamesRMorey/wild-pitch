@@ -17,3 +17,36 @@
 .pitch-up-details #map {
     aspect-ratio: 1;
 }
+
+.quote_form_field #search_bar {
+    z-index: 1000;
+}
+
+.quote_form_field .autocom-box {
+    margin-top: 10px;
+    width: 60%;
+    left: 20%;
+    text-align: left;
+    border-radius: 10px;
+    background: #fff;
+    position: absolute;
+    z-index: 2;
+}
+
+.quote_form_field .autocom-box.active {
+    display: block;
+}
+
+.quote_form_field .autocom-box.inactive {
+    display: none;
+}
+
+.quote_form_field li {
+    padding: 15px;
+    list-style-type: none;
+}
+
+.quote_form_field li:hover {
+    cursor: pointer;
+    background: #f2f2f2;
+}

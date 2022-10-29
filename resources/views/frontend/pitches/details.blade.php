@@ -20,17 +20,13 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="section-title2">
-                            <h2>In The Area...</h2>
+                        <div class="section-title2" id="pitches_in_area_title">
+                            <h2>Around The Area</h2>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        @include('frontend.components.pitches.pitch_details_box_small', ['pitch' => $pitch])
-                    </div>
-                </div>
+                <div class="row" id="pitches_in_area" style="display: none;"></div>
             </div>
         </div>
         <!-- BLOG_AREA END -->
@@ -45,6 +41,7 @@
     $(document).ready(function() {
         getWeatherData(pitch);
         drawMap(pitch);
+        getInAreaPitches(pitch);
     });
 
     function getWeatherData(pitch) {
@@ -56,7 +53,8 @@
                 days: 5
             },
             success: function(response) {
-                for(let day of response.days) {
+                let data = response.data
+                for(let day of data.days) {
                     let dayName = moment(day.datetime, 'YYYY-MM-DD').format('ddd');
                     let weatherIcon = "";
                     switch (day.icon) {
@@ -121,24 +119,76 @@
                 $('#weather_form  .fa-spinner').hide(); /** hide the loading wheel */
             },
             error: function(response) {
-                console.log(response);
             }
         });
     }
 
     function drawMap(pitch) {
-        let position = {lat: parseFloat(pitch.lat), lng: parseFloat(pitch.lon)};
-        let map = new google.maps.Map(document.getElementById('map'), {
-            center: position,
-            zoom: 8,
-            type: 'terrain'
-        });
+        let position = [parseFloat(pitch.lat), parseFloat(pitch.lon)];
 
-        new google.maps.Marker({
-            position: position,
-            map,
-            title: pitch.title
-        });
+        let map = L.map('map').setView(position, 7);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        L.marker(position).addTo(map)
+            .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+            .openPopup();
+    }
+
+    function getInAreaPitches(pitch) {
+        $.ajax({
+            url: '{{ route('pitch.get.in.area') }}',
+            type: 'GET',
+            data: {
+                pitch_id: pitch.id,
+            },
+            success: function(response) {
+                let pitchesInArea = response.data;
+                updateInAreaPitches(pitchesInArea);
+            },
+            error: function(response) {
+                updateInAreaPitchesNoResults("We couldn't find any other pitches in the area :(");
+            }
+        })
+    }
+
+    function updateInAreaPitches(pitches) {
+        $('#pitches_in_area').html('')
+        for (let pitch of pitches) {
+            $('#pitches_in_area').append(`
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="single_package">
+                        <div class="pack_thumb">
+                            <img src="{{ asset('dream-it-assets') }}/images/pk1.jpg" alt="" />
+                            <div class="package_price">
+                                <span><i class="fa fa-heart"></i></span>
+                            </div>
+                        </div>
+                        <div class="package_content">
+                            <div class="package_meta">
+                                <span><i class="fa fa-user"></i>Difficulty: ` + pitch.difficulty +`</span>
+                            </div>
+                            <div class="package_title">
+                                <h2><a href="single-pack.html">` + pitch.title +`</a></h2>
+                                <span>` + pitch.subtitle +`</span>
+                            </div>
+                            <div class="package_content_inner">
+                                <div class="package_btn">
+                                    <a href="{{ route('pitch.details') }}?pitch_id=` + pitch.id +`">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `);
+        }
+        $('#pitches_in_area').slideDown();
+    }
+
+    function updateInAreaPitchesNoResults(message) {
+        $('#pitches_in_area').html('');
+        $('#pitches_in_area').html(`<h6>` + message + `</h6>`);
+        $('#pitches_in_area').slideDown();
     }
 
 </script>

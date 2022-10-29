@@ -7,7 +7,7 @@ manhood WIDGET  CSS
 /* sidebar css */
 /* serch widget */
 
-.blog-left-side {} 
+.blog-left-side {}
 .blog-left-side > div {
 	background-color: #fff;
 	margin-bottom: 30px;
@@ -36,7 +36,7 @@ manhood WIDGET  CSS
 .blog-left-side .sub-menu li a:hover,
 .blog-left-side .nav .children li a:hover {
     background: transparent;
-    color: #ff6363 ;
+    color: #A1B57D ;
 }
 .search {
     background: #f7f7f7;
@@ -66,7 +66,7 @@ manhood WIDGET  CSS
 	top: 0;
 	width: 16%;
 	height: 100%;
-	background: #ff6363 ;
+	background: #A1B57D ;
 }
 .search button i {}
 .search input[type="text"] {
@@ -89,7 +89,7 @@ manhood WIDGET  CSS
 	font-size: 20px;
 }
 .blog-left-side .widget h2::before {
-  background: #ff6363  none repeat scroll 0 0;
+  background: #A1B57D  none repeat scroll 0 0;
   bottom: -1px;
   content: "";
   height: 1px;
@@ -105,7 +105,7 @@ manhood WIDGET  CSS
 }
 .blog-left-side .widget ul {
 	list-style: square;
-	color: #ff6363;
+	color: #A1B57D;
 	font-size: 14px;
 	padding-left: 15px;
 }
@@ -138,11 +138,11 @@ manhood WIDGET  CSS
   display:none;
 }
 .blog-left-side .widget ul.children li{
-	
+
 }
 /* widget select */
 
-.widget {} 
+.widget {}
 .blog-left-side .widget select {
     width: 100%;
     height: 40px;
@@ -169,7 +169,7 @@ manhood WIDGET  CSS
 	margin: 0 4px 10px 0;
 	padding: 4px 23px;
 	text-align: center;
-	background: #ff6363;
+	background: #A1B57D;
 	color: #fff;
 	border-radius: 4px;
 }
@@ -185,7 +185,7 @@ manhood WIDGET  CSS
 .tagcloud a:hover,
 .r-post-content h3:hover,
 .r-post-content h3 a:hover {
-    color: #ff6363 ;
+    color: #A1B57D ;
 }
 #wp-calendar caption {
   font-size: 14px;
@@ -229,7 +229,7 @@ table#wp-calendar th {
 }
 table#wp-calendar td#today{
 	color:#fff ;
-	background-color:#ff6363  ;
+	background-color:#A1B57D  ;
 }
 
 
