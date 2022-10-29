@@ -1,5 +1,5 @@
 <!-- dreamit BREADCRUMB AREA -->
-<div class="breatcome_area" style="background: url('{{ asset('dream-it-assets') }}/images/brd-bg.jpg'); background-size: cover;">
+<div class="breatcome_area" style="background: url('{{ asset('assets') }}/images/banners/snowdon_reservoir_banner.png'); background-size: cover;">
     <div class="container">
         <div class="row">
             <div class="col-md-12">

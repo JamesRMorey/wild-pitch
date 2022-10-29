@@ -19,6 +19,12 @@ return new class extends Migration
             $table->string('county');
             $table->decimal('lat', 8, 6);
             $table->decimal('lng', 8,6);
+
+            $table->unique(['name', 'county']);
+            $table->index('county');
+            $table->index('lat');
+            $table->index('lng');
+
         });
     }
 

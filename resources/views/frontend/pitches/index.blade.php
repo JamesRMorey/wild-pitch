@@ -185,7 +185,7 @@
         $('#search_bar').on('focusout', debounce(() => {
             $('#autocom_box').removeClass('active');
             $('#autocom_box').addClass('inactive');
-        },100));
+        },200));
         $('#autocom_box').on('click', 'li', function() {
             let locationId = $(this).data('location-id');
             $('#autocom_box').removeClass('active');
@@ -269,9 +269,13 @@
     function updateAutoCompleteResults(results) {
         $('#autocom_box').html('');
         for (let result of results) {
+            let location = result.name;
+            if(result.county.length > 0) {
+                location += ', ' + result.county;
+            }
             $('#autocom_box').append(`
-                <li data-location-id="` + result.id +`">` + result.name + `</span>, ` + result.county + `</li>
-            `)
+                <li data-location-id="` + result.id +`">` + location +  `</li>
+            `);
         }
         $('#autocom_box').removeClass('inactive');
         $('#autocom_box').addClass('active');

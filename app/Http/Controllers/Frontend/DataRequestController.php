@@ -28,7 +28,7 @@ class DataRequestController extends BaseController
         $start = Carbon::now()->startOf('day')->format('Y-m-d');
         $end = Carbon::now()->startOf('day')->addDays(4)->format('Y-m-d');
 
-        $response = Http::get('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/' . $pitch->lat .',' . $pitch->lon . '/' . $start .'/' . $end .'?key=ARRP3L8VYS7ALS5TZYA9WVJPS&unitGroup=metric');
+        $response = Http::get('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/' . $pitch->lat .',' . $pitch->lng . '/' . $start .'/' . $end .'?key=ARRP3L8VYS7ALS5TZYA9WVJPS&unitGroup=metric');
 
         if($response->status() != 200) return $this->respondError(400, 'weather not found');
 
@@ -53,7 +53,7 @@ class DataRequestController extends BaseController
 
         $pitches = Pitch::where('verified', 1)
             ->whereBetween('lat', [$lat-0.45, $lat+0.45])
-            ->whereBetween('lon', [$lng-0.8, $lng+0.8])
+            ->whereBetween('lng', [$lng-0.8, $lng+0.8])
             ->get();
 
         if(count($pitches) == 0) return $this->respondError(400, 'We dont have any pitches in that area :(');;

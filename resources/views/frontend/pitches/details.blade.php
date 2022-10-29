@@ -124,7 +124,7 @@
     }
 
     function drawMap(pitch) {
-        let position = [parseFloat(pitch.lat), parseFloat(pitch.lon)];
+        let position = [parseFloat(pitch.lat), parseFloat(pitch.lng)];
 
         let map = L.map('map').setView(position, 7);
 
