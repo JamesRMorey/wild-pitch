@@ -11,22 +11,22 @@
             <div id="weather_data" style="display: none;"></div>
         </div>
     </div>
-    <div class="em_contact_form">
-        <h6>Leave A Review</h6>
-        <br>
-        <form action="#">
-            <div class="contact_form_inner">
-                <div class="form_field">
-                    <div class="form_field_comment">
-                        <div class="field_comment_inner">
-                            <textarea name="comment" placeholder="I thought it was amazing..."></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-right">
-                <button class="btn" name="submit">submit</button>
-            </div>
-        </form>
-    </div>
+{{--    <div class="em_contact_form">--}}
+{{--        <h6>Leave A Review</h6>--}}
+{{--        <br>--}}
+{{--        <form action="#">--}}
+{{--            <div class="contact_form_inner">--}}
+{{--                <div class="form_field">--}}
+{{--                    <div class="form_field_comment">--}}
+{{--                        <div class="field_comment_inner">--}}
+{{--                            <textarea name="comment" placeholder="I thought it was amazing..."></textarea>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="text-right">--}}
+{{--                <button class="btn" name="submit">submit</button>--}}
+{{--            </div>--}}
+{{--        </form>--}}
+{{--    </div>--}}
 </div>

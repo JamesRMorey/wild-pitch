@@ -857,6 +857,10 @@ a.dtbtn:hover {
 	will-change: transform;
 }
 
+.scroll-to-fixed-fixed .logo h4 {
+    color: #fff;
+}
+
 .menu-height-space {
 	height: 100px;
 }
@@ -2974,7 +2978,7 @@ dreamit TEAM AREA CSS
 
 .course_details {
 	border: 1px solid #ddd;
-	padding: 15px 15px 0px;
+	padding: 15px 15px 0;
 }
 
 .course_dtl_content p {
@@ -3338,6 +3342,9 @@ dreamit TESTIMONIAL AREA CSS
 }
 .em_test_thumb {
 	padding-bottom: 21px;
+}
+.pitch-up-details .em_test_thumb img {
+    border-radius: 50%;
 }
 .em_testi_content {
 	float: left;

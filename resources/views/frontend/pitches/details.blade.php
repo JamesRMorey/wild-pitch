@@ -8,6 +8,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 @include('frontend.components.pitches.pitch_details_description_main', ['pitch' => $pitch])
+                                <br>
+                                @include('frontend.components.user_details_box')
                             </div>
                         </div>
                     </div>
