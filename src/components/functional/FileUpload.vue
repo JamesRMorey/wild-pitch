@@ -1,0 +1,41 @@
+<script setup>
+import { ref } from 'vue';
+
+const props = defineProps({
+    text: {
+        type: String,
+        required: false,
+        default: 'Drag and drop files or click '
+    }
+});
+
+const emit = defineEmits([ 'upload' ]);
+
+const isDragging = ref(false);
+
+const handleUploadFiles = ( event ) => {
+    const files = event.target.files;
+    emit('upload', files );
+}
+
+const handleDropFiles = ( event ) => {
+    const files = event.dataTransfer.files;
+    isDragging.value = false;
+    emit('upload', files );
+}
+</script>
+
+<template>
+    <div class="inline-flex flex-col w-full border-gray-200 border-2 border-dashed rounded-3xl px-32 py-10 justify-center hover:bg-gray-100 gap-5"
+        :class="[ isDragging ? 'bg-gray-100' : '']"
+        @dragover.prevent="isDragging = true"
+        @dragleave="isDragging = false"
+        @drop.prevent="handleDropFiles"
+    >
+        <div class="inline-flex justify-center">
+            <font-awesome-icon icon="fa-solid fa-upload" size="xl" class="border border-gray-400 p-3 inline rounded-xl border-dashed"/>
+        </div>
+        <div class="text-gray-400 text-center">{{ text }}<label class="underline font-semibold text-gray-700 cursor-pointer" for="images">here</label> to upload.</div>
+        <input id="images" name="images" type="file" ref="imagesInput" multiple hidden @change="handleUploadFiles"/>
+    </div>
+</template>
