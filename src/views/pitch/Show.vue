@@ -27,80 +27,7 @@ const getPitch = () => {
 const pitch = ref(null);
 
 const updatePitch = ( data ) => {
-    pitch.value = {
-        ...data,
-        features: [
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'lake'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'woods'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'woodland area'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'long grass'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'flat ground'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'water source nearby'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'close to parking'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'parking'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'good views'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'mountain'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'must visit'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'animals'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'rocks'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'large flat area'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'hillside'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'marshy'
-            },
-            {
-                icon: 'fa-solid fa-heart',
-                label: 'rocks to sit'
-            },
-        ]
-    }
-    console.log(pitch.value);
+    pitch.value = data;
 }
 
 onMounted(() => {
@@ -112,7 +39,7 @@ onMounted(() => {
 <template>
     <PageLayout>
         <div v-if="pitch">
-            <div class="pt-8 inline-flex justify-between items-center">
+            <div class="pt-8 inline-flex w-full justify-between items-center">
                 <div class="text-3xl font-semibold truncate...">{{ pitch.title }}</div>
                 <div class="inline-flex gap-2 items-center hover:bg-gray-100 py-2 cursor-pointer px-5 rounded-xl">
                     <div>save</div>
@@ -130,8 +57,7 @@ onMounted(() => {
                     </div>
                     <div v-if="pitch.features.length > 0" class="flex-col inline-flex gap-3">
                         <div class="text-xl font-semibold">Features</div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div v-for="(feature, i) in pitch.features.slice(0, 5)" class="inline-flex gap-3 items-center">
+                            <!-- <div v-for="(feature, i) in pitch.features.slice(0, 5)" class="inline-flex gap-3 items-center">
                                 <font-awesome-icon :icon="feature.icon" />
                                 <div class="text-lg capitalize">{{ feature.label }}</div>
                             </div>
@@ -141,6 +67,11 @@ onMounted(() => {
                             <div v-if="featuresExtended" v-for="(feature, i) in pitch.features.slice(6, pitch.features.length)" class="inline-flex gap-3 items-center">
                                 <font-awesome-icon :icon="feature.icon" />
                                 <div class="text-lg capitalize">{{ feature.label }}</div>
+                            </div> -->
+                            <div class="border-gray-200">
+                            <div v-for="( feature, i ) in pitch.features" class="inline-flex m-1 rounded-full p-2 px-4 hover:bg-gray-200 bg-gray-100 cursor-pointer gap-2 justify-center items-center">
+                                <font-awesome-icon :icon="'fa-solid ' + feature.icon" />
+                                <div>{{ feature.label }}</div>
                             </div>
                         </div>
                     </div>
@@ -155,12 +86,18 @@ onMounted(() => {
                 <div class="inline-flex flex-col gap-5 w-2/5">
                     <div class="flex-col hidden  lg:inline-flex gap-3">
                         <!-- <div class="font-semibold text-xl">Map</div> -->
-                        <Map />
+                        <div class="inline-flex aspect-square flex-col">
+                            <Map :latitude="pitch.latitude" :longitude="pitch.longitude" :markers="[{ lat: pitch.latitude, lng: pitch.longitude }]"/>
+                        </div>
+                        <div class="bg-white shadow rounded-xl px-4 py-2 inline-flex justify-between">
+                            <div class="underline font-semibold cursor-pointer">Open in maps</div>
+                            <div>( {{ pitch.latitude }} , {{ pitch.longitude }} )</div>
+                        </div>
                     </div>
-                    <div class="flex-col hidden lg:inline-flex gap-3">
+                    <!-- <div class="flex-col hidden lg:inline-flex gap-3">
                         <div class="font-semibold text-xl">Reviews</div>
                         <Reviews />
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

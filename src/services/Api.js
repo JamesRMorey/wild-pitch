@@ -51,6 +51,7 @@ export default class Api {
 
     async getLocations( searchTerm='a' ) {
         return new Promise(async ( resolve, reject ) => {
+            await this.getCSRF();
             await axios.post( 'api/search/locations', { search_term: searchTerm } )
             .then(( response ) => {
                 resolve( response.data );
@@ -118,6 +119,18 @@ export default class Api {
         return new Promise(async ( resolve, reject ) => {
             await this.getCSRF();
             await axios.delete( 'api/pitches/destroy/' + id )
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error );
+            })
+        })
+    }
+
+    async getFeatures( ) {
+        return new Promise(async ( resolve, reject ) => {
+            await axios.get( 'api/features' )
             .then(( response ) => {
                 resolve( response.data );
             })

@@ -5,7 +5,7 @@ import router from './router'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faHeart, faTent, faHamburger, faUser, faEdit, faAdd, faRemove, faCamera, faCameraRetro, faUpload, faArrowLeft, faArrowRight, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faPaw, faPersonFalling, faLeaf, faSpa, faHouseFlag, faPerson, faFaceGrinStars, faWater, faPersonSwimming, faSnowflake, faTree, faCow, faPersonHiking, faMountain, faBinoculars, faHillRockslide, faFaceMehBlank, faChair, faEye, faHeart, faTent, faHamburger, faUser, faEdit, faAdd, faRemove, faCamera, faCameraRetro, faUpload, faArrowLeft, faArrowRight, faChevronLeft, faChevronRight, faC } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faHeart);
 library.add(faTent);
@@ -21,6 +21,25 @@ library.add(faArrowLeft);
 library.add(faArrowRight);
 library.add(faChevronLeft);
 library.add(faChevronRight);
+library.add(faEye);
+library.add(faChair);
+library.add(faFaceMehBlank);
+library.add(faHillRockslide);
+library.add(faBinoculars);
+library.add(faPersonHiking);
+library.add(faMountain);
+library.add(faCow);
+library.add(faTree);
+library.add(faSnowflake);
+library.add(faPersonSwimming);
+library.add(faWater);
+library.add(faFaceGrinStars);
+library.add(faPerson);
+library.add(faHouseFlag);
+library.add(faSpa);
+library.add(faLeaf);
+library.add(faPersonFalling);
+library.add(faPaw);
 
 const app = createApp(App)
 

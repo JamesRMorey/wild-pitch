@@ -11,6 +11,9 @@ import Container from '../../components/layout/Container.vue';
 import LocationSearchBar from '../../components/functional/LocationSearchBar.vue';
 import NoResults from '../../components/functional/NoResults.vue';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
+import Map from '../../components/pitches/Map.vue';
+import CustomButton from '../../components/buttons/CustomButton.vue';
+import { LControl } from '@vue-leaflet/vue-leaflet';
 
 const api = new Api();
 
@@ -56,6 +59,10 @@ const getPitches = ( page=1 ) => {
 
 const updatePitches = ( data ) => {
     pitches.value = data;
+    map.value.markers = data.map(( pitch ) => {
+        return { lat: pitch.latitude, lng: pitch.longitude }
+    });
+    mapActivePitch.value.show = false;
 }
 
 const updatePaginator = ( response ) => {
@@ -77,6 +84,32 @@ const pageUp = () => {
     getPitches( paginator.value.page + 1 );
 }
 
+const map = ref({
+    show: false,
+    latitude: '53.753443',
+    longitude: '-4.024384',
+    zoom: 5,
+    markers: []
+});
+
+const mapActivePitch = ref({
+    show: false
+});
+
+const markerClicked = ( index ) => {
+    const mkr = map.value.markers[index];
+    mapActivePitch.value = pitches.value.find(( pitch ) => {
+        return pitch.latitude == mkr.lat && pitch.longitude == mkr.lng
+    });
+    map.value.latitude = mapActivePitch.value.latitude;
+    map.value.longitude = mapActivePitch.value.longitude;
+    mapActivePitch.value.show = true;
+}
+
+const handleMapControlClick = () => {
+    router.push('/pitches/pitch/' + mapActivePitch.value.id );
+}
+
 onMounted(() => {
     if ( locationId && locationName ) {
         handleSearch({
@@ -92,16 +125,17 @@ onMounted(() => {
     <PageHeader />
     <BannerSlim title="Pitches"/>
     <Container>
-        <div class="inline-flex w-full justify-center items-center pt-16 z-10">
+        <div class="inline-flex w-full justify-center items-center pt-16 z-10 gap-5">
             <LocationSearchBar @search="handleSearch" :initialText="locationName"/>
+            <CustomButton :press-handler="() => map.show = !map.show" :text="map.show ? 'list view' : 'map view'" />
         </div>
-        <div class="relative inline-flex items-center justify-center mb-0 px-8">
+        <div v-if="!map.show" class="relative inline-flex items-center justify-center mb-0 px-8">
             <div v-if="loading" class="w-full h-full rounded-2xl z-2 absolute justify-center items-center inline-flex p-32 bg-white opacity-50">
                 <PulseLoader />
             </div>
             <div v-if="pitches.length > 0" class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 py-8">
                 <div v-for="(pitch, i) in pitches">
-                    <PitchCard :title="pitch.title" :description="pitch.description" :img="pitch?.images[i]?.src" :pitchId="pitch.id"/>
+                    <PitchCard :title="pitch.title" :description="pitch.description" :img="pitch?.images[0]?.src" :pitchId="pitch.id"/>
                 </div>
             </div>
             <div v-else-if="showInitialNoResults" class="inline-flex justify-center items-center pb-8">
@@ -110,6 +144,27 @@ onMounted(() => {
             <div v-else class="inline-flex justify-center items-center pb-8">
                 <NoResults />
             </div>
+        </div>
+        <div v-if="map.show" class="w-full aspect-video mb-6 mt-8">
+            <Map :latitude="map.latitude" :longitude="map.longitude" :markers="map.markers" :zoom="map.zoom" @markerClick="markerClicked">
+                <l-control
+                    v-if="mapActivePitch.show"
+                    :position="'topright'"
+                    class="bg-white border-gray-200 border hover:bg-gray-100 shadow p-5 m-3 w-60 rounded-3xl inline-flex text-right gap-4"
+                    @click="handleMapControlClick"
+                >
+                <div class="inline-flex justify-between w-full cursor-pointer">
+                    <div class="aspect-square border-2 border-gray-500 bg-cover bg-no-repeat bg-center h-16 rounded-full" :style="{ backgroundImage: `url(${mapActivePitch.images[0].src})`}"></div>
+                    <div class="inline-flex flex-col gap-2 w-full items-end justify-between">
+                        <div>
+                            <div class="font-semibold text-md truncate ...">{{ mapActivePitch.title }}</div>
+                            <div class="text-md truncate ...">a lovely pitch</div>
+                        </div>
+                        <div class="font-semibold underline">click to view</div>
+                    </div>
+                </div>
+                </l-control>
+            </Map>
         </div>
         <div v-if="pitches.length > 0" class="inline-flex justify-between items-end px-8 pb-10">
             <div class="text-lg">{{ paginator.from }} to {{ paginator.to }} of ... {{ paginator.total }}</div>

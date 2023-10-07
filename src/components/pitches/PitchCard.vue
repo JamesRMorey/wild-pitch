@@ -23,7 +23,7 @@ const props = defineProps({
         default: ''
     },
     pitchId: {
-        type: String,
+        type: Number,
         required: true,
     }
 });

@@ -20,7 +20,7 @@ const menuItems = [
     },
     {
         name: 'gallery',
-        subtitle: 'manage your images',
+        subtitle: 'take a look back at all your amazing images',
         url: '/my-account/pitches',
         icon: 'fa-solid fa-camera-retro'
     },
@@ -51,7 +51,7 @@ onMounted(() => {
                 </div>
                 <div>This is your account home, from here you can manage everything to do with your membership of the Wild Pitch community.</div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pb-32 pt-8">
                 <router-link :to="item.url" v-for="(item, i) in menuItems" class="shadow hover:bg-gray-100 rounded-xl p-8 inline-flex items-start gap-5">
                     <font-awesome-icon :icon="item.icon" size="2x"/>
                     <div class="inline-flex flex-col">

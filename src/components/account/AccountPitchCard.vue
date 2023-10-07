@@ -8,7 +8,7 @@ const api = new Api();
 
 const props = defineProps({
     id: {
-        type: String,
+        type: Number,
         required: true,
     },
     title: {
@@ -36,14 +36,7 @@ const props = defineProps({
 const { id } = toRefs( props );
 
 const destroy = async () => {
-    // emit( 'destroy', id );
-    await api.deletePitch( id.value )
-        .then(( response ) => {
-
-        })
-        .catch(( error ) => {
-
-        })
+    emit( 'destroy', id.value );
 }
 </script>
 
@@ -55,13 +48,13 @@ const destroy = async () => {
             <div class="text-lg font-semibold capitalize truncate ...">{{ title }}</div>
             <div class="text-grey truncate ...">{{ description }}</div>
             <div class="inline-flex gap-3 justify-end">
-                <router-link to="/my-account/pitches/create" class="mt-5 underline text-right">
-                    <font-awesome-icon icon="fa-solid fa-add" />
+                <router-link :to="'/pitches/pitch/' + id"  class="">
+                    <font-awesome-icon icon="fa-solid fa-eye" class="cursor-pointer" />
                 </router-link>
-                <router-link to="/pitch" class="mt-5 underline text-right">
-                    <font-awesome-icon icon="fa-solid fa-edit" />
-                </router-link>
-                <div class="mt-5 underline text-right">
+                <!-- <router-link to="/pitch" class="">
+                    <font-awesome-icon icon="fa-solid fa-edit" class="cursor-pointer" />
+                </router-link> -->
+                <div class="">
                     <font-awesome-icon icon="fa-solid fa-remove" class="cursor-pointer" @click="destroy"/>
                 </div>
             </div>

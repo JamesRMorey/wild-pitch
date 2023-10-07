@@ -23,14 +23,18 @@ const updatePitches = ( data ) => {
 }
 
 const deletePitch = async ( id ) => {
-    // await api.deletePitch( id )
-    //     .then(( response ) => {
+    await api.deletePitch( id )
+        .then(( response ) => {
+            pitches.value.splice(pitches.value.findIndex(( pitch ) => pitch.id == id ), 1);
+        })
+        .catch(( error ) => {
 
-    //     })
-    //     .catch(( error ) => {
-
-    //     })
+        })
 }
+
+const pageButtons = ref([
+    { text: 'add' , route: '/my-account/pitches/create' }
+])
 
 onMounted(() => {
     getPitches();
@@ -40,7 +44,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <AccountLayout headerText="my pitches" subtitleText="manage, add, edit and remove your listings">
+    <AccountLayout headerText="my pitches" subtitleText="manage, add, edit and remove your listings" :buttons="pageButtons">
         <div class="grid grid-cols-1 sm-grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 md:px-8 mb-16">
             <AccountPitchCard v-for="( pitch, i ) in pitches" @destroy="deletePitch" :id="pitch.id" :description="pitch.description" :title="pitch.title" :img="pitch?.images[0]?.src"/>
         </div>  

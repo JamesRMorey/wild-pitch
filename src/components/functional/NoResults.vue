@@ -12,7 +12,8 @@
         'https://cdn.discordapp.com/attachments/905936824344645675/1158532538155937862/jimmo_a_wild_camping_illustration_in_a_circle_badge_a6f3bab4-e4e0-4e0e-83cb-560a893f1dd7.png?ex=651c9701&is=651b4581&hm=e62cd0b720767556f5daf9f35fd74a87161fa40fd9d4011176248ee33937e503&'
     ];
 
-    const image = images[Math.floor(Math.random() * (images.length + 1))];
+    // const image = images[Math.floor(Math.random() * (images.length + 1))];
+    const image = images[0];
 </script>
 
 <template>
