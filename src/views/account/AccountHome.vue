@@ -15,7 +15,7 @@ const menuItems = [
     {
         name: 'saved',
         subtitle: 'view your favourite pitches',
-        url: '/my-account/pitches',
+        url: '/my-account/saved-pitches',
         icon: 'fa-solid fa-heart'
     },
     {
@@ -26,18 +26,8 @@ const menuItems = [
     },
 ];
 
-const getUser = async () => {
-    await api.getUser()
-        .then(( response ) => {
-            console.log( response );
-        })
-        .catch(( error ) => {
-            console.log(error);
-        });
-}
-
 onMounted(() => {
-    getUser();
+
 })
 
 </script>

@@ -2,8 +2,8 @@
 import { useRoute } from 'vue-router';
 import Api from '../../services/Api';
 import ImageGrid from '../../components/image/ImageGrid.vue';
-import Reviews from '../../components/pitches/Reviews.vue';
 import Map from '../../components/pitches/Map.vue';
+import { useAuthStore } from '../../stores/auth';
 
 import { ref, onMounted } from 'vue';
 import PageLayout from '../../components/layout/PageLayout.vue';
@@ -11,8 +11,7 @@ import PageLayout from '../../components/layout/PageLayout.vue';
 const route = useRoute();
 const api = new Api();
 const { pitchId } = route.params;
-
-const featuresExtended = ref(false);
+const authStore = useAuthStore();
 
 const getPitch = () => {
     api.getPitch( pitchId )
@@ -30,6 +29,26 @@ const updatePitch = ( data ) => {
     pitch.value = data;
 }
 
+const savePitch = async ( id ) => {
+    await api.savePitch( id )
+    .then(( response ) => {
+        pitch.value.is_saved = true;
+    })
+    .catch(( error ) => {
+        console.log( error );
+    })
+}
+
+const unSavePitch = async ( id ) => {
+    await api.unSavePitch( id )
+    .then(( response ) => {
+        pitch.value.is_saved = false;
+    })
+    .catch(( error ) => {
+        console.log( error );
+    })
+}
+
 onMounted(() => {
     getPitch();
 });
@@ -41,9 +60,15 @@ onMounted(() => {
         <div v-if="pitch">
             <div class="pt-8 inline-flex w-full justify-between items-center">
                 <div class="text-3xl font-semibold truncate...">{{ pitch.title }}</div>
-                <div class="inline-flex gap-2 items-center hover:bg-gray-100 py-2 cursor-pointer px-5 rounded-xl">
-                    <div>save</div>
-                    <font-awesome-icon icon="fa-solid fa-heart" />
+                <div v-if="authStore.user">
+                    <div v-if="!pitch.is_saved" class="inline-flex gap-2 items-center hover:bg-gray-100 py-2 cursor-pointer px-5 rounded-xl" @click="() => savePitch( pitchId )">
+                        <div class="font-semibold text-lg">save</div>
+                        <font-awesome-icon icon="fa-solid fa-heart-broken" />
+                    </div>
+                    <div v-else class="inline-flex gap-2 items-center hover:bg-gray-100 py-2 cursor-pointer px-5 rounded-xl" @click="() => unSavePitch( pitchId )">
+                        <div class="font-semibold text-lg">saved</div>
+                        <font-awesome-icon icon="fa-solid fa-heart" />
+                    </div>
                 </div>
             </div>
             <div class="pt-5 pb-8">
@@ -52,22 +77,11 @@ onMounted(() => {
             <div class="inline-flex gap-5 pb-32 w-full">
                 <div class="flex-col inline-flex gap-10 w-3/5">
                     <div class="flex-col inline-flex gap-3">
-                        <div class="text-xl font-semibold">A bit about this pitch</div>
+                        <div class="text-xl font-semibold">What To Expect</div>
                         <div>{{ pitch.description }}</div>
                     </div>
                     <div v-if="pitch.features.length > 0" class="flex-col inline-flex gap-3">
                         <div class="text-xl font-semibold">Features</div>
-                            <!-- <div v-for="(feature, i) in pitch.features.slice(0, 5)" class="inline-flex gap-3 items-center">
-                                <font-awesome-icon :icon="feature.icon" />
-                                <div class="text-lg capitalize">{{ feature.label }}</div>
-                            </div>
-                            <div v-if="pitch.features.length > 5 && !featuresExtended" class="font-semibold underline cursor-pointer" @click="featuresExtended = true">
-                                show more
-                            </div>
-                            <div v-if="featuresExtended" v-for="(feature, i) in pitch.features.slice(6, pitch.features.length)" class="inline-flex gap-3 items-center">
-                                <font-awesome-icon :icon="feature.icon" />
-                                <div class="text-lg capitalize">{{ feature.label }}</div>
-                            </div> -->
                             <div class="border-gray-200">
                             <div v-for="( feature, i ) in pitch.features" class="inline-flex m-1 rounded-full p-2 px-4 hover:bg-gray-200 bg-gray-100 cursor-pointer gap-2 justify-center items-center">
                                 <font-awesome-icon :icon="'fa-solid ' + feature.icon" />

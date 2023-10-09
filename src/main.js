@@ -1,11 +1,12 @@
 import './index.css'
 import { createApp } from 'vue'
 import App from './App.vue'
+import { createPinia } from 'pinia'
 import router from './router'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faPaw, faPersonFalling, faLeaf, faSpa, faHouseFlag, faPerson, faFaceGrinStars, faWater, faPersonSwimming, faSnowflake, faTree, faCow, faPersonHiking, faMountain, faBinoculars, faHillRockslide, faFaceMehBlank, faChair, faEye, faHeart, faTent, faHamburger, faUser, faEdit, faAdd, faRemove, faCamera, faCameraRetro, faUpload, faArrowLeft, faArrowRight, faChevronLeft, faChevronRight, faC } from '@fortawesome/free-solid-svg-icons'
+import { faHeartBroken, faPaw, faPersonFalling, faLeaf, faSpa, faHouseFlag, faPerson, faFaceGrinStars, faWater, faPersonSwimming, faSnowflake, faTree, faCow, faPersonHiking, faMountain, faBinoculars, faHillRockslide, faFaceMehBlank, faChair, faEye, faHeart, faTent, faHamburger, faUser, faEdit, faAdd, faRemove, faCamera, faCameraRetro, faUpload, faArrowLeft, faArrowRight, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faHeart);
 library.add(faTent);
@@ -40,9 +41,12 @@ library.add(faSpa);
 library.add(faLeaf);
 library.add(faPersonFalling);
 library.add(faPaw);
+library.add(faHeartBroken)
 
-const app = createApp(App)
+const pinia = createPinia();
+const app = createApp(App);
 
-app.use(router)
-app.component('font-awesome-icon', FontAwesomeIcon)
-app.mount('#app')
+app.use(pinia);
+app.use(router);
+app.component('font-awesome-icon', FontAwesomeIcon);
+app.mount('#app');

@@ -1,4 +1,25 @@
 <script setup>
+import Api from '../../services/Api';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '../../stores/auth';
+import { onMounted } from 'vue';
+
+const api = new Api();
+const router = useRouter();
+const authStore = useAuthStore();
+
+const logoutUser =  async() => {
+    await api.logout()
+    .then(( user ) => {
+        authStore.setUser( user );
+        router.push('/');
+    })
+    .catch(( error ) => {})
+}
+
+onMounted(() => {
+
+})
 
 </script>
 
@@ -9,13 +30,18 @@
                 <router-link to="/" class="flex items-center">
                     <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Wild Pitch</span>
                 </router-link>
-                <div class="flex items-center lg:order-2">
-                    <router-link to="/my-account">
+                <div class="inline-flex items-center lg:order-2 gap-3">
+                    <router-link v-if="authStore.user" to="/my-account">
                         <div class="rounded-full px-3 py-1 bg-gray-100">
                             <font-awesome-icon icon="fa-solid fa-user" size="md"/>
                         </div>
                     </router-link>
-                    <router-link to="/login" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</router-link>
+                    <div @click="logoutUser" v-if="authStore.user" class="cursor-pointer text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                        Log out
+                    </div>
+                    <router-link v-if="!authStore.user" to="/login" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                        Log in
+                    </router-link>
                     <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>

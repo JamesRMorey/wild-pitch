@@ -3,7 +3,6 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://localhost:8000/';
 
-
 export default class Api {
     constructor() {}
 
@@ -22,14 +21,35 @@ export default class Api {
     async login( email, password ) {
         return new Promise(async ( resolve, reject ) => {
             await axios.get( 'sanctum/csrf-cookie' )
-            .then(async ( response ) => {
-                await axios.post( 'login', { email: email, password: password } )
-                .then(( response ) => {
-                    resolve( response.data );
-                })
-                .catch(( error ) => {
-                    reject( error );
-                })
+            await axios.post( 'login', { email: email, password: password } )
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error );
+            })
+        })
+    }
+
+    async register( name, email, password, confirmPassword ) {
+        return new Promise(async ( resolve, reject ) => {
+            await axios.get( 'sanctum/csrf-cookie' )
+            await axios.post( 'login', { name: name, email: email, password: password, confirm_password: confirmPassword } )
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error );
+            })
+        })
+    }
+
+    async logout() {
+        return new Promise(async ( resolve, reject ) => {
+            await axios.get( 'sanctum/csrf-cookie' )
+            await axios.post( 'logout' )
+            .then(( response ) => {
+                resolve( response.data );
             })
             .catch(( error ) => {
                 reject( error );
@@ -86,7 +106,7 @@ export default class Api {
         })
     }
 
-    async getSavedPitches() {
+    async getUserPitches() {
         return new Promise(async ( resolve, reject ) => {
             await axios.get( 'api/user/pitches' )
             .then(( response ) => {
@@ -131,6 +151,44 @@ export default class Api {
     async getFeatures( ) {
         return new Promise(async ( resolve, reject ) => {
             await axios.get( 'api/features' )
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error );
+            })
+        })
+    }
+
+    async savePitch( id ) {
+        return new Promise(async ( resolve, reject ) => {
+            await this.getCSRF();
+            await axios.post( 'api/pitch/' + id + '/save')
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error );
+            })
+        })
+    }
+
+    async unSavePitch( id ) {
+        return new Promise(async ( resolve, reject ) => {
+            await this.getCSRF();
+            await axios.post( 'api/pitch/' + id + '/un-save')
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error );
+            })
+        })
+    }
+
+    async getSavedPitches(  ) {
+        return new Promise(async ( resolve, reject ) => {
+            await axios.get( 'api/user/saved-pitches')
             .then(( response ) => {
                 resolve( response.data );
             })

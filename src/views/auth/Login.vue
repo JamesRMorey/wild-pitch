@@ -4,9 +4,11 @@ import Container from '../../components/layout/Container.vue';
 import { ref } from 'vue';
 import Api from '../../services/Api';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '../../stores/auth';
 
 const api = new Api();
 const router = useRouter();
+const authStore = useAuthStore();
 
 const images = [
     'https://snowdonia.gov.wales/wp-content/uploads/2022/01/NVW-C11-1516-0041.jpg',
@@ -27,11 +29,12 @@ const formData = ref({
 const handleSubmit = async ( e ) => {
     e.preventDefault();
     await api.login( formData.value.email, formData.value.password )
-        .then(( response ) => {
-            console.log( response );
+        .then(async ( user ) => {
+            await authStore.setUser( user );
             router.push('/my-account');
         })
         .catch(( error ) => {
+            authStore.clearUser();
             console.log(error);
         });
 }
