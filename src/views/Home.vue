@@ -8,7 +8,7 @@ const router = useRouter();
 
 const handleSearch = ( location ) => {
     if ( location.id ) {
-        router.push('/pitches?locationId=' + location.id + '&locationName=' + location.name);
+        router.push('/pitches?locationId=' + location.id );
     } else {
         router.push('/pitches')
     }

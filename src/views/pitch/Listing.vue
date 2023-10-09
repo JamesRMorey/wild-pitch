@@ -12,14 +12,13 @@ import LocationSearchBar from '../../components/functional/LocationSearchBar.vue
 import NoResults from '../../components/functional/NoResults.vue';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 import Map from '../../components/pitches/Map.vue';
-import CustomButton from '../../components/buttons/CustomButton.vue';
-import { LControl } from '@vue-leaflet/vue-leaflet';
+import { LControl, LCircle } from '@vue-leaflet/vue-leaflet';
 
 const api = new Api();
 
 const route = useRoute();
 const router = useRouter();
-const { locationId, locationName, page } = route.query;
+const { locationId, page } = route.query;
 
 const pitches = ref([]);
 const loading = ref(false);
@@ -33,6 +32,7 @@ const paginator = ref({
 });
 const selectedLocation = ref({});
 const filters = ref({
+    show: false,
     radius: 5
 })
 
@@ -46,9 +46,19 @@ const handleSearch = ( location, page=1 ) => {
     getPitches( page );
 }
 
+const getLocation = async ( id ) => {
+    await api.getLocation( id )
+    .then(( response ) => {
+        selectedLocation.value = response;
+    })
+    .catch(() => {
+
+    })
+}
+
 const getPitches = ( page=1 ) => {
-    router.replace({ query: { locationId : selectedLocation.value.id, locationName: selectedLocation.value.name, page: page } });
-    api.getPitchesForLocation( selectedLocation.value.id, page )
+    router.replace({ query: { locationId : selectedLocation.value.id, page: page } });
+    api.getPitchesForLocation( selectedLocation.value.id, page, filters.value )
         .then(( response ) => {
             loading.value = false;
             const { data } = response;
@@ -113,12 +123,10 @@ const handleMapControlClick = () => {
     router.push('/pitches/pitch/' + mapActivePitch.value.id );
 }
 
-onMounted(() => {
-    if ( locationId && locationName ) {
-        handleSearch({
-            id: locationId,
-            name: locationName
-        }, page ?? 1);
+onMounted(async () => {
+    if ( locationId ) {
+        await getLocation( locationId )
+        handleSearch(selectedLocation.value, page ?? 1);
     }
 })
 
@@ -129,22 +137,36 @@ onMounted(() => {
         <PageHeader />
         <BannerSlim title="Pitches"/>
         <Container>
-            <div class="inline-flex w-full justify-center items-center pt-16 z-10 gap-5">
-                <LocationSearchBar @search="handleSearch" :initialText="locationName ?? ''"/>
-                <CustomButton :press-handler="() => map.show = !map.show" :text="map.show ? 'list view' : 'map view'" />
+            <div class="inline-flex w-full justify-center items-center pt-16 z-10 gap-5" style="z-index: 10000;">
+                <LocationSearchBar @search="handleSearch" :initialText="selectedLocation.name ?? ''"/>
+                <div class="inline-flex gap-3">
+                    <font-awesome-icon icon="fa-solid fa-filter" @click="() => filters.show = !filters.show" class="p-4 rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer" :class="filters.show ? 'bg-gray-200' : 'bg-gray-100'"/>
+                    <font-awesome-icon icon="fa-solid fa-map" @click="() => map.show = !map.show" class="p-4 rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer" :class="map.show ? 'bg-gray-200' : 'bg-gray-100'"/>
+                </div>
             </div>
-            <div class="inline-flex">
-                <div class="w-96 inline-flex flex-row">
-                    <div class="inline-flex flex-col shadow p-5 rounded-xl">
+            <div class="inline-flex pt-8 gap-8 z-1">
+                <div v-if="filters.show" class="w-64 flex-col inline-flex">
+                    <div class="w-full inline-flex flex-col shadow p-5 rounded-xl">
                         <div class="text-lg font-semibold">Search Radius</div>
+                        <select
+                            id="select"
+                            v-model="filters.radius"
+                            class="w-full mt-2 border bg-gray-100 rounded-md px-2 py-2"
+                            >
+                            <option value="5">5km</option>
+                            <option value="15">15km</option>
+                            <option value="30">30km</option>
+                            <option value="50">50km</option>
+                            <option value="100">100km</option>
+                        </select>
                     </div>
                 </div>
                 <div class="inline-flex w-full flex-col">
-                    <div v-if="!map.show" class="relative w-full inline-flex items-center justify-center mb-0 px-8">
+                    <div v-if="!map.show" class="relative w-full inline-flex items-center justify-center mb-0">
                         <div v-if="loading" class="w-full h-full rounded-2xl z-2 absolute justify-center items-center inline-flex p-32 bg-white opacity-50">
                             <PulseLoader />
                         </div>
-                        <div v-if="pitches.length > 0" class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 py-8">
+                        <div v-if="pitches.length > 0" class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 pb-8">
                             <div v-for="(pitch, i) in pitches">
                                 <PitchCard :title="pitch.title" :description="pitch.description" :img="pitch?.images[0]?.src" :pitchId="pitch.id" :is-saved="pitch.is_saved" :features="pitch.features"/>
                             </div>
@@ -156,7 +178,7 @@ onMounted(() => {
                             <NoResults />
                         </div>
                     </div>
-                    <div v-if="map.show" class="w-full aspect-video mb-6 mt-8">
+                    <div v-if="map.show" class="w-full aspect-video mb-6">
                         <Map :latitude="map.latitude" :longitude="map.longitude" :markers="map.markers" :zoom="map.zoom" @markerClick="markerClicked">
                             <l-control
                                 v-if="mapActivePitch.show"
@@ -175,9 +197,10 @@ onMounted(() => {
                                 </div>
                             </div>
                             </l-control>
+                            <l-circle v-if="selectedLocation.latitude" :lat-lng="[ selectedLocation.latitude, selectedLocation.longitude ]" :radius="parseInt(filters.radius ?? 5)*1000" color="#609966" />
                         </Map>
                     </div>
-                    <div v-if="pitches.length > 0" class="inline-flex justify-between items-end px-8 pb-10">
+                    <div v-if="pitches.length > 0" class="inline-flex justify-between items-end pb-10">
                         <div class="text-lg">{{ paginator.from }} to {{ paginator.to }} of ... {{ paginator.total }}</div>
                         <div class="inline-flex gap-3">
                             <font-awesome-icon v-if="paginator.page > 1" icon="fa-solid fa-chevron-left" size="xl" class="p-3 aspect-square rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer" @click="pageDown()"/>

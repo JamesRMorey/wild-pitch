@@ -82,9 +82,9 @@ export default class Api {
         })
     }
 
-    async getPitchesForLocation( locationId, page=1 ) {
+    async getPitchesForLocation( locationId, page=1, filters={} ) {
         return new Promise(async ( resolve, reject ) => {
-            await axios.get( 'api/location/' + locationId + '/pitches?page=' + page )
+            await axios.get( 'api/locations/' + locationId + '/pitches', { params: { page: page, filters: filters }} )
             .then(( response ) => {
                 resolve( response.data );
             })
@@ -197,4 +197,17 @@ export default class Api {
             })
         })
     }
+
+    async getLocation( id ) {
+        return new Promise(async ( resolve, reject ) => {
+            await axios.get( 'api/locations/' + id )
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error );
+            })
+        })
+    }
+
 }
