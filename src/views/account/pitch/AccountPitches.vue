@@ -104,9 +104,6 @@ onMounted(() => {
                                 <router-link :to="'/pitches/pitch/' + mapActivePitch.id"  class="">
                                     <font-awesome-icon icon="fa-solid fa-eye" class="cursor-pointer" />
                                 </router-link>
-                                <!-- <router-link to="/pitch" class="">
-                                    <font-awesome-icon icon="fa-solid fa-edit" class="cursor-pointer" />
-                                </router-link> -->
                                 <div>
                                     <font-awesome-icon icon="fa-solid fa-remove" class="cursor-pointer" @click="() => deletePitch( mapActivePitch.id )"/>
                                 </div>

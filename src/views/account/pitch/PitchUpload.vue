@@ -8,13 +8,17 @@ import Api from '../../../services/Api';
 import { useRouter } from 'vue-router';
 import { base64ToFile, getMimeTypeAndExtensionFromBase64, UUID } from '../../../services/Helpers';
 import Map from '../../../components/pitches/Map.vue';
-import PitchCard from '../../../components/pitches/PitchCard.vue';
+import ErrorText from '../../../components/functional/ErrorText.vue';
 
 
 const api = new Api();
 const router = useRouter();
 
 const features = ref([]);
+const config = ref({
+    errors: [],
+    submitting: false,
+})
 
 const map = ref({
     show: false,
@@ -33,7 +37,6 @@ const form = ref({
     longitude: null,
     features: []
 });
-const filess = ref([]);
 
 const handleImageUpload = ( files ) => {
     imagesInput.value = null;
@@ -54,11 +57,12 @@ const handleImageUpload = ( files ) => {
         reader.readAsDataURL(file);
     }
 
-    filess.value = Array.from(files);
+    if( config.value.errors.images ) config.value.errors.images = null;
 }
 
 const handleSubmit = async ( e ) => {
     e.preventDefault();
+    config.value.submitting = true;
 
     let formData = new FormData();
     
@@ -85,7 +89,10 @@ const handleSubmit = async ( e ) => {
     })
     .catch(( error ) => {
         console.log( error );
-    })
+        config.value.errors = error.errors;
+    });
+
+    config.value.submitting = false;
 }
 
 const removeImage = ( index ) => {
@@ -109,6 +116,7 @@ const toggleFeature = ( id ) => {
     }
 
     form.value.features.push( id );
+    config.value.errors.features = null;
 }
 
 const updatePosition = ( coords ) => {
@@ -116,6 +124,8 @@ const updatePosition = ( coords ) => {
     form.value.longitude = coords.lng.toString();
 
     map.value.markers = [{ lat: coords.lat, lng: coords.lng }];
+    config.value.errors.latitude = null;
+    config.value.errors.longitude = null;
 }
 
 onMounted(() => {
@@ -132,15 +142,17 @@ onMounted(() => {
                     <div class="inline-flex flex-col w-full gap-5">
                         <div class="flex-col inline-flex gap-3">
                             <div class="text-lg">Title</div>
-                            <input type="text" class="bg-gray-100 rounded-full py-3 px-5" placeholder="an awesome place..." v-model="form.title"/>
+                            <input @click="() => config.errors.title = null" type="text" class="bg-gray-100 rounded-full py-3 px-5" :class="config.errors.title ? 'border-2 border-red-400' : ''" placeholder="an awesome place..." v-model="form.title"/>
+                            <ErrorText v-if="config.errors.title" :text="config.errors.title[0]" />
                         </div>
                         <div class="flex-col inline-flex gap-3">
                             <div class="text-lg">Description</div>
-                            <textarea class="bg-gray-100 rounded-3xl p-5" placeholder="its an awesome pitch because..." v-model="form.description"></textarea>
+                            <textarea @click="() => config.errors.description = null" class="bg-gray-100 rounded-3xl p-5" :class="config.errors.description ? 'border-2 border-red-400' : ''" placeholder="its an awesome pitch because..." v-model="form.description"></textarea>
+                            <ErrorText v-if="config.errors.description" :text="config.errors.description[0]" />
                         </div>
                         <div class="flex-col inline-flex gap-3">
                             <div class="text-lg">Features</div>
-                            <div class="border-gray-200 border rounded-3xl p-5">
+                            <div class="border-gray-200 border rounded-3xl p-5" :class="config.errors.features ? 'border-2 border-red-400' : ''">
                                 <div v-for="( feature, i ) in features" 
                                     @click="() => toggleFeature( feature.id )" 
                                     class="inline-flex m-1 rounded-full p-2 px-4 hover:bg-gray-100 cursor-pointer gap-2 justify-center items-center border"
@@ -150,11 +162,12 @@ onMounted(() => {
                                     <div>{{ feature.label }}</div>
                                 </div>
                             </div>
+                            <ErrorText v-if="config.errors.features" :text="config.errors.features[0]" />
                         </div>
                     </div>
                     <div class="inline-flex w-full flex-col gap-10">
-                        <FileUpload @upload="handleImageUpload" text="Drag and drop upto 5 images, or click "/>
-                        <div>
+                        <FileUpload @upload="handleImageUpload" :error="config.errors.images ? config?.errors?.images[0] : null " text="Drag and drop upto 5 images, or click "/>
+                        <div v-if="images.length > 0">
                             <VueDraggableNext v-model="images" class="grid grid-cols-3 gap-5 cursor-grab" ghost-class="ghost">
                                 <div v-for="( image, i ) in images.slice(0, 5)" :class="[ i == 0 ? 'border-2 border-dashed border-black justify-between' : '' ]" class="rounded-xl border border-gray-500 aspect-square bg-cover bg-no-repeat bg-center inline-flex p-2 justify-end cursor-grab" :style="{ backgroundImage: `url(${image})`}">
                                     <font-awesome-icon v-if="i==0" icon="fa-solid fa-camera-retro" class="p-1 bg-white rounded-full aspect-square"/>
@@ -162,15 +175,15 @@ onMounted(() => {
                                 </div>
                             </VueDraggableNext>
                         </div>
-                        
                     </div>
                 </div>
                 <div class="w-full aspect-video">
                     <div class="text-lg">Where is it?</div>
-                    <Map :latitude="form.latitude ?? map.latitude" :longitude="form.longitude ?? map.longitude" :markers="map.markers" :zoom="map.zoom" @marker-added="updatePosition"/>
+                    <Map :latitude="form.latitude ?? map.latitude" :longitude="form.longitude ?? map.longitude" :markers="map.markers" :zoom="map.zoom" @marker-added="updatePosition" :class="config.errors.latitude || config.errors.longitude ? 'border-2 border-red-400 rounded-xl' : ''"/>
+                    <ErrorText v-if="config.errors.latitude || config.errors.longitude" :text="config.errors.latitude[0] || config.errors.longitude[0]" />
                 </div>
                 <div class="justify-end inline-flex items-end mt-7">
-                    <CustomButton text="submit" />
+                    <CustomButton text="submit" :loading="config.submitting"/>
                 </div>
             </form>
         </div>

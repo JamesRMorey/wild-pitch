@@ -49,8 +49,9 @@ const handleMarkerClick = ( index ) => {
                     layer-type="base"
                     name="OpenStreetMap"
                 ></l-tile-layer>
-                <l-circle-marker v-for="(marker, index) in markers" :lat-lng="marker" @click="(e) => handleMarkerClick( index )"></l-circle-marker>
                 <slot></slot>
+                <l-circle-marker v-for="(marker, index) in markers" :lat-lng="marker" @click="(e) => handleMarkerClick( index )"></l-circle-marker>
+                
             </l-map>
         </div>
     </div>

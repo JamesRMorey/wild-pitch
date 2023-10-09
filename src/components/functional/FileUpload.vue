@@ -6,6 +6,10 @@ const props = defineProps({
         type: String,
         required: false,
         default: 'Drag and drop files or click '
+    },
+    error: {
+        type: String,
+        required: false
     }
 });
 
@@ -27,7 +31,7 @@ const handleDropFiles = ( event ) => {
 
 <template>
     <div class="inline-flex flex-col w-full border-gray-200 border-2 border-dashed rounded-3xl px-32 py-10 justify-center hover:bg-gray-100 gap-5"
-        :class="[ isDragging ? 'bg-gray-100' : '']"
+        :class="[ isDragging ? 'bg-gray-100' : '', error ? 'border-red-400' : '']"
         @dragover.prevent="isDragging = true"
         @dragleave="isDragging = false"
         @drop.prevent="handleDropFiles"
@@ -37,5 +41,6 @@ const handleDropFiles = ( event ) => {
         </div>
         <div class="text-gray-400 text-center">{{ text }}<label class="underline font-semibold text-gray-700 cursor-pointer" for="images">here</label> to upload.</div>
         <input id="images" name="images" type="file" ref="imagesInput" multiple hidden @change="handleUploadFiles"/>
+        <div v-if="error" class="text-md text-red-400 text-center">{{ error }}</div>
     </div>
 </template>

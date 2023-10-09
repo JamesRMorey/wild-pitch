@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import Api from '../../services/Api';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -18,8 +18,11 @@ const api = new Api();
 
 const route = useRoute();
 const router = useRouter();
-const { locationId, page } = route.query;
+const { locationId, page, radius, mapMode } = route.query;
 
+const config = ref({
+    loaded: false
+});
 const pitches = ref([]);
 const loading = ref(false);
 const paginator = ref({
@@ -33,9 +36,18 @@ const paginator = ref({
 const selectedLocation = ref({});
 const filters = ref({
     show: false,
-    radius: 5
+    radius: radius > 0 && radius <= 100 ? radius : 5
 })
-
+const map = ref({
+    show: mapMode == 1 ? 1 : 0,
+    latitude: selectedLocation.value.latitude ?? '53.753443',
+    longitude: selectedLocation.value.longitude ?? '-4.024384',
+    zoom: selectedLocation.value.latitude ? 15 : 5,
+    markers: []
+});
+const mapActivePitch = ref({
+    show: false
+});
 const showInitialNoResults = ref(true);
 
 const handleSearch = ( location, page=1 ) => {
@@ -43,6 +55,8 @@ const handleSearch = ( location, page=1 ) => {
     showInitialNoResults.value = false;
     selectedLocation.value = location;
     paginator.value.page = page;
+    map.value.latitude = location.latitude;
+    map.value.longitude = location.longitude;
     getPitches( page );
 }
 
@@ -57,7 +71,7 @@ const getLocation = async ( id ) => {
 }
 
 const getPitches = ( page=1 ) => {
-    router.replace({ query: { locationId : selectedLocation.value.id, page: page } });
+    router.replace({ query: { locationId : selectedLocation.value.id, page: page, radius: filters.value.radius, mapMode: map.value.show } });
     api.getPitchesForLocation( selectedLocation.value.id, page, filters.value )
         .then(( response ) => {
             loading.value = false;
@@ -97,18 +111,6 @@ const pageUp = () => {
     getPitches( paginator.value.page + 1 );
 }
 
-const map = ref({
-    show: false,
-    latitude: selectedLocation.value.latitude ?? '53.753443',
-    longitude: selectedLocation.value.longitude ?? '-4.024384',
-    zoom: selectedLocation.value.latitude ? 15 : 5,
-    markers: []
-});
-
-const mapActivePitch = ref({
-    show: false
-});
-
 const markerClicked = ( index ) => {
     const mkr = map.value.markers[index];
     mapActivePitch.value = pitches.value.find(( pitch ) => {
@@ -123,11 +125,19 @@ const handleMapControlClick = () => {
     router.push('/pitches/pitch/' + mapActivePitch.value.id );
 }
 
+const handleMapModeClick = () => {
+    map.value.show = map.value.show == 1 ? 0 : 1
+    const newQuery = { ...route.query };
+    newQuery.mapMode = map.value.show;
+    router.replace({ query: newQuery });
+}
+
 onMounted(async () => {
     if ( locationId ) {
         await getLocation( locationId )
         handleSearch(selectedLocation.value, page ?? 1);
     }
+    config.value.loaded = true;
 })
 
 </script>
@@ -137,14 +147,14 @@ onMounted(async () => {
         <PageHeader />
         <BannerSlim title="Pitches"/>
         <Container>
-            <div class="inline-flex w-full justify-center items-center pt-16 z-10 gap-5" style="z-index: 10000;">
+            <div class="inline-flex w-full justify-center items-center pt-16 z-10 gap-5" style="z-index: 10000;" v-if="config.loaded">
                 <LocationSearchBar @search="handleSearch" :initialText="selectedLocation.name ?? ''"/>
                 <div class="inline-flex gap-3">
                     <font-awesome-icon icon="fa-solid fa-filter" @click="() => filters.show = !filters.show" class="p-4 rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer" :class="filters.show ? 'bg-gray-200' : 'bg-gray-100'"/>
-                    <font-awesome-icon icon="fa-solid fa-map" @click="() => map.show = !map.show" class="p-4 rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer" :class="map.show ? 'bg-gray-200' : 'bg-gray-100'"/>
+                    <font-awesome-icon icon="fa-solid fa-map" @click="handleMapModeClick" class="p-4 rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer" :class="map.show ? 'bg-gray-200' : 'bg-gray-100'"/>
                 </div>
             </div>
-            <div class="inline-flex pt-8 gap-8 z-1">
+            <div v-if="config.loaded" class="inline-flex pt-8 gap-8 z-1">
                 <div v-if="filters.show" class="w-64 flex-col inline-flex">
                     <div class="w-full inline-flex flex-col shadow p-5 rounded-xl">
                         <div class="text-lg font-semibold">Search Radius</div>
@@ -152,6 +162,7 @@ onMounted(async () => {
                             id="select"
                             v-model="filters.radius"
                             class="w-full mt-2 border bg-gray-100 rounded-md px-2 py-2"
+                            @change="handleSearch( selectedLocation, 1 )"
                             >
                             <option value="5">5km</option>
                             <option value="15">15km</option>
@@ -197,7 +208,7 @@ onMounted(async () => {
                                 </div>
                             </div>
                             </l-control>
-                            <l-circle v-if="selectedLocation.latitude" :lat-lng="[ selectedLocation.latitude, selectedLocation.longitude ]" :radius="parseInt(filters.radius ?? 5)*1000" color="#609966" />
+                            <l-circle v-if="selectedLocation.latitude" :lat-lng="[ selectedLocation.latitude, selectedLocation.longitude ]" :radius="parseInt(filters.radius ?? 5)*1.5*1000" color="#609966" />
                         </Map>
                     </div>
                     <div v-if="pitches.length > 0" class="inline-flex justify-between items-end pb-10">

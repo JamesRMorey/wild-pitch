@@ -108,10 +108,6 @@ onMounted(() => {
                             <div>( {{ pitch.latitude }} , {{ pitch.longitude }} )</div>
                         </div>
                     </div>
-                    <!-- <div class="flex-col hidden lg:inline-flex gap-3">
-                        <div class="font-semibold text-xl">Reviews</div>
-                        <Reviews />
-                    </div> -->
                 </div>
             </div>
         </div>
