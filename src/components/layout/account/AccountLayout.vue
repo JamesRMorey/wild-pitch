@@ -1,6 +1,7 @@
 <script setup>
 import PageLayout from '../PageLayout.vue';
 import { toRefs } from 'vue';
+import CustomButton from '../../buttons/CustomButton.vue';
 
 const props = defineProps({
     headerText: {
@@ -30,9 +31,7 @@ const { buttons } = toRefs( props );
                 <div v-if="subtitleText" class="inline-flex">{{ subtitleText }}</div>
             </div>
             <div v-if="buttons.length" class="inline-flex gap-4 items-center">
-                <div v-for="(button, i) in buttons" @click="button['click']()" class="inline-flex border rounded-full px-5 py-2 hover:bg-gray-100 cursor-pointer items-center justify-center">
-                    {{ button.text }}
-                </div>
+                <CustomButton v-for="(button, i) in buttons" @press="button['click']()"  :text="button.text" />
             </div>
         </div>
         <slot></slot>

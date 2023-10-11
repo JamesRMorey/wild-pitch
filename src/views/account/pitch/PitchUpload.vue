@@ -3,12 +3,12 @@ import AccountLayout from '../../../components/layout/account/AccountLayout.vue'
 import FileUpload from '../../../components/functional/FileUpload.vue';
 import { ref, onMounted } from 'vue';
 import { VueDraggableNext } from 'vue-draggable-next'
-import CustomButton from '../../../components/buttons/CustomButton.vue';
 import Api from '../../../services/Api';
 import { useRouter } from 'vue-router';
 import { base64ToFile, getMimeTypeAndExtensionFromBase64, UUID } from '../../../services/Helpers';
 import Map from '../../../components/pitches/Map.vue';
 import ErrorText from '../../../components/functional/ErrorText.vue';
+import CustomButton from '../../../components/buttons/CustomButton.vue';
 
 const api = new Api();
 const router = useRouter();
@@ -177,11 +177,12 @@ onMounted(() => {
                     </div>
                 </div>
                 <div class="w-full aspect-video">
-                    <div class="text-lg">Where is it?</div>
+                    <div class="text-lg mb-2">Where is it?</div>
                     <Map :latitude="form.latitude ?? map.latitude" :longitude="form.longitude ?? map.longitude" :markers="map.markers" :zoom="map.zoom" @marker-added="updatePosition" :class="config.errors.latitude || config.errors.longitude ? 'border-2 border-red-400 rounded-xl' : ''"/>
                     <ErrorText v-if="config.errors.latitude || config.errors.longitude" :text="config.errors.latitude[0] || config.errors.longitude[0]" />
                 </div>
                 <div class="justify-end inline-flex items-end mt-7">
+                    <CustomButton text="submit" :loading="config.submitting"/>
                 </div>
             </form>
         </div>
