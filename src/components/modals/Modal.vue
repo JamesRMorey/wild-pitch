@@ -1,0 +1,68 @@
+<script setup>
+import { onMounted, onUnmounted, ref } from 'vue';
+import CustomButton from '../buttons/CustomButton.vue';
+
+    const emit = defineEmits([ 'confirm', 'close' ]);
+
+    const props = defineProps({
+        confirmText: {
+            type: String,
+            required: false
+        }
+    })
+
+    const overlayRef = ref(null);
+
+    const handleConfirm = () => {
+        emit('confirm');
+    }
+
+    const handleClose = () => {
+        emit('close');
+    }
+
+    const handleOverlayClick = (event) => {
+        if (event.target === overlayRef.value) {
+            handleClose();
+        }
+    };
+
+    onMounted(() => {
+        document.body.style.overflow = 'hidden';
+    })
+
+    onUnmounted(() => {
+        document.body.style.overflow = 'auto';
+    })
+</script>
+
+<template>
+    <teleport to='body'>
+        <div class="modal p-5 lg:p-60" ref="overlayRef" @click="handleOverlayClick">
+            <div class="bg-white p-10 rounded-2xl inline-flex flex-col gap-3">
+                <slot name="title"></slot>
+                <slot name="content"></slot>
+                <div class="inline-flex flex-row justify-end gap-3 mt-4">
+                    <custom-button v-if="confirmText" :text="confirmText" @press="handleConfirm"/>
+                    <custom-button text="close" @press="handleClose"/>
+                </div>
+            </div>
+        </div>
+    </teleport>
+</template>
+
+<style lang="css">
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000000;
+}
+
+</style>

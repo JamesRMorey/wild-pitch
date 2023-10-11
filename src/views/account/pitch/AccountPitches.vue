@@ -6,6 +6,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import Map from '../../../components/pitches/Map.vue';
 import { LControl } from '@vue-leaflet/vue-leaflet';
+import Modal from '../../../components/modals/Modal.vue';
 
 const api = new Api();
 const router = useRouter();
@@ -23,6 +24,10 @@ const map = ref({
 const mapActivePitch = ref({
     show: false
 });
+const modal = ref({
+    show: false,
+    pitch: null
+})
 
 const getPitches = async () => {
     await api.getUserPitches()
@@ -49,10 +54,23 @@ const deletePitch = async ( id ) => {
             pitches.value.splice(index, 1);
             map.value.markers.splice(index, 1);
             if ( mapActivePitch.value.id == id ) mapActivePitch.value = { show: false };
+            modal.value.show = false;
+            modal.value.pitch = null;
         })
         .catch(( error ) => {
-
+            modal.value.show = false;
+            modal.value.pitch = null;  
         })
+}
+
+const handleDestroy = ( id ) => {
+    modal.value.show = true;
+    modal.value.pitch = pitches.value.find(( pitch ) => pitch.id == id );
+}
+
+const closeConfirmModal = () => {
+    modal.value.show = false;
+    modal.value.pitch = null;
 }
 
 const handleAddButtonClick = () => {
@@ -114,7 +132,17 @@ onMounted(() => {
             </div>
         </div>
         <div v-else class="grid grid-cols-1 sm-grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 md:px-8 mb-16">
-            <AccountPitchCard v-for="( pitch, i ) in pitches" @destroy="deletePitch" :id="pitch.id" :description="pitch.description" :title="pitch.title" :img="pitch?.images[0]?.src" :features="pitch.features"/>
-        </div>  
+            <AccountPitchCard v-for="( pitch, i ) in pitches" @destroy="handleDestroy" :id="pitch.id" :description="pitch.description" :title="pitch.title" :img="pitch?.images[0]?.src" :features="pitch.features"/>
+        </div>
+        <Modal v-if="modal.show" @close="closeConfirmModal" @confirm="deletePitch( modal.pitch.id )" confirmText="confirm">
+            <template v-slot:title>
+                <div class="text-lg font-semibold">Woah! Hold on a sec</div>
+            </template>
+            <template v-slot:content>
+                <div class="w-100%">
+                    Are you sure you want to delete <span class="font-semibold">{{ modal.pitch.title }}?</span>
+                </div>
+            </template>
+        </Modal>
     </AccountLayout>
 </template>

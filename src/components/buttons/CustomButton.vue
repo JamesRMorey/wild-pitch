@@ -1,6 +1,8 @@
 <script setup>
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
+const emit = defineEmits([ 'press' ]);
+
 const props = defineProps({
     pressHandler: {
         type: Function,
@@ -22,16 +24,21 @@ const props = defineProps({
         default: false
     }
 })
+
+const handleClick = () => {
+    emit('press');
+}
+
 </script>
 
 <template>
-        <button @click="pressHandler()" 
-            :class="type == 'primary' ? 'bg-white py-2 px-8 rounded-full inline-flex justify-center items-center border-grey border-2' : ''" 
+        <button @click="handleClick" 
+            :class="type == 'primary' ? 'font-semibold py-3 px-6 bg-gray-100 hover:bg-gray-200 cursor-pointer rounded-xl' : ''" 
             v-bind="$attrs"
         >
             <PulseLoader v-if="loading" class="items-center inline-flex justify-center"/>
             <div v-else
-                :class="type == 'primary' ? 'text-md text-dark-grey font-bold capitalize' : ''"
+                :class="type == 'primary' ? 'text-md font-semibold' : ''"
             >
                 {{ text }}
             </div>

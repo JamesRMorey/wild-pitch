@@ -10,7 +10,6 @@ import { base64ToFile, getMimeTypeAndExtensionFromBase64, UUID } from '../../../
 import Map from '../../../components/pitches/Map.vue';
 import ErrorText from '../../../components/functional/ErrorText.vue';
 
-
 const api = new Api();
 const router = useRouter();
 
@@ -183,7 +182,6 @@ onMounted(() => {
                     <ErrorText v-if="config.errors.latitude || config.errors.longitude" :text="config.errors.latitude[0] || config.errors.longitude[0]" />
                 </div>
                 <div class="justify-end inline-flex items-end mt-7">
-                    <CustomButton text="submit" :loading="config.submitting"/>
                 </div>
             </form>
         </div>
