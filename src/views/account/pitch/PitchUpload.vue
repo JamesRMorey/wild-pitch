@@ -1,6 +1,6 @@
 <script setup>
 import AccountLayout from '../../../components/layout/account/AccountLayout.vue';
-import FileUpload from '../../../components/functional/FileUpload.vue';
+import FileUpload from '../../../components/inputs/FileUpload.vue';
 import { ref, onMounted } from 'vue';
 import { VueDraggableNext } from 'vue-draggable-next'
 import Api from '../../../services/Api';
@@ -10,6 +10,7 @@ import Map from '../../../components/pitches/Map.vue';
 import ErrorText from '../../../components/functional/ErrorText.vue';
 import CustomButton from '../../../components/buttons/CustomButton.vue';
 import TextInput from '../../../components/inputs/TextInput.vue';
+import TextAreaInput from '../../../components/inputs/TextAreaInput.vue';
 
 const api = new Api();
 const router = useRouter();
@@ -145,9 +146,7 @@ onMounted(() => {
                             <TextInput v-model:value="form.title" label="Title" :errors="config.errors?.title" @clear="config.errors.title = null"/>
                         </div>
                         <div class="flex-col inline-flex gap-3">
-                            <div class="text-lg">Description</div>
-                            <textarea @click="() => config.errors.description = null" class="bg-gray-100 rounded-3xl p-5" :class="config.errors.description ? 'border-2 border-red-400' : ''" placeholder="its an awesome pitch because..." v-model="form.description"></textarea>
-                            <ErrorText v-if="config.errors?.description" :text="config.errors?.description[0]" />
+                            <TextAreaInput v-model:value="form.description" label="Description" :errors="config.errors?.description" @clear="config.errors.description = null" />
                         </div>
                         <div class="flex-col inline-flex gap-3">
                             <div class="text-lg">Features</div>
