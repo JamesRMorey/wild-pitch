@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router';
 import Map from '../../../components/pitches/Map.vue';
 import { LControl } from '@vue-leaflet/vue-leaflet';
 import Modal from '../../../components/modals/Modal.vue';
+import IconButton from '../../../components/buttons/IconButton.vue';
 
 const api = new Api();
 const router = useRouter();
@@ -18,7 +19,7 @@ const map = ref({
     show: false,
     latitude: selectedLocation.value.latitude ?? '53.753443',
     longitude: selectedLocation.value.longitude ?? '-4.024384',
-    zoom: selectedLocation.value ? 15 : 5,
+    zoom: 5,
     markers: []
 });
 const mapActivePitch = ref({
@@ -93,7 +94,6 @@ const markerClicked = ( index ) => {
 
 const pageButtons = ref([
     { text: 'add', click: handleAddButtonClick },
-    { text: map.value.show ? 'list' : 'map', click: handleMapButtonClick }
 ])
 
 onMounted(() => {
@@ -104,9 +104,12 @@ onMounted(() => {
 
 <template>
     <AccountLayout headerText="my pitches" subtitleText="manage, add, edit and remove your listings" :buttons="pageButtons">
+        <div class="inline-flex justify-start pb-4">
+            <IconButton icon="fa-map" @press="handleMapButtonClick" :active="map.show"/>
+        </div>
         <div v-if="map.show" class="inline-flex">
-            <div v-if="map.show" class="w-full aspect-video mb-6 mt-8">
-                <Map :latitude="map.latitude" :longitude="map.longitude" :markers="map.markers" :zoom="map.zoom" @markerClick="markerClicked">
+            <div v-if="map.show" class="w-full aspect-video mb-6">
+                <Map :latitude="map.latitude" :longitude="map.longitude" :markers="map.markers" v-model:zoom="map.zoom" @markerClick="markerClicked">
                     <l-control
                         v-if="mapActivePitch.show"
                         :position="'topright'"

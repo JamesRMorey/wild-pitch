@@ -13,6 +13,7 @@ import NoResults from '../../components/functional/NoResults.vue';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 import Map from '../../components/pitches/Map.vue';
 import { LControl, LCircle } from '@vue-leaflet/vue-leaflet';
+import IconButton from '../../components/buttons/IconButton.vue';
 
 const api = new Api();
 
@@ -42,7 +43,7 @@ const map = ref({
     show: mapMode == 1 ? 1 : 0,
     latitude: selectedLocation.value.latitude ?? '53.753443',
     longitude: selectedLocation.value.longitude ?? '-4.024384',
-    zoom: selectedLocation.value.latitude ? 15 : 5,
+    zoom: 5,
     markers: []
 });
 const mapActivePitch = ref({
@@ -150,8 +151,8 @@ onMounted(async () => {
             <div class="inline-flex w-full justify-center items-center pt-16 z-10 gap-5" style="z-index: 10000;" v-if="config.loaded">
                 <LocationSearchBar @search="handleSearch" :initialText="selectedLocation.name ?? ''"/>
                 <div class="inline-flex gap-3">
-                    <font-awesome-icon icon="fa-solid fa-filter" @click="() => filters.show = !filters.show" class="p-4 rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer" :class="filters.show ? 'bg-gray-200' : 'bg-gray-100'"/>
-                    <font-awesome-icon icon="fa-solid fa-map" @click="handleMapModeClick" class="p-4 rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer" :class="map.show ? 'bg-gray-200' : 'bg-gray-100'"/>
+                    <IconButton @press="() => filters.show = !filters.show" :active="map.show" icon="fa-filter"/>
+                    <IconButton @press="handleMapModeClick" :active="map.show" icon="fa-map"/>
                 </div>
             </div>
             <div v-if="config.loaded" class="inline-flex pt-8 gap-8 z-1">
@@ -190,14 +191,18 @@ onMounted(async () => {
                         </div>
                     </div>
                     <div v-if="map.show" class="w-full aspect-video mb-6">
-                        <Map :latitude="map.latitude" :longitude="map.longitude" :markers="map.markers" :zoom="map.zoom" @markerClick="markerClicked">
+                        <Map :latitude="map.latitude" v-model:zoom="map.zoom" :longitude="map.longitude" :markers="map.markers" @markerClick="markerClicked">
                             <l-control
                                 v-if="mapActivePitch.show"
                                 :position="'topright'"
-                                class="bg-white border-gray-200 border hover:bg-gray-100 shadow p-5 m-3 w-60 rounded-3xl inline-flex text-right gap-4"
+                                class="bg-white border-gray-200 border hover:bg-gray-100 shadow p-5 m-3 w-60 rounded-xl inline-flex text-right gap-4"
                                 @click="handleMapControlClick"
                             >
-                            <div class="inline-flex justify-between w-full cursor-pointer">
+                            <div class="flex-col inline-flex text-right">
+                                <div class="font-semibold text-md">{{ mapActivePitch.title }}dwdawdawkp[dkaw d[aw[d awkpd [apkwd [kawdp[ k]]]]]]</div>
+                                <div class="text-md">a lovely pitch</div>
+                            </div>
+                            <!-- <div class="inline-flex justify-between w-full cursor-pointer">
                                 <div class="aspect-square border-2 border-gray-500 bg-cover bg-no-repeat bg-center h-16 rounded-full" :style="{ backgroundImage: `url(${mapActivePitch.images[0].src})`}"></div>
                                 <div class="inline-flex flex-col gap-2 w-full items-end justify-between">
                                     <div>
@@ -206,7 +211,7 @@ onMounted(async () => {
                                     </div>
                                     <div class="font-semibold underline">click to view</div>
                                 </div>
-                            </div>
+                            </div> -->
                             </l-control>
                             <l-circle v-if="selectedLocation.latitude" :lat-lng="[ selectedLocation.latitude, selectedLocation.longitude ]" :radius="parseInt(filters.radius ?? 5)*1.5*1000" color="#609966" />
                         </Map>

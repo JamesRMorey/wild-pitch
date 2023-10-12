@@ -26,7 +26,7 @@ export default class Api {
                 resolve( response.data );
             })
             .catch(( error ) => {
-                reject( error );
+                reject( error.response.data );
             })
         })
     }
@@ -34,12 +34,12 @@ export default class Api {
     async register( name, email, password, confirmPassword ) {
         return new Promise(async ( resolve, reject ) => {
             await axios.get( 'sanctum/csrf-cookie' )
-            await axios.post( 'login', { name: name, email: email, password: password, confirm_password: confirmPassword } )
+            await axios.post( 'register', { name: name, email: email, password: password, password_confirmation: confirmPassword } )
             .then(( response ) => {
                 resolve( response.data );
             })
             .catch(( error ) => {
-                reject( error );
+                reject( error.response.data );
             })
         })
     }

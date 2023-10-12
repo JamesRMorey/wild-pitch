@@ -19,7 +19,12 @@ const handleSearch = ( location ) => {
 <template>
     <div class="flex flex-col min-h-screen">
         <PageHeader />
-        <BannerWithSearch @search="handleSearch" title="Wild Pitch" sub-title="A free community collection of the best wild camping spots in the UK"/>
+        <BannerWithSearch @search="handleSearch">
+            <template v-slot:content>
+                <img src="/logos/text-white.png" class="h-32" />
+                <div class="text-white text-xl">A free community collection of the best wild camping spots in the UK</div>
+            </template>
+        </BannerWithSearch>
         <div class="flex-1 flex"></div>
         <PageFooter />
     </div>

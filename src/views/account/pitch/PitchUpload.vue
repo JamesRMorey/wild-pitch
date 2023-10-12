@@ -9,6 +9,7 @@ import { base64ToFile, getMimeTypeAndExtensionFromBase64, UUID } from '../../../
 import Map from '../../../components/pitches/Map.vue';
 import ErrorText from '../../../components/functional/ErrorText.vue';
 import CustomButton from '../../../components/buttons/CustomButton.vue';
+import TextInput from '../../../components/inputs/TextInput.vue';
 
 const api = new Api();
 const router = useRouter();
@@ -109,6 +110,7 @@ const getFeatures = async () => {
 }
 
 const toggleFeature = ( id ) => {
+    console.log(form.value);
     if ( form.value.features.includes( id ) ) {
         form.value.features.splice( form.value.features.indexOf( id ), 1 );
         return;
@@ -140,14 +142,12 @@ onMounted(() => {
                 <div class="inline-flex gap-16 w-full">
                     <div class="inline-flex flex-col w-full gap-5">
                         <div class="flex-col inline-flex gap-3">
-                            <div class="text-lg">Title</div>
-                            <input @click="() => config.errors.title = null" type="text" class="bg-gray-100 rounded-full py-3 px-5" :class="config.errors.title ? 'border-2 border-red-400' : ''" placeholder="an awesome place..." v-model="form.title"/>
-                            <ErrorText v-if="config.errors.title" :text="config.errors.title[0]" />
+                            <TextInput v-model:value="form.title" label="Title" :errors="config.errors?.title" @clear="config.errors.title = null"/>
                         </div>
                         <div class="flex-col inline-flex gap-3">
                             <div class="text-lg">Description</div>
                             <textarea @click="() => config.errors.description = null" class="bg-gray-100 rounded-3xl p-5" :class="config.errors.description ? 'border-2 border-red-400' : ''" placeholder="its an awesome pitch because..." v-model="form.description"></textarea>
-                            <ErrorText v-if="config.errors.description" :text="config.errors.description[0]" />
+                            <ErrorText v-if="config.errors?.description" :text="config.errors?.description[0]" />
                         </div>
                         <div class="flex-col inline-flex gap-3">
                             <div class="text-lg">Features</div>

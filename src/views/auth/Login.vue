@@ -5,6 +5,8 @@ import { ref } from 'vue';
 import Api from '../../services/Api';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
+import PageHeader from '../../components/layout/PageHeader.vue';
+import TextInput from '../../components/inputs/TextInput.vue';
 
 const api = new Api();
 const router = useRouter();
@@ -21,6 +23,11 @@ const images = [
 
 const background = images[Math.floor(Math.random() * (images.length - 0 + 1)) + 0];
 
+const config = ref({
+    submitting: false,
+    errors: []
+});
+
 const formData = ref({
     email: '',
     password: ''
@@ -28,44 +35,51 @@ const formData = ref({
 
 const handleSubmit = async ( e ) => {
     e.preventDefault();
+    config.value.submitting = true;
     await api.login( formData.value.email, formData.value.password )
         .then(async ( user ) => {
             await authStore.setUser( user );
-            router.push('/my-account');
+            router.push({ name: 'account-home' });
+            config.value.errors = [];
+            config.value.submitting = false;
         })
         .catch(( error ) => {
             authStore.clearUser();
-            console.log(error);
+            config.value.errors = error.errors;
+            config.value.submitting = false;
         });
 }
     
 </script>
 
 <template>
-    <Container>
-        <div class="w-full h-screen inline-flex md:grid md:grid-cols-2 gap-5 py-10 px-5">
-            <div class="w-full h-full rounded-3xl bg-center bg-cover hidden md:block text-right p-4" :style="{ backgroundImage: `url(${background})`}"></div>
-            <form @submit="handleSubmit">
-                <div class="inline-flex flex-col h-full justify-center item-center gap-5 px-16">
-                    <div class="font-semibold text-3xl">Login</div>
-                    <div class="flex-col inline-flex gap-3">
-                        <div class="text-lg">Email</div>
-                        <input type="email" class="bg-gray-100 rounded-full py-3 px-5" placeholder="email" v-model="formData.email"/>
-                    </div>
-                    <div class="flex-col inline-flex gap-3">
-                        <div class="text-lg">Password</div>
-                        <input type="password" class="bg-gray-100 rounded-full py-3 px-5" placeholder="password" v-model="formData.password"/>
-                    </div>
-                    <div class="inline-flex justify-end pt-5">
-                        <CustomButton text="login"/>
-                    </div>
-                    <div>
-                        <div>
-                            dont have an account? click <router-link class="underline" to="/register">here to register</router-link>
+    <div class="h-screen flex flex-col">
+        <PageHeader />
+        <div class="flex flex-1">
+            <Container>
+                <div class="w-full flex-1 flex-col md:grid md:grid-cols-2 gap-5 py-10 px-5">
+                    <div class="w-full h-full rounded-3xl bg-center bg-cover hidden md:block text-right p-4" :style="{ backgroundImage: `url(${background})`}"></div>
+                    <form @submit="handleSubmit">
+                        <div class="inline-flex flex-col h-full justify-center item-center gap-5 px-16">
+                            <div class="font-semibold text-3xl">Login</div>
+                            <div class="flex-col inline-flex gap-3">
+                                <TextInput v-model:value="formData.email" label="Email" :errors="config.errors?.email" type="email" @clear="config.errors.email = null"/>
+                            </div>
+                            <div class="flex-col inline-flex gap-3">
+                                <TextInput v-model:value="formData.password" label="Password" :errors="config.errors?.password" type="password" @clear="config.errors.password = null"/>
+                            </div>
+                            <div class="inline-flex justify-end pt-5">
+                                <CustomButton text="login" :loading="config.submitting"/>
+                            </div>
+                            <div>
+                                <div>
+                                    dont have an account? click <router-link class="underline" to="/register">here to register</router-link>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </Container>
         </div>
-    </Container>
+    </div>
 </template>

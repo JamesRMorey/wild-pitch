@@ -8,6 +8,7 @@ import AccountHome from '../views/account/AccountHome.vue'
 import PitchUpload from '../views/account/pitch/PitchUpload.vue'
 import AccountPitches from '../views/account/pitch/AccountPitches.vue'
 import AccountSavedPitches from '../views/account/pitch/AccountSavedPitches.vue'
+import UserDetails from '../views/account/UserDetails.vue'
 import { useAuthStore } from '../stores/auth'
 
 const router = createRouter({
@@ -48,7 +49,7 @@ const router = createRouter({
     },
     {
         path: '/my-account/pitches',
-        name: 'account-pitch-index',
+        name: 'account-pitches',
         component: AccountPitches,
         meta: { auth: true }
     },
@@ -62,6 +63,12 @@ const router = createRouter({
         path: '/my-account/pitches/create',
         name: 'pitch-create',
         component: PitchUpload,
+        meta: { auth: true }
+    },
+    {
+        path: '/my-account/user',
+        name: 'user-details',
+        component: UserDetails,
         meta: { auth: true }
     }
   ]

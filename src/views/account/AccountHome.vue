@@ -9,20 +9,20 @@ const menuItems = [
     {
         name: 'my pitches',
         subtitle: 'manage your pitches, edit and create more',
-        url: '/my-account/pitches',
+        url: { name: 'account-pitches' },
         icon: 'fa-solid fa-tent'
     },
     {
         name: 'saved',
         subtitle: 'view your favourite pitches',
-        url: '/my-account/saved-pitches',
+        url: { name: 'account-pitches-saved' },
         icon: 'fa-solid fa-heart'
     },
     {
-        name: 'gallery',
-        subtitle: 'take a look back at all your amazing images',
-        url: '/my-account/pitches',
-        icon: 'fa-solid fa-camera-retro'
+        name: 'your details',
+        subtitle: 'mange your account',
+        url: { name: 'user-details' },
+        icon: 'fa-solid fa-user'
     },
 ];
 
