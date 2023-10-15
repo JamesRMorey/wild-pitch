@@ -11,11 +11,17 @@ import AccountSavedPitches from '../views/account/pitch/AccountSavedPitches.vue'
 import UserDetails from '../views/account/UserDetails.vue'
 import ForgotPassword from '../views/auth/ForgotPassword.vue'
 import PasswordReset from '../views/auth/PasswordReset.vue'
+import PageNotFound from '../views/PageNotFound.vue'
 import { useAuthStore } from '../stores/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'not-found',
+        component: PageNotFound
+    },
     {
       path: '/',
       name: 'home',
