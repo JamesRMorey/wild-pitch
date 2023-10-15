@@ -31,11 +31,11 @@ const handleClick = () => {
             :class="type == 'primary' ? 'font-semibold py-2 px-6 bg-gray-100 hover:bg-gray-200 cursor-pointer rounded-xl' : ''" 
             v-bind="$attrs"
         >
-            <PulseLoader v-if="loading" class="items-center inline-flex justify-center"/>
-            <div v-else
+            <div
+                class="justify-center inline-flex items-center gap-3"
                 :class="type == 'primary' ? 'text-md font-semibold' : ''"
             >
-                {{ text }}
+                {{ text }} <PulseLoader v-if="loading" color="#000000" size="10px"/>
             </div>
         </button>
 </template>

@@ -68,12 +68,15 @@ const handleSubmit = async ( e ) => {
                             <div class="flex-col inline-flex gap-3">
                                 <TextInput v-model:value="formData.password" label="Password" :errors="config.errors?.password" type="password" @clear="config.errors.password = null"/>
                             </div>
+                            <div class="text-right">
+                                <router-link class="underline" :to="{ name: 'forgot-password' }">forgot password?</router-link>
+                            </div>
                             <div class="inline-flex justify-end pt-5">
                                 <CustomButton text="login" :loading="config.submitting"/>
                             </div>
                             <div>
                                 <div>
-                                    dont have an account? click <router-link class="underline" to="/register">here to register</router-link>
+                                    dont have an account? click <router-link class="underline" :to="{ name: 'register' }">here to register</router-link>
                                 </div>
                             </div>
                         </div>

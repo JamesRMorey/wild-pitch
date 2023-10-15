@@ -44,6 +44,32 @@ export default class Api {
         })
     }
 
+    async forgotPassword( email ) {
+        return new Promise(async ( resolve, reject ) => {
+            await axios.get( 'sanctum/csrf-cookie' )
+            await axios.post( 'forgot-password', { email: email } )
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error.response.data );
+            })
+        })
+    }
+
+    async resetPassword( email, password, confirmPassword, token ) {
+        return new Promise(async ( resolve, reject ) => {
+            await axios.get( 'sanctum/csrf-cookie' )
+            await axios.post( 'reset-password', { token: token, email: email, password: password, password_confirmation: confirmPassword } )
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error.response.data );
+            })
+        })
+    }
+
     async logout() {
         return new Promise(async ( resolve, reject ) => {
             await axios.get( 'sanctum/csrf-cookie' )
@@ -64,7 +90,33 @@ export default class Api {
                 resolve( response.data );
             })
             .catch(( error ) => {
-                reject( error );
+                reject( error.response.data );
+            })
+        })
+    }
+
+    async updateUser( data ) {
+        return new Promise(async ( resolve, reject ) => {
+            await this.getCSRF();
+            await axios.put( 'api/user', data )
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error.response.data );
+            })
+        })
+    }
+
+    async deleteUser() {
+        return new Promise(async ( resolve, reject ) => {
+            await this.getCSRF();
+            await axios.delete( 'api/user' )
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error.response.data );
             })
         })
     }
