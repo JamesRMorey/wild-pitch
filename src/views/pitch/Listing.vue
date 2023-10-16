@@ -195,23 +195,15 @@ onMounted(async () => {
                             <l-control
                                 v-if="mapActivePitch.show"
                                 :position="'topright'"
-                                class="bg-white border-gray-200 border hover:bg-gray-100 shadow p-5 m-3 w-60 rounded-xl inline-flex text-right gap-4"
+                                class="bg-white border-gray-200 border hover:bg-gray-100 shadow p-5 m-3 max-w-60 rounded-xl inline-flex text-right justify-center gap-4"
                                 @click="handleMapControlClick"
                             >
-                            <div class="flex-col inline-flex text-right">
-                                <div class="font-semibold text-md">{{ mapActivePitch.title }}dwdawdawkp[dkaw d[aw[d awkpd [apkwd [kawdp[ k]]]]]]</div>
-                                <div class="text-md">a lovely pitch</div>
-                            </div>
-                            <!-- <div class="inline-flex justify-between w-full cursor-pointer">
-                                <div class="aspect-square border-2 border-gray-500 bg-cover bg-no-repeat bg-center h-16 rounded-full" :style="{ backgroundImage: `url(${mapActivePitch.images[0].src})`}"></div>
-                                <div class="inline-flex flex-col gap-2 w-full items-end justify-between">
-                                    <div>
-                                        <div class="font-semibold text-md truncate ...">{{ mapActivePitch.title }}</div>
-                                        <div class="text-md truncate ...">a lovely pitch</div>
-                                    </div>
-                                    <div class="font-semibold underline">click to view</div>
+                            <div class="flex-col gap-6 inline-flex text-right items-center cursor-pointer">
+                                <div class="aspect-square border-2 border-gray-500 bg-cover bg-no-repeat bg-center h-20 w-20 rounded-full" :style="{ backgroundImage: `url(${mapActivePitch.images[0].src})`}"></div>
+                                <div class="gap-2 inline-flex flex-col">
+                                    <div class="font-semibold text-md truncate ...">{{ mapActivePitch.title }}</div>
                                 </div>
-                            </div> -->
+                            </div>
                             </l-control>
                             <l-circle v-if="selectedLocation.latitude" :lat-lng="[ selectedLocation.latitude, selectedLocation.longitude ]" :radius="parseInt(filters.radius ?? 5)*1.5*1000" color="#609966" />
                         </Map>

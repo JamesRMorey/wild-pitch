@@ -1,6 +1,7 @@
 <script setup>
 import Api from '../../services/Api';
 import { ref, watch } from 'vue';
+import { debounce } from 'lodash';
 
 const emit = defineEmits([ 'search' ]);
 
@@ -33,6 +34,8 @@ const getLocations = () => {
         .catch(( error ) => console.log(error));
 }
 
+const debouncedGetLocations = debounce(getLocations, 300);
+
 const updateLocations = ( result ) => {
     locations.value = result;
     showLocations.value = true;
@@ -46,9 +49,13 @@ const handleLocationClick = ( location ) => {
 }
 
 watch( text, () => {
+    if ( text.value == '' ) {
+        showLocations.value = false;
+        return;
+    }
     if (selectedLocation.value.name == text.value) return;
     selectedLocation.value = {};
-    getLocations( text.value );
+    debouncedGetLocations();
 });
 
 const handleDocumentClick = ( event ) => {
@@ -68,7 +75,7 @@ document.addEventListener('click', handleDocumentClick);
             </button>
         </div>
         <div class="relative md:mt-2 inline-flex">
-            <div v-if="showLocations && locations.length > 0" class="px-3 py-3 shadow bg-white absolute rounded-2xl w-full inline-flex flex-col gap-1">
+            <div v-if="showLocations == true && locations.length > 0" class="px-3 py-3 shadow bg-white absolute rounded-2xl w-full inline-flex flex-col gap-1">
                 <div v-for="( location, i ) in locations" class="py-3 px-4 hover:bg-gray-100 rounded-xl cursor-pointer" @click="handleLocationClick( location )">
                     {{ location.name }}
                 </div>

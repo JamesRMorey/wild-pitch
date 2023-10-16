@@ -15,6 +15,9 @@ const router = useRouter();
 
 const pitches = ref([]);
 
+const config = ref({
+    loading: true
+})
 const selectedLocation = ref({});
 const map = ref({
     show: false,
@@ -35,9 +38,11 @@ const getPitches = async () => {
     await api.getUserPitches()
         .then(( response ) => {
             updatePitches( response );
+            config.value.loading = false;
         })
         .catch(( error ) => {
             console.log( error );
+            config.value.loading = false;
         })
 }
 
@@ -97,6 +102,11 @@ const pageButtons = ref([
     { text: 'add', click: handleAddButtonClick },
 ])
 
+const handleMapControlClick = () => {
+    router.push('/pitches/pitch/' + mapActivePitch.value.id );
+}
+
+
 onMounted(() => {
     getPitches();
 })
@@ -104,7 +114,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <AccountLayout headerText="my pitches" subtitleText="manage, add and remove your listings" :buttons="pageButtons">
+    <AccountLayout headerText="my pitches" subtitleText="manage, add and remove your listings" :buttons="pageButtons" :loading="config.loading">
         <div class="inline-flex justify-start pb-4">
             <IconButton v-if="pitches.length" class="block" icon="fa-map" @press="handleMapButtonClick" :active="map.show" />
         </div>
@@ -114,23 +124,15 @@ onMounted(() => {
                     <l-control
                         v-if="mapActivePitch.show"
                         :position="'topright'"
-                        class="bg-white border-gray-200 border hover:bg-gray-100 shadow p-5 m-3 w-60 rounded-3xl inline-flex text-right gap-4"
+                        class="bg-white border-gray-200 border hover:bg-gray-100 shadow p-5 m-3 max-w-60 rounded-xl inline-flex text-right justify-center gap-4"
+                        @click="handleMapControlClick"
                     >
-                        <div class="aspect-square border-2 border-gray-500 bg-cover bg-no-repeat bg-center h-16 rounded-full" :style="{ backgroundImage: `url(${mapActivePitch.images[0].src})`}"></div>
-                        <div class="inline-flex flex-col gap-2 w-full items-end justify-between">
-                            <div>
-                                <div class="font-semibold text-md truncate ...">{{ mapActivePitch.title }}</div>
-                                <div class="text-md truncate ...">a lovely pitch</div>
-                            </div>
-                            <div class="inline-flex gap-2">
-                                <router-link :to="'/pitches/pitch/' + mapActivePitch.id"  class="">
-                                    <font-awesome-icon icon="fa-solid fa-eye" class="cursor-pointer" />
-                                </router-link>
-                                <div>
-                                    <font-awesome-icon icon="fa-solid fa-remove" class="cursor-pointer" @click="() => deletePitch( mapActivePitch.id )"/>
-                                </div>
-                            </div>
+                    <div class="flex-col gap-6 inline-flex text-right items-center cursor-pointer">
+                        <div class="aspect-square border-2 border-gray-500 bg-cover bg-no-repeat bg-center h-20 w-20 rounded-full" :style="{ backgroundImage: `url(${mapActivePitch.images[0].src})`}"></div>
+                        <div class="gap-2 inline-flex flex-col">
+                            <div class="font-semibold text-md truncate ...">{{ mapActivePitch.title }}</div>
                         </div>
+                    </div>
                     </l-control>
                 </Map>
             </div>

@@ -3,18 +3,9 @@
 const emit = defineEmits([ 'press' ]);
 
 const props = defineProps({
-    text: {
-        type: String,
-        required: true
-    },
     icon: {
         type: String,
         required: true,
-    },
-    loading: {
-        type: Boolean,
-        required: false,
-        default: false
     },
     active: {
         type: Boolean,

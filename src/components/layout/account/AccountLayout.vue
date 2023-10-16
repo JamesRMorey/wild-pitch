@@ -2,6 +2,7 @@
 import PageLayout from '../PageLayout.vue';
 import { toRefs } from 'vue';
 import CustomButton from '../../buttons/CustomButton.vue';
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
 const props = defineProps({
     headerText: {
@@ -16,6 +17,11 @@ const props = defineProps({
         type: Array,
         required: false,
         default: []
+    },
+    loading: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 });
 
@@ -34,6 +40,9 @@ const { buttons } = toRefs( props );
                 <CustomButton v-for="(button, i) in buttons" @press="button['click']()"  :text="button.text" />
             </div>
         </div>
-        <slot></slot>
+        <div v-if="loading" class="justify-center items-center inline-flex">
+            <PulseLoader color="#000000"/>
+        </div>
+        <slot v-else></slot>
     </PageLayout>
 </template>
