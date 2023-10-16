@@ -106,10 +106,10 @@ onMounted(() => {
 <template>
     <AccountLayout headerText="my pitches" subtitleText="manage, add and remove your listings" :buttons="pageButtons">
         <div class="inline-flex justify-start pb-4">
-            <IconButton v-if="pitches.length" class="hidden md:block" icon="fa-map" @press="handleMapButtonClick" :active="map.show" />
+            <IconButton v-if="pitches.length" class="block" icon="fa-map" @press="handleMapButtonClick" :active="map.show" />
         </div>
         <div v-if="map.show" class="inline-flex">
-            <div class="w-full aspect-video mb-6">
+            <div class="w-full aspect-[4/6] md:aspect-video mb-6">
                 <Map :latitude="map.latitude" :longitude="map.longitude" :markers="map.markers" v-model:zoom="map.zoom" @markerClick="markerClicked">
                     <l-control
                         v-if="mapActivePitch.show"
