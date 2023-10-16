@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import Api from '../services/api';
+import Api from '../services/Api';
 
 const api = new Api();
 
