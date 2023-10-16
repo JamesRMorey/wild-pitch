@@ -104,9 +104,9 @@ onMounted(() => {
 </script>
 
 <template>
-    <AccountLayout headerText="my pitches" subtitleText="manage, add, edit and remove your listings" :buttons="pageButtons">
+    <AccountLayout headerText="my pitches" subtitleText="manage, add and remove your listings" :buttons="pageButtons">
         <div class="inline-flex justify-start pb-4">
-            <IconButton v-if="pitches.length" icon="fa-map" @press="handleMapButtonClick" :active="map.show" />
+            <IconButton v-if="pitches.length" class="hidden md:block" icon="fa-map" @press="handleMapButtonClick" :active="map.show" />
         </div>
         <div v-if="map.show" class="inline-flex">
             <div class="w-full aspect-video mb-6">
@@ -136,7 +136,7 @@ onMounted(() => {
             </div>
         </div>
         <div v-else>
-            <div v-if="pitches.length" class="grid grid-cols-1 sm-grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 md:px-8 mb-16">
+            <div v-if="pitches.length" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 md:px-8 mb-16">
                 <AccountPitchCard v-if="pitches.length" v-for="( pitch, i ) in pitches" @destroy="handleDestroy" :id="pitch.id" :description="pitch.description" :title="pitch.title" :img="pitch?.images[0]?.src" :features="pitch.features"/>
             </div>
             <div v-else class="inline-flex justify-center items-center w-full">

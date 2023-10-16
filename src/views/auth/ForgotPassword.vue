@@ -50,12 +50,12 @@ const handleSubmit = async ( e ) => {
         <div class="flex flex-1">
             <Container>
                 <div class="w-full flex-1 flex-col gap-5 py-10 px-5 items-center inline-flex justify-center">
-                    <div class="inline-flex flex-col justify-center item-center gap-5 px-16">
-                        <div class="shadow rounded-2xl p-8 flex-col inline-flex gap-5">
+                    <div class="inline-flex flex-col w-full sm:w-96 justify-center item-center gap-5">
+                        <div class="rounded-2xl w-full flex-col inline-flex gap-5">
                             <form @submit="handleSubmit" class="flex-col inline-flex gap-5">
                                 <Alert v-if="config.message" :text="config.message" />
                                 <div class="flex-col inline-flex gap-3">
-                                    <TextInput class="w-96" v-model:value="formData.email" label="Email" :errors="config.errors?.email" type="email" @clear="config.errors.email = null"/>
+                                    <TextInput class="w-full sm:w-96" v-model:value="formData.email" label="Email" :errors="config.errors?.email" type="email" @clear="config.errors.email = null"/>
                                 </div>
                                 <div v-if="!config.showLogin" class="inline-flex justify-end pt-5">
                                     <CustomButton  text="submit" :loading="config.submitting"/>

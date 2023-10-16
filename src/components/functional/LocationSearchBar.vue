@@ -60,14 +60,14 @@ document.addEventListener('click', handleDocumentClick);
 </script>
 
 <template>
-    <div class="inline-flex flex-col relative">
-        <div class="bg-gray-100 rounded-full px-5 py-2.5 inline-flex items-center gap-5" ref="searchDiv">
-            <input class="grow shrink basis-0 sm:w-96 md:w-96 lg:w-96 bg-transparent text-gray" placeholder="an awesome place called..." v-model="text" @click="showLocations = true"/>
-            <button class="rounded-full bg-white items-center justify-center px-5 py-2.5 hover:bg-gray-200" @click="handleSearch" >
+    <div class="inline-flex flex-col relative w-full">
+        <div class="bg-gray-100 rounded-full px-5 py-4 md:py-2.5 inline-flex items-center gap-5 w-full" ref="searchDiv">
+            <input class="grow shrink basis-0 w-full sm:w-96 md:w-96 lg:w-96 bg-transparent text-gray" placeholder="an awesome place called..." v-model="text" @click="showLocations = true"/>
+            <button class="rounded-full bg-white items-center justify-center px-5 py-2.5 hover:bg-gray-200 hidden md:block" @click="handleSearch" >
                 <div class="text-md">search</div>
             </button>
         </div>
-        <div class="relative mt-2 inline-flex">
+        <div class="relative md:mt-2 inline-flex">
             <div v-if="showLocations && locations.length > 0" class="px-3 py-3 shadow bg-white absolute rounded-2xl w-full inline-flex flex-col gap-1">
                 <div v-for="( location, i ) in locations" class="py-3 px-4 hover:bg-gray-100 rounded-xl cursor-pointer" @click="handleLocationClick( location )">
                     {{ location.name }}

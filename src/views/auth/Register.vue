@@ -55,9 +55,9 @@ const handleSubmit = async ( e ) => {
         <PageHeader />
         <div class="flex flex-1">
             <Container>
-                <div class="w-full flex-1 flex-col md:grid md:grid-cols-2 gap-5 py-10 px-5">
+                <div class="w-full flex-1 flex-col lg:grid lg:grid-cols-2 gap-5 py-10 px-5 inline-flex justify-center items-center">
                     <form @submit="handleSubmit">
-                        <div class="inline-flex flex-col h-full justify-center item-center gap-5 px-16">
+                        <div class="inline-flex flex-col h-full justify-center gap-5 p-0 lg:px-16">
                             <div class="font-semibold text-3xl">Register</div>
                             <div class="flex-col inline-flex gap-3">
                                 <TextInput v-model:value="formData.name" :errors="config.errors?.name" label="Name" @clear="config.errors.name = null" />
@@ -81,7 +81,7 @@ const handleSubmit = async ( e ) => {
                             </div>
                         </div>
                     </form>
-                    <div class="w-full h-full rounded-3xl bg-center bg-cover hidden md:block text-right p-4" :style="{ backgroundImage: `url(${background})`}"></div>
+                    <div class="w-full h-full rounded-3xl bg-center bg-cover hidden text-right p-4 lg:block" :style="{ backgroundImage: `url(${background})`}"></div>
                 </div>
             </Container>
         </div>

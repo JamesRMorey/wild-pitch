@@ -74,9 +74,9 @@ onMounted(() => {
 
 <template>
     <AccountLayout headerText="your account" subtitleText="manage, edit and remove your details">   
-        <div class="inline-flex justify-center items-center">
-            <div class="bg-white shadow rounded-2xl p-8 inline-flex gap-6">
-                <form @submit="handleSubmit" class="inline-flex flex-col gap-5">
+        <div class="w-full inline-flex justify-center items-center">
+            <div class="bg-white shadow rounded-2xl w-full md:w-auto p-8 inline-flex gap-10 md:gap-6 flex-col md:flex-row mb-16">
+                <form @submit="handleSubmit" class="inline-flex flex-col gap-5 w-full md:w-96">
                     <TextInput v-if="config.loaded" v-model:value="user.name" label="Name" :errors="config.errors.name" @clear="config.errors.name = null"/>
                     <TextInput v-else label="Name" value=""/>
                     <TextInput v-if="config.loaded" v-model:value="user.email" label="Email" :errors="config.errors.email" @clear="config.errors.email = null"/>
@@ -85,7 +85,7 @@ onMounted(() => {
                         <CustomButton text="Update" :loading="config.submitting"/>
                     </div>
                 </form>
-                <div class="inline-flex justify-between items-center flex-col bg-gray-100 p-5 rounded-2xl">
+                <div class="inline-flex justify-between items-center flex-col bg-gray-100 p-5 rounded-2xl gap-7">
                     <img src="/logos/icon.png" class="h-32" />
                     <CustomButton text="Delete Account" @press="handleDeletePress"/>
                 </div>

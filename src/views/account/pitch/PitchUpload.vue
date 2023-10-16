@@ -140,7 +140,7 @@ onMounted(() => {
     <AccountLayout headerText="my pitches" subtitleText="add a new pitch, everyone will thank you!">
         <div class="inline-flex w-full pb-16">
             <form class="inline-flex gap-5 flex-col" @submit="handleSubmit">
-                <div class="inline-flex gap-16 w-full">
+                <div class="inline-flex gap-16 w-full flex-col lg:flex-row">
                     <div class="inline-flex flex-col w-full gap-5">
                         <div class="flex-col inline-flex gap-3">
                             <TextInput v-model:value="form.title" label="Title" :errors="config.errors?.title" @clear="config.errors.title = null"/>

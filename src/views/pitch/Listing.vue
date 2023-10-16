@@ -148,14 +148,14 @@ onMounted(async () => {
         <PageHeader />
         <BannerSlim title="Pitches"/>
         <Container>
-            <div class="inline-flex w-full justify-center items-center pt-16 z-10 gap-5" style="z-index: 10000;" v-if="config.loaded">
-                <LocationSearchBar @search="handleSearch" :initialText="selectedLocation.name ?? ''"/>
+            <div class="inline-flex w-full flex-col sm:flex-row justify-center items-center pt-16 z-10 gap-5" style="z-index: 10000;" v-if="config.loaded">
+                <LocationSearchBar class="md:w-1/2" @search="handleSearch" :initialText="selectedLocation.name ?? ''"/>
                 <div class="inline-flex gap-3">
-                    <IconButton @press="() => filters.show = !filters.show" :active="map.show" icon="fa-filter"/>
+                    <IconButton @press="() => filters.show = !filters.show" :active="filters.show" icon="fa-filter"/>
                     <IconButton @press="handleMapModeClick" :active="map.show" icon="fa-map"/>
                 </div>
             </div>
-            <div v-if="config.loaded" class="inline-flex pt-8 gap-8 z-1">
+            <div v-if="config.loaded" class="inline-flex pt-8 gap-8 z-1 flex-col lg:flex-row items-center lg:items-start">
                 <div v-if="filters.show" class="w-64 flex-col inline-flex">
                     <div class="w-full inline-flex flex-col shadow p-5 rounded-xl">
                         <div class="text-lg font-semibold">Search Radius</div>
@@ -190,7 +190,7 @@ onMounted(async () => {
                             <NoResults />
                         </div>
                     </div>
-                    <div v-if="map.show" class="w-full aspect-video mb-6">
+                    <div v-if="map.show" class="w-full aspect-[4/6] md:aspect-video mb-6">
                         <Map :latitude="map.latitude" v-model:zoom="map.zoom" :longitude="map.longitude" :markers="map.markers" @markerClick="markerClicked">
                             <l-control
                                 v-if="mapActivePitch.show"

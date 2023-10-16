@@ -57,7 +57,7 @@ onMounted(() => {
 
 <template>
     <PageLayout>
-        <div v-if="pitch">
+        <div v-if="pitch" class="px-4 xl:px-0">
             <div class="pt-8 inline-flex w-full justify-between items-center">
                 <div class="text-3xl font-semibold truncate...">{{ pitch.title }}</div>
                 <div v-if="authStore.user">
@@ -74,8 +74,8 @@ onMounted(() => {
             <div class="pt-5 pb-8">
                 <ImageGrid :images="pitch.images.map((image) => image.src)" />
             </div>
-            <div class="inline-flex gap-5 pb-32 w-full">
-                <div class="flex-col inline-flex gap-10 w-3/5">
+            <div class="inline-flex gap-5 pb-32 w-full flex-col lg:flex-row">
+                <div class="flex-col inline-flex gap-10 w-full lg:w-3/5">
                     <div class="flex-col inline-flex gap-3">
                         <div class="text-xl font-semibold">What To Expect</div>
                         <div>{{ pitch.description }}</div>
@@ -89,16 +89,16 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
-                    <div class="border-t border-b border-gray-200 p-5 inline-flex gap-5">
-                        <div class="rounded-full h-full aspect-square bg-cover bg-center" style="background-image: url('https://www.theordinaryadventurer.com/wp-content/uploads/2016/09/P5290068.jpg');"></div>
+                    <div v-if="pitch.user" class="border-t border-b border-gray-200 p-5 hidden lg:inline-flex gap-5 ">
+                        <div class="rounded-full h-full aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.png')"></div>
                         <div class="inline-flex flex-col">
                             <div class="text-xl font-semibold capitalize">Posted By {{ pitch.user.name }}</div>
                             <div class="text-gray-300 text-md">Member since 2023</div>
                         </div>
                     </div>
                 </div>
-                <div class="inline-flex flex-col gap-5 w-2/5">
-                    <div class="flex-col hidden  lg:inline-flex gap-3">
+                <div class="inline-flex flex-col gap-5 w-full lg:w-2/5">
+                    <div class="flex-col inline-flex gap-3">
                         <!-- <div class="font-semibold text-xl">Map</div> -->
                         <div class="inline-flex aspect-square flex-col">
                             <Map :latitude="pitch.latitude" :longitude="pitch.longitude" :markers="[{ lat: pitch.latitude, lng: pitch.longitude }]"/>
@@ -107,6 +107,13 @@ onMounted(() => {
                             <div class="underline font-semibold cursor-pointer">Open in maps</div>
                             <div>( {{ pitch.latitude }} , {{ pitch.longitude }} )</div>
                         </div>
+                    </div>
+                </div>
+                <div v-if="pitch.user" class="border-t border-b border-gray-200 p-5 inline-flex gap-5 inline-flex lg:hidden">
+                    <div class="rounded-full h-full w-16 aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.png')"></div>
+                    <div class="inline-flex flex-col">
+                        <div class="text-xl font-semibold capitalize">Posted By {{ pitch.user.name }}</div>
+                        <div class="text-gray-300 text-md">Member since 2023</div>
                     </div>
                 </div>
             </div>
