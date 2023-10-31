@@ -1,7 +1,7 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://api.wild-pitch.co.uk/';
+axios.defaults.baseURL = process.env.API_URL;
 
 export default class Api {
     constructor() {}
