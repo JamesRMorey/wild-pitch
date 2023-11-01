@@ -1,12 +1,10 @@
 import axios from "axios";
 
-
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'https://api.wild-pitch.co.uk/';
 
 export default class Api {
-    constructor() {
-        axios.defaults.withCredentials = true;
-        axios.defaults.baseURL = 'https://api.wild-pitch.co.uk/';
-    }
+    constructor() {}
 
     async getCSRF() {
         return new Promise(async ( resolve, reject ) => {
