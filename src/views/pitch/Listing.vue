@@ -162,7 +162,7 @@ onMounted(async () => {
                         <select
                             id="select"
                             v-model="filters.radius"
-                            class="w-full mt-2 border bg-gray-100 rounded-md px-2 py-2"
+                            class="w-full mt-2 border-2 border-gray-200 bg-gray-100 rounded-md px-3 py-2 font-semibold"
                             @change="handleSearch( selectedLocation, 1 )"
                             >
                             <option value="5">5km</option>

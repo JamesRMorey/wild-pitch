@@ -22,9 +22,7 @@ const handleSearch = ( location ) => {
         <BannerWithSearch @search="handleSearch">
             <template v-slot:content>
                 <div class="inline-flex justify-center items-center flex-col gap-6">
-                    <img src="/logos/icon-white.png" class="block sm:hidden w-48" />
-                    <img src="/logos/text-white.png" class="hidden sm:block sm:w-96"/>
-                    <div class="text-white text-xl hidden sm:block ">A free community collection of the best wild camping spots in the UK</div>
+                    <img src="/logos/icon-white.png" class="block w-64" />
                 </div>
             </template>
         </BannerWithSearch>
