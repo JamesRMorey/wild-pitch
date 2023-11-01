@@ -156,8 +156,8 @@ onMounted(async () => {
                 </div>
             </div>
             <div v-if="config.loaded" class="inline-flex pt-8 gap-8 z-1 flex-col lg:flex-col items-center lg:items-start">
-                <div v-if="filters.show" class="w-64 flex-col inline-flex items-start bg-gray-100 shadow p-5 rounded-xl w-full">
-                    <div class="p-5 rounded-xl w-full md:w-1/2 lg:w-1/3 bg-white">
+                <div v-if="filters.show" class="w-64 flex-col inline-flex items-start bg-gray-100 shadow p-5 rounded-3xl w-full">
+                    <div class="p-5 rounded-3xl w-full md:w-1/2 lg:w-1/3 bg-white">
                         <div class="text-lg font">Radius</div>
                         <select
                             id="select"
