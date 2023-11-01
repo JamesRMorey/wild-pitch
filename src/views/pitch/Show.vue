@@ -57,7 +57,7 @@ onMounted(() => {
 
 <template>
     <PageLayout>
-        <div v-if="pitch" class="px-4 xl:px-0">
+        <div v-if="pitch">
             <div class="pt-8 inline-flex w-full justify-between items-center">
                 <div class="text-3xl font-semibold truncate...">{{ pitch.title }}</div>
                 <div v-if="authStore.user">
