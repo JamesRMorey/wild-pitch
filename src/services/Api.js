@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'https://api.wild-pitch.co.uk/';
@@ -10,7 +11,7 @@ export default class Api {
         return new Promise(async ( resolve, reject ) => {
             await axios.get( 'sanctum/csrf-cookie' )
             .then(( response ) => {
-                resolve();
+                resolve(response);
             }) 
             .catch(( error ) => {
                 reject( error );
@@ -20,9 +21,14 @@ export default class Api {
     
     async login( email, password ) {
         return new Promise(async ( resolve, reject ) => {
-            await axios.get( 'sanctum/csrf-cookie' )
-            await axios.post( 'login', { email: email, password: password } )
+            await axios.get( 'sanctum/csrf-cookie' );
+            await axios.post( 'login', { email: email, password: password }, {
+                headers: {
+                    'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
+                  },
+            } )
             .then(( response ) => {
+                
                 resolve( response.data );
             })
             .catch(( error ) => {
