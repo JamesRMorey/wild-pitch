@@ -1,6 +1,6 @@
 <script setup>
 import { randomInt } from '../../services/Helpers';
-import { backgrounds } from '../../services/Consts';
+import { slims } from '../../services/Consts';
 import { ref } from 'vue';
 
 const props = defineProps({
@@ -11,8 +11,8 @@ const props = defineProps({
     }
 });
 
-const random = ref(randomInt(0, backgrounds.length-1));
-const background = backgrounds[random.value];
+const random = ref(randomInt(0, slims.length-1));
+const background = slims[random.value];
 
 </script>
 
