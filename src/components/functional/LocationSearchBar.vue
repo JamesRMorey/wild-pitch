@@ -77,7 +77,7 @@ document.addEventListener('click', handleDocumentClick);
         <div class="relative md:mt-2 inline-flex">
             <div v-if="showLocations == true && locations.length > 0" class="px-3 py-3 shadow bg-white absolute rounded-2xl w-full inline-flex flex-col gap-1">
                 <div v-for="( location, i ) in locations" class="py-3 px-4 hover:bg-gray-100 rounded-xl cursor-pointer" @click="handleLocationClick( location )">
-                    {{ location.name }}
+                    {{ location.name }} - {{ location.county }}
                 </div>
             </div>
         </div>
