@@ -49,11 +49,14 @@ onMounted(() => {
                     <Logo/>
                 </router-link>
                 <div class="inline-flex items-center gap-3">
+                    <router-link :to="{ name: 'pitch-listing' }" class="hidden md:block text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
+                        Find A Pitch
+                    </router-link>
                     <IconButton icon="fa-user" @press="router.push({ name: 'account-home' })"/>
                     <div @click="() => modal.show = true" v-if="authStore.user" class="cursor-pointer text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
                         Log out
                     </div>
-                    <router-link v-if="!authStore.user" to="/login" class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
+                    <router-link v-if="!authStore.user" :to="{ name: 'login' }" class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
                         Log in
                     </router-link>
                 </div>
