@@ -20,16 +20,14 @@ export default class Api {
     
     async login( email, password ) {
         return new Promise(async ( resolve, reject ) => {
-            await axios.get( 'sanctum/csrf-cookie' ).then(async ( cookie ) => {
-                await axios.post( 'login', { email: email, password: password } )
-                .then(( response ) => {
-                    resolve( response.data );
-                })
-                .catch(( error ) => {
-                    reject( error.response.data );
-                })
+            await axios.get( 'sanctum/csrf-cookie' )
+            await axios.post( 'login', { email: email, password: password } )
+            .then(( response ) => {
+                resolve( response.data );
             })
-            
+            .catch(( error ) => {
+                reject( error.response.data );
+            })
         })
     }
 
