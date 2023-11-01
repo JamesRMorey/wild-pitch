@@ -10,17 +10,24 @@ export default class Api {
         return new Promise(async ( resolve, reject ) => {
             await axios.get( 'sanctum/csrf-cookie' )
             .then(( response ) => {
-                resolve();
+                const csrfToken = document.cookie
+                .split('; ')
+                .find((cookie) => cookie.startsWith('XSRF-TOKEN='))
+                .split('=')[1];
+                
+                axios.defaults.headers.common['X-XSRF-TOKEN'] = csrfToken;
+
+                resolve(csrfToken);
             }) 
             .catch(( error ) => {
                 reject( error );
             })
         })
     }
-    
+
     async login( email, password ) {
         return new Promise(async ( resolve, reject ) => {
-            await axios.get( 'sanctum/csrf-cookie' )
+            await this.getCSRF();
             await axios.post( 'login', { email: email, password: password } )
             .then(( response ) => {
                 resolve( response.data );
