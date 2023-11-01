@@ -71,12 +71,12 @@ const unSavePitch = async ( id ) => {
 
 <template>
     <div class="w-full inline-flex flex-col gap-3 justify-center bg-center bg-cover">
-        <div class="w-full rounded-xl bg-center bg-cover aspect-square text-right p-4" :style="{ backgroundImage: `url(${img})`}">
+        <router-link :to="'/pitches/pitch/' + pitchId" class="w-full rounded-xl bg-center bg-cover aspect-square text-right p-4" :style="{ backgroundImage: `url(${img})`}">
             <div v-if="authStore.user">
                 <font-awesome-icon v-if="saved" icon="fa-solid fa-heart" class="cursor-pointer" size="lg" @click="() => unSavePitch( pitchId )"/>
                 <font-awesome-icon v-else icon="fa-solid fa-heart-broken" class="cursor-pointer" size="lg" @click="() => savePitch( pitchId )"/>
             </div>
-        </div>
+        </router-link>
         <div class="inline-flex flex-col">
             <div class="inline-flex flex-col">
                 <div class="text-lg font-semibold capitalize truncate ...">{{ title }}</div>
@@ -89,7 +89,7 @@ const unSavePitch = async ( id ) => {
                     </div>
                 </div>
                 <div v-else></div>
-                <router-link :to="'/pitches/pitch/' + pitchId"  class="mt-5 underline text-right">
+                <router-link :to="'/pitches/pitch/' + pitchId"  class="mt-5 bg-gray-100 px-3 py-1 rounded-xl hover:bg-gray-200 text-right">
                     view
                 </router-link>
             </div>
