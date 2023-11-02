@@ -5,6 +5,7 @@ import PageFooter from '../components/layout/PageFooter.vue';
 import BannerWithSearch from '../components/banners/BannerWithSearch.vue';
 import TextImageSplit from '../components/content/TextImageSplit.vue';
 import Container from '../components/layout/Container.vue';
+import BannerSlim from '../components/banners/BannerSlim.vue';
 
 const router = useRouter();
 
@@ -28,13 +29,28 @@ const handleSearch = ( location ) => {
                 </div>
             </template>
         </BannerWithSearch>
-        <Container>
+        <Container class="px-10 py-6">
             <TextImageSplit 
-                text="Wild Pitch is a community collection of the best wild camping spots in the UK. We always found it a stuggle searching facebook groups and forums to find a good spot for our next trip, and so, Wild Pitch was born! Our service is totally free to use. All our pitches are verified to the best of our ability by our admin team to ensure you get the best experience when using our service." 
+                text="Wild Pitch is a community collection of the best wild camping spots in the UK. We always found it a stuggle searching facebook groups and forums to find a good spot for our next trip, and so, Wild Pitch was born! Our service is totally free to use, so why not create an account and upload some of your favourite spots?" 
+                image="/backgrounds/square/square_2.webp" 
+                title="Wild Pitch"
+            />
+            <TextImageSplit 
+                text="We rely on our community of campers to upload the UK's finest spots. If you have an amazing pitch, or have just come back from an awesome trip and you'd like to let the UK know about it, this is the place to do it. All our pitches are verified to the best of our ability by our admin team to ensure you get the best experience when using our service." 
                 image="/backgrounds/square/square_3.webp" 
+                title="Community"
+                inverted="true"
+            />
+            <TextImageSplit 
+                text="We are a small team of weekend wild camping enthusiasts! We love everything about getting outdoor, we just found it a little harder than it should be to find a great spot. " 
+                image="/backgrounds/square/square_1.webp" 
                 title="About Us"
-                />
+            />
             <div class="flex-1 flex"></div>
+        </Container>
+        <BannerSlim title="Find Your Next Adventure"/>
+        <Container>
+            
         </Container>
         <PageFooter />
     </div>

@@ -12,14 +12,19 @@ const props = defineProps({
     title: {
         type: String,
         required: false
+    },
+    inverted: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 });
 
 </script>
 
 <template>
-    <div class="px-0 py-10 lg:px-32 lg:py-24 inline-flex gap-10 inline-flex grid lg:grid-cols-2  items-center">
-        <div class="lg:px-5 inline-flex justify-center items-center">
+    <div class="px-0 py-10 lg:px-32 lg:py-12 inline-flex gap-10 inline-flex grid lg:grid-cols-2 items-center">
+        <div class="lg:px-5 inline-flex justify-center items-center" :class="inverted ? 'lg:order-last' : ''">
             <div 
                 :style="{ backgroundImage: `url(${image})`}"
                 class="h-auto sm:h-64 lg:h-auto aspect-video lg:aspect-square w-full bg-cover bg-center rounded-2xl shadow"
