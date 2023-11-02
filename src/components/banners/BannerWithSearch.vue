@@ -23,7 +23,7 @@ const handleSearch = ( location ) => {
 </script>
 
 <template>
-    <div class="w-full flex-col px-10 md:px-0 gap-12 inline-flex inline-flex py-60 justify-center items-center bg-center bg-cover" :style="{ backgroundImage: `url(${background})`}">
+    <div class="w-full flex-col px-10 md:px-0 gap-12 inline-flex inline-flex py-15 lg:py-50 justify-center items-center bg-center bg-cover" :style="{ backgroundImage: `url(${background})`}">
         <div class="inline-flex flex-col text-center gap-2 p-8 rounded-2xl">
             <slot name="content"></slot>
         </div>
