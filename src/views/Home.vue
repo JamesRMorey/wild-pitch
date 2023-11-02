@@ -42,13 +42,13 @@ const handleSearch = ( location ) => {
                 inverted="true"
             />
             <TextImageSplit 
-                text="We are a small team of weekend wild camping enthusiasts! We love everything about getting outdoor, we just found it a little harder than it should be to find a great spot. " 
+                text="We are a small team of weekend wild camping enthusiasts! We love everything about getting outdoors, we just found it a little harder than it should be to find a great spot. " 
                 image="/backgrounds/square/square_1.webp" 
                 title="About Us"
             />
             <div class="flex-1 flex"></div>
         </Container>
-        <BannerSlim title="Find Your Next Adventure"/>
+        <BannerSlim title="Find Your Next Pitch" :link="{ name: 'pitch-listing' }"/>
         <Container>
             
         </Container>

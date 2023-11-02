@@ -62,7 +62,7 @@ const handleSubmit = async ( e ) => {
                                 <TextInput v-model:value="formData.password" type="password" :errors="config.errors?.password" label="Password" @clear="config.errors.password = null" />
                             </div>
                             <div class="flex-col inline-flex gap-3">
-                                <TextInput v-model:value="formData.confirmPassword" :errors="config.errors?.password" :hideErrorText="true" label="Confirm Password" @clear="config.errors.password = null" />
+                                <TextInput v-model:value="formData.confirmPassword" type="password" :errors="config.errors?.password" :hideErrorText="true" label="Confirm Password" @clear="config.errors.password = null" />
                             </div>
                             <div class="inline-flex justify-end pt-5">
                                 <CustomButton text="register" :loading="config.submitting"/>

@@ -8,6 +8,10 @@ const props = defineProps({
         type: String,
         required: false,
         default: ''
+    },
+    link: {
+        type: Object,
+        required: false,
     }
 });
 
@@ -17,9 +21,10 @@ const background = slims[random.value];
 </script>
 
 <template>
-    <div class="w-full inline-flex inline-flex h-64 justify-center items-center bg-center bg-cover" :style="{ backgroundImage: `url(${background})`}">
-        <!-- <div class="inline-flex flex-col text-center gap-2 p-8 bg-black rounded-2xl bg-opacity-40"> -->
-            <div class="text-3xl font-bold text-white capitalize">{{ title }}</div>
-        <!-- </div> -->
+    <RouterLink v-if="link" :to="link" class="w-full inline-flex inline-flex h-64 justify-center items-center bg-center bg-cover cursor-pointer hover:text-black transition text-3xl font-bold text-white capitalize" tabindex="0" :style="{ backgroundImage: `url(${background})`}">
+        {{ title }}
+    </RouterLink>
+    <div v-else class="w-full inline-flex inline-flex h-64 justify-center items-center bg-center bg-cover text-3xl font-bold text-white capitalize" tabindex="0" :style="{ backgroundImage: `url(${background})`}">
+        {{ title }}
     </div>
 </template>
