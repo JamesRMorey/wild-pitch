@@ -150,7 +150,7 @@ onMounted(async () => {
         <Container>
             <div class="inline-flex w-full flex-col sm:flex-row justify-center items-center pt-16 z-10 gap-5" style="z-index: 10000;" v-if="config.loaded">
                 <LocationSearchBar class="md:w-1/2" @search="handleSearch" :initialText="selectedLocation.name ?? ''"/>
-                <div class="inline-flex gap-3">
+                <div class="inline-flex gap-3 w-full sm:w-auto justify-end">
                     <IconButton @press="() => filters.show = !filters.show" :active="filters.show" icon="fa-filter"/>
                     <IconButton @press="handleMapModeClick" :active="map.show" icon="fa-map"/>
                 </div>
