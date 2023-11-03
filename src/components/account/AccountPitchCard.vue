@@ -42,8 +42,8 @@ const destroy = async () => {
 
 <template>
     <div class="w-full inline-flex flex-col gap-3 justify-center bg-center bg-cover">
-        <div class="w-full rounded-xl bg-center bg-cover aspect-square" :style="{ backgroundImage: `url(${img})`}">
-        </div>
+        <router-link :to="'/pitches/pitch/' + id" class="w-full rounded-xl bg-center bg-cover aspect-square" :style="{ backgroundImage: `url(${img})`}">
+        </router-link>
         <div class="inline-flex flex-col gap-3">
             <div class="inline-flex flex-col">
                 <div class="text-lg font-semibold capitalize truncate ...">{{ title }}</div>
