@@ -86,7 +86,7 @@ onMounted(() => {
                     </div>
                 </form>
                 <div class="inline-flex justify-between items-center flex-col bg-gray-100 p-5 rounded-2xl gap-7">
-                    <img src="/logos/icon.webp" class="h-32" />
+                    <img src="/logos/icon.webp" class="h-32" alt="wild pitch logo"/>
                     <CustomButton text="Delete Account" @press="handleDeletePress"/>
                 </div>
             </div>

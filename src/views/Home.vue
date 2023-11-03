@@ -25,7 +25,7 @@ const handleSearch = ( location ) => {
         <BannerWithSearch @search="handleSearch">
             <template v-slot:content>
                 <div class="inline-flex justify-center items-center flex-col gap-6">
-                    <img src="/logos/icon-white.webp" class="block w-64" />
+                    <img src="/logos/icon-white.webp" class="block w-64" alt="logo image"/>
                 </div>
             </template>
         </BannerWithSearch>
