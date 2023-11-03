@@ -90,7 +90,7 @@ onMounted(() => {
                         </div>
                     </div>
                     <div v-if="pitch.user" class="border-t border-b border-gray-200 p-5 hidden lg:inline-flex gap-5 ">
-                        <div class="rounded-full h-full aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.png')"></div>
+                        <div class="rounded-full h-full aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.webp')"></div>
                         <div class="inline-flex flex-col">
                             <div class="text-xl font-semibold capitalize">Posted By {{ pitch.user.name }}</div>
                             <div class="text-gray-300 text-md">Member since 2023</div>
@@ -110,7 +110,7 @@ onMounted(() => {
                     </div>
                 </div>
                 <div v-if="pitch.user" class="border-t border-b border-gray-200 p-5 inline-flex gap-5 inline-flex lg:hidden">
-                    <div class="rounded-full h-full w-16 aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.png')"></div>
+                    <div class="rounded-full h-full w-16 aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.webp')"></div>
                     <div class="inline-flex flex-col">
                         <div class="text-xl font-semibold capitalize">Posted By {{ pitch.user.name }}</div>
                         <div class="text-gray-300 text-md">Member since 2023</div>

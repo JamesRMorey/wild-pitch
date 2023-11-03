@@ -10,3 +10,10 @@ export const slims = [
     '/backgrounds/slim/slim_3.webp',
     '/backgrounds/slim/slim_4.webp',
 ];
+
+export const squares = [
+    '/backgrounds/square/square_1.webp',
+    '/backgrounds/square/square_2.webp',
+    '/backgrounds/square/square_3.webp',
+    '/backgrounds/square/square_4.webp',
+];
