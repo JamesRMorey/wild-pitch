@@ -29,7 +29,7 @@ const handleSearch = ( location ) => {
                 </div>
             </template>
         </BannerWithSearch>
-        <Container class="px-10 py-6">
+        <Container class="px-5 py-6">
             <TextImageSplit 
                 text="Wild Pitch is a community collection of the best wild camping spots in the UK. We always found it a stuggle searching facebook groups and forums to find a good spot for our next trip, and so, Wild Pitch was born! Our service is totally free to use, so why not create an account and upload some of your favourite spots?" 
                 image="/backgrounds/square/square_2.webp" 
