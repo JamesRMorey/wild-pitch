@@ -177,7 +177,7 @@ onMounted(() => {
                 </div>
                 <div class="w-full aspect-video">
                     <div class="text-lg mb-2">Where is it?</div>
-                    <Map :latitude="form.latitude ?? map.latitude" :longitude="form.longitude ?? map.longitude" :markers="map.markers" :zoom="map.zoom" @marker-added="updatePosition" :class="config.errors.latitude || config.errors.longitude ? 'border-2 border-red-400 rounded-xl' : ''"/>
+                    <Map class="aspect-square md:aspect-video" :latitude="form.latitude ?? map.latitude" :longitude="form.longitude ?? map.longitude" :markers="map.markers" :zoom="map.zoom" @marker-added="updatePosition" :class="config.errors.latitude || config.errors.longitude ? 'border-2 border-red-400 rounded-xl' : ''"/>
                     <ErrorText v-if="config.errors.latitude || config.errors.longitude" :text="config.errors.latitude[0] || config.errors.longitude[0]" />
                 </div>
                 <div class="justify-end inline-flex items-end mt-7">

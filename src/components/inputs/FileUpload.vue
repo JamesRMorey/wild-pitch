@@ -30,7 +30,7 @@ const handleDropFiles = ( event ) => {
 </script>
 
 <template>
-    <div class="inline-flex flex-col w-full border-gray-200 border-2 border-dashed rounded-3xl px-32 py-10 justify-center hover:bg-gray-100 gap-5"
+    <div class="inline-flex flex-col w-full border-gray-200 border-2 border-dashed rounded-3xl px-10 md:px-24 py-10 justify-center hover:bg-gray-100 gap-5"
         :class="[ isDragging ? 'bg-gray-100' : '', error ? 'border-red-400' : '']"
         @dragover.prevent="isDragging = true"
         @dragleave="isDragging = false"

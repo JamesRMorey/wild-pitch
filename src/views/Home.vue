@@ -54,15 +54,16 @@ const handleSearch = ( location ) => {
         </Container>
         <BannerSlim title="Find Your Next Pitch" :link="{ name: 'pitch-listing' }"/>
         <Container>
-            <div class="py-12 gap-12 inline-flex flex-col">
+            <div class="py-8 pt-12 md:py-12 gap-12 inline-flex flex-col">
                 <HeaderWithText title="Some of our favourites" text="Check out some our admin teams favourite pitches. Theses are places we've visited ourselves and loved so much we wanted to share them with you."/>
                 <Favourites />
             </div>
-            <div class="py-12 gap-12 inline-flex flex-col">
+            <div class="py-8 md:py-12 gap-12 pb-16 lg:pb-32 inline-flex flex-col">
                 <Header title="Top Locations" />
                 <TopLocations @locationClick="( locationId ) => handleSearch({ id: locationId })"/>
             </div>
         </Container>
+        <BannerSlim />
         <PageFooter />
     </div>
 </template>
