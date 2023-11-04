@@ -1,9 +1,5 @@
 <script setup>
 import AccountLayout from '../../components/layout/account/AccountLayout.vue';
-import { onMounted } from 'vue';
-import Api from '../../services/Api';
-
-const api = new Api();
 
 const menuItems = [
     {
@@ -25,10 +21,6 @@ const menuItems = [
         icon: 'fa-solid fa-user'
     },
 ];
-
-onMounted(() => {
-
-})
 
 </script>
 
