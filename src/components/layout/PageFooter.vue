@@ -13,7 +13,7 @@ import Logo from './Logo.vue';
                     <Logo />
                 </router-link>
             </div>
-            <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+            <div class="grid grid-cols-3 gap-8 sm:gap-6 sm:grid-cols-3">
                 <div>
                 </div>
                 <div>

@@ -35,10 +35,6 @@ const logoutUser =  async () => {
     })
 }
 
-onMounted(() => {
-
-})
-
 </script>
 
 <template>

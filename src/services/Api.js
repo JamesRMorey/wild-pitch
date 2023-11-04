@@ -271,4 +271,16 @@ export default class Api {
         })
     }
 
+    async getFavouritePitches() {
+        return new Promise(async ( resolve, reject ) => {
+            await axios.get( 'api/content/favourite-pitches' )
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error );
+            })
+        })
+    }
+
 }
