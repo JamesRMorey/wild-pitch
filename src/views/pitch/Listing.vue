@@ -37,7 +37,7 @@ const paginator = ref({
 const selectedLocation = ref({});
 const filters = ref({
     show: false,
-    radius: radius > 0 && radius <= 100 ? radius : 5
+    radius: radius > 0 && radius <= 100 ? radius : 15
 })
 const map = ref({
     show: mapMode == 1 ? 1 : 0,
@@ -178,10 +178,8 @@ onMounted(async () => {
                         <div v-if="loading" class="w-full h-full rounded-2xl z-2 absolute justify-center items-center inline-flex p-32 bg-white opacity-50">
                             <PulseLoader color="#000000" />
                         </div>
-                        <div v-if="pitches.length > 0" class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 pb-8">
-                            <div v-for="(pitch, i) in pitches">
-                                <PitchCard :title="pitch.title" :description="pitch.description" :img="pitch?.images[0]?.src" :pitchId="pitch.id" :is-saved="pitch.is_saved" :features="pitch.features"/>
-                            </div>
+                        <div v-if="pitches.length > 0" class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 pb-8">
+                            <PitchCard v-for="(pitch, i) in pitches" :title="pitch.title" :description="pitch.description" :img="pitch?.images[0]?.src" :pitchId="pitch.id" :is-saved="pitch.is_saved" :features="pitch.features"/>
                         </div>
                         <div v-else-if="showInitialNoResults" class="inline-flex justify-center items-center pb-8">
                             <NoResults text="So... where are we going?"/>

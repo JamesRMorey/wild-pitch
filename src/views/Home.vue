@@ -8,6 +8,8 @@ import Container from '../components/layout/Container.vue';
 import BannerSlim from '../components/banners/BannerSlim.vue';
 import HeaderWithText from '../components/content/HeaderWithText.vue';
 import Favourites from '../components/content/Favourites.vue';
+import TopLocations from '../components/content/TopLocations.vue';
+import Header from '../components/content/Header.vue';
 
 const router = useRouter();
 
@@ -52,8 +54,14 @@ const handleSearch = ( location ) => {
         </Container>
         <BannerSlim title="Find Your Next Pitch" :link="{ name: 'pitch-listing' }"/>
         <Container>
-            <HeaderWithText title="Some of our favourites" text="Check out some our admin teams favourite pitches. Theses are places we've visited ourselves and loved so much we wanted to share them with you."/>
-            <Favourites />
+            <div class="py-12 gap-12 inline-flex flex-col">
+                <HeaderWithText title="Some of our favourites" text="Check out some our admin teams favourite pitches. Theses are places we've visited ourselves and loved so much we wanted to share them with you."/>
+                <Favourites />
+            </div>
+            <div class="py-12 gap-12 inline-flex flex-col">
+                <Header title="Top Locations" />
+                <TopLocations @locationClick="( locationId ) => handleSearch({ id: locationId })"/>
+            </div>
         </Container>
         <PageFooter />
     </div>

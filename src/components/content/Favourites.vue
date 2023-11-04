@@ -46,7 +46,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="px-16 py-10 lg:px-32 lg:py-12 inline-flex inline-flex items-center justify-center">
+    <div class="px-16 lg:px-32 inline-flex inline-flex items-center justify-center w-full">
         <div v-if="config.loading">
             <PulseLoader color="#000000"/>
         </div>

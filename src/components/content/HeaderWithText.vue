@@ -14,7 +14,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="px-0 py-10 md:px-8 xl:px-0 lg:py-12 inline-flex gap-10 inline-flex items-center flex-col md:flex-row text-center md:text-left">
+    <div class="px-0 md:px-8 xl:px-0 inline-flex gap-10 inline-flex items-center flex-col md:flex-row text-center md:text-left">
         <h2 class="text-4xl font-semibold w-3/4">{{ title }}</h2>
         <div class="w-full">{{ text }}</div>
     </div>
