@@ -31,7 +31,13 @@ const getFavouritePitches = async () => {
         .then(( pitches ) => {
             favouritePitches.value = pitches ?? [];
             config.value.loading = false;
-            config.value.showError = false;
+
+            if ( pitches.length == 0 ) {
+                config.showError = true;
+                return;
+            }
+
+            config.showError = false;
         })
         .catch(( error ) => {
             config.value.loading = false;
