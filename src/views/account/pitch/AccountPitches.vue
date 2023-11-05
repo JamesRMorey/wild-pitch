@@ -9,6 +9,7 @@ import { LControl } from '@vue-leaflet/vue-leaflet';
 import Modal from '../../../components/modals/Modal.vue';
 import IconButton from '../../../components/buttons/IconButton.vue';
 import NoResults from '../../../components/functional/NoResults.vue';
+import Alert from '../../../components/functional/Alert.vue';
 
 const api = new Api();
 const router = useRouter();
@@ -137,7 +138,8 @@ onMounted(() => {
                 </Map>
             </div>
         </div>
-        <div v-else>
+        <div v-else class="inline-flex flex-col gap-10">
+            <Alert text="Only approved pitches are displayed here, typically within 24 hours. We appreciate your patience as our team ensures quality content. If you have any questions, feel free to reach out." />
             <div v-if="pitches.length" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 md:px-8 mb-16">
                 <AccountPitchCard v-if="pitches.length" v-for="( pitch, i ) in pitches" @destroy="handleDestroy" :id="pitch.id" :description="pitch.description" :title="pitch.title" :img="pitch?.images[0]?.src" :features="pitch.features"/>
             </div>

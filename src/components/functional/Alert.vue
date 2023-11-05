@@ -11,8 +11,8 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="bg-green-100 py-3 px-5 rounded-xl inline-flex gap-3 inline-flex items-center">
-        <font-awesome-icon icon="fa-solid fa-exclamation" size="lg"/>
+    <div class="bg-green-100 py-3 px-5 rounded-xl inline-flex gap-3 inline-flex items-start">
+        <font-awesome-icon icon="fa-solid fa-exclamation" size="lg" class="mt-1"/>
         <div class="text-md text-gray-500">{{ text }}</div>
     </div>
 </template>
