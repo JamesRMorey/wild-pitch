@@ -27,13 +27,14 @@ const favouritePitches = ref([]);
 
 const getFavouritePitches = async () => {
     config.value.loading = true;
+
     await api.getFavouritePitches( limit )
         .then(( pitches ) => {
             favouritePitches.value = pitches ?? [];
             config.value.loading = false;
 
             if ( pitches.length == 0 ) {
-                config.showError = true;
+                config.value.showError = true;
                 return;
             }
 
@@ -52,7 +53,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="px-16 lg:px-32 inline-flex inline-flex items-center justify-center w-full">
+    <div class="px-8 lg:px-32 inline-flex inline-flex items-center justify-center w-full">
         <div v-if="config.loading">
             <PulseLoader color="#000000"/>
         </div>
