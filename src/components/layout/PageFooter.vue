@@ -28,7 +28,9 @@ import Logo from './Logo.vue';
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Other Stuff</h2>
                     <ul class="text-gray-500 font-medium">
                         <li class="mb-4">
-                            <a href="#" class="hover:underline">Privacy Policy</a>
+                            <router-link :to="{ name: 'privacy' }"  class="hover:underline">
+                                Privacy Policy
+                            </router-link>
                         </li>
                     </ul>
                 </div>

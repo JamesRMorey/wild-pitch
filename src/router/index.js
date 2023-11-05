@@ -12,6 +12,7 @@ import UserDetails from '../views/account/UserDetails.vue'
 import ForgotPassword from '../views/auth/ForgotPassword.vue'
 import PasswordReset from '../views/auth/PasswordReset.vue'
 import PageNotFound from '../views/PageNotFound.vue'
+import Privacy from '../views/Privacy.vue'
 import { useAuthStore } from '../stores/auth'
 
 const router = createRouter({
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+        path: '/privacy-policy',
+        name: 'privacy',
+        component: Privacy,
     },
     {
       path: '/pitches',
