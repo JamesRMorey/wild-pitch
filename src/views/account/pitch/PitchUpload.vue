@@ -11,9 +11,11 @@ import ErrorText from '../../../components/functional/ErrorText.vue';
 import CustomButton from '../../../components/buttons/CustomButton.vue';
 import TextInput from '../../../components/inputs/TextInput.vue';
 import TextAreaInput from '../../../components/inputs/TextAreaInput.vue';
+import { useAppStore } from '../../../stores/app';
 
 const api = new Api();
 const router = useRouter();
+const appStore = useAppStore();
 
 const features = ref([]);
 const config = ref({
@@ -85,11 +87,11 @@ const handleSubmit = async ( e ) => {
 
     await api.createPitch( formData )
     .then(( response ) => {
-        console.log( response );
+        appStore.pushToMessageStream({ type: 'success', title: 'upload successful', message: 'Your pitch has been uploaded successfully. You will be able to see it on Wild Pitch once we have approved the content.' });
         router.push('/my-account/pitches');
     })
     .catch(( error ) => {
-        console.log( error );
+        if ( !error.errors ) appStore.pushToMessageStream({ type: 'error', title: 'upload failed', message: 'Oops, theres been an error with your upload, please try again later or reach out to our team.' });
         config.value.errors = error.errors;
     });
 
@@ -111,7 +113,6 @@ const getFeatures = async () => {
 }
 
 const toggleFeature = ( id ) => {
-    console.log(form.value);
     if ( form.value.features.includes( id ) ) {
         form.value.features.splice( form.value.features.indexOf( id ), 1 );
         return;

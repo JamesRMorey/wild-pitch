@@ -78,7 +78,7 @@ onMounted(() => {
                 <div class="flex-col inline-flex gap-10 w-full lg:w-3/5">
                     <div class="flex-col inline-flex gap-3">
                         <div class="text-xl font-semibold">What To Expect</div>
-                        <div>{{ pitch.description }}</div>
+                        <div v-html="pitch.description" class="whitespace-pre-line"></div>
                     </div>
                     <div v-if="pitch.features.length > 0" class="flex-col inline-flex gap-3">
                         <div class="text-xl font-semibold">Features</div>
@@ -103,8 +103,8 @@ onMounted(() => {
                         <div class="inline-flex aspect-square flex-col">
                             <Map :latitude="pitch.latitude" :longitude="pitch.longitude" :markers="[{ lat: pitch.latitude, lng: pitch.longitude }]"/>
                         </div>
-                        <div class="bg-white shadow rounded-xl px-4 py-2 inline-flex justify-between">
-                            <div class="underline font-semibold cursor-pointer">Open in maps</div>
+                        <div class="py-2 inline-flex justify-between items-center">
+                            <a class="bg-gray-100 hover:bg-gray-200 cursor-pointer px-5 py-2 rounded-2xl gap-3 inline-flex justify-between items-center" :href="'https://www.google.com/maps?q=' + pitch.latitude + ',' + pitch.longitude" target="_blank">Google Maps <font-awesome-icon icon="fa-solid fa-up-right-from-square"></font-awesome-icon></a>
                             <div>( {{ pitch.latitude }} , {{ pitch.longitude }} )</div>
                         </div>
                     </div>

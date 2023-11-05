@@ -6,6 +6,7 @@ import { onMounted, ref } from 'vue';
 import Logo from './Logo.vue';
 import IconButton from '../buttons/IconButton.vue'
 import Modal from '../modals/Modal.vue';
+import MessageStream from '../functional/MessageStream.vue';
 
 const api = new Api();
 const router = useRouter();
@@ -68,5 +69,6 @@ const logoutUser =  async () => {
                 </template>
             </Modal>
         </nav>
+        <MessageStream />
     </header>
 </template>

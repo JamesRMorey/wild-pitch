@@ -40,7 +40,7 @@ const val = ref(value.value);
 <template>
     <div class="flex-col inline-flex gap-3">
         <div v-if="label.length" class="text-lg">{{ label }}</div>
-        <textarea @click="emit('clear')" @input="emit('update:value', val)" :type="type" class="bg-gray-100 rounded-3xl py-3 px-5" :class="errors?.length ? 'border-2 border-red-400' : ''" :placeholder="label.toLowerCase()" v-model="val" >
+        <textarea @click="emit('clear')" @input="emit('update:value', val)" :type="type" class="bg-gray-100 rounded-3xl py-3 px-5 h-56" :class="errors?.length ? 'border-2 border-red-400' : ''" :placeholder="label.toLowerCase()" v-model="val" >
         </textarea>
         <ErrorText v-if="errors?.length && !hideErrorText" :text="errors[0]" />
     </div>

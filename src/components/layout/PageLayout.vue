@@ -9,7 +9,9 @@ import PageHeader from './PageHeader.vue';
     <div class="min-h-screen flex flex-col">
         <PageHeader />
         <Container>
+            <main id="main_content">
                 <slot></slot>
+            </main>
         </Container>
         <div class="flex-1 flex-col"></div>
         <PageFooter />
