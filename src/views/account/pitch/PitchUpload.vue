@@ -165,7 +165,7 @@ onMounted(() => {
                         </div>
                     </div>
                     <div class="inline-flex w-full flex-col gap-10">
-                        <FileUpload @upload="handleImageUpload" :error="config.errors.images ? config?.errors?.images[0] : null " text="Drag and drop upto 5 images, or click "/>
+                        <FileUpload @upload="handleImageUpload" :error="config.errors.images ? config?.errors?.images[0] : null " text="Drag and drop upto 5 images, or click " accepted-mime-types="image/jpeg, image/webp, image/png"/>
                         <div v-if="images.length > 0">
                             <VueDraggableNext v-model="images" class="grid grid-cols-3 gap-5 cursor-grab" ghost-class="ghost">
                                 <div v-for="( image, i ) in images.slice(0, 5)" :class="[ i == 0 ? 'border-2 border-dashed border-black justify-between' : '' ]" class="rounded-xl border border-gray-500 aspect-square bg-cover bg-no-repeat bg-center inline-flex p-2 justify-end cursor-grab" :style="{ backgroundImage: `url(${image})`}">

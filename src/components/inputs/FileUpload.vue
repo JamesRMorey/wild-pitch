@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, toRefs } from 'vue';
 
 const props = defineProps({
     text: {
@@ -10,10 +10,17 @@ const props = defineProps({
     error: {
         type: String,
         required: false
+    },
+    acceptedMimeTypes: {
+        type: String,
+        required: false,
+        default: 'image/jpeg, image/webp, image/png'
     }
 });
 
 const emit = defineEmits([ 'upload' ]);
+
+const { acceptedMimeTypes } = toRefs( props );
 
 const isDragging = ref(false);
 
@@ -40,7 +47,7 @@ const handleDropFiles = ( event ) => {
             <font-awesome-icon icon="fa-solid fa-upload" size="xl" class="border border-gray-400 p-3 inline rounded-xl border-dashed"/>
         </div>
         <div class="text-gray-400 text-center">{{ text }}<label class="underline font-semibold text-gray-700 cursor-pointer" for="images">here</label> to upload.</div>
-        <input id="images" name="images" type="file" ref="imagesInput" multiple hidden @change="handleUploadFiles"/>
+        <input id="images" name="images" type="file" ref="imagesInput" multiple hidden @change="handleUploadFiles" :accept="acceptedMimeTypes"/>
         <div v-if="error" class="text-md text-red-400 text-center">{{ error }}</div>
     </div>
 </template>
