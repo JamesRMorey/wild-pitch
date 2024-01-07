@@ -22,7 +22,7 @@ const otherImages = images.value.slice(1, 5);
         <img :src="thumbnail" loading="lazy" class="w-full rounded-xl overflow-hidden object-center object-cover aspect-square text-right" />
         <div v-if="!showMore" class="underline text-right block md:hidden cursor-pointer" @click="showMore = true">view more images</div>
         <div class="hidden md:grid grid-cols-2 gap-3">
-            <img v-for="(image, i) in otherImages" :src="image.src" loading="lazy" class="w-full rounded-xl bg-center bg-cover aspect-square relative" />
+            <img v-for="(image, i) in otherImages" :src="image" loading="lazy" class="w-full rounded-xl bg-center bg-cover aspect-square relative" />
         </div>
         <div class="grid-cols-2 gap-3 md:hidden" :class="[ showMore ? 'grid' : 'hidden' ]">
             <div v-for="(image, i) in otherImages" class="w-full rounded-xl bg-center bg-cover aspect-square relative p-4" :style="{ backgroundImage: `url(${image})`}">
