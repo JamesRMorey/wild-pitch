@@ -19,6 +19,8 @@ const modal = ref({
     show: false
 })
 
+const headerIsSticky = ref(false);
+
 const closeConfirmModal = async () => {
     modal.value.show = false;
 }
@@ -36,26 +38,49 @@ const logoutUser =  async () => {
     })
 }
 
+onMounted(() => {
+    document.addEventListener('scroll', handleScroll);
+});
+
+const handleScroll = ( e ) => {
+    if ( window.scrollY > 50 ) {
+        headerIsSticky.value = true;
+    }
+
+    if ( window.scrollY == 0 ) {
+        headerIsSticky.value = false
+    }
+}
+
 </script>
 
 <template>
     <header>
-        <nav class="bg-white border-gray-200 px-6 lg:px-10 py-3.5">
-            <div class="flex justify-between items-center mx-auto max-w-screen-xl">
-                <router-link :to="{ name: 'home' }" aria-label="home" class="flex items-center">
-                    <Logo/>
-                </router-link>
-                <div class="inline-flex items-center gap-3">
-                    <router-link :to="{ name: 'pitch-listing' }" aria-label="pitch listing" class="hidden md:block text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
-                        Find A Pitch
+        <nav class="bg-white border-gray-200">
+            <div class="fixed bg-white z-100 w-full px-6 lg:px-10 shadow transition-all z-[1000]"
+                 :class="headerIsSticky ? 'py-2' : 'py-4'"
+            >
+                <div class="flex justify-between items-center mx-auto max-w-screen-xl">
+                    <router-link :to="{ name: 'home' }" aria-label="home" class="flex items-center">
+                        <Logo/>
                     </router-link>
-                    <IconButton icon="fa-user" @press="router.push({ name: 'account-home' })" aria-label="go to my account"/>
-                    <div tabindex="0" @click="() => modal.show = true" v-if="authStore.user" class="cursor-pointer text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
-                        Log out
+                    <div class="inline-flex items-center gap-3">
+                        <router-link :to="{ name: 'pitch-listing' }" aria-label="pitch listing" class="hidden md:block text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
+                            Find A Pitch
+                        </router-link>
+                        <IconButton icon="fa-user" @press="router.push({ name: 'account-home' })" aria-label="go to my account"/>
+                        <div tabindex="0" @click="() => modal.show = true" v-if="authStore.user" class="cursor-pointer text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
+                            Log out
+                        </div>
+                        <router-link v-if="!authStore.user" :to="{ name: 'login' }" aria-label="login" class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
+                            Log in
+                        </router-link>
                     </div>
-                    <router-link v-if="!authStore.user" :to="{ name: 'login' }" aria-label="login" class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
-                        Log in
-                    </router-link>
+                </div>
+            </div>
+            <div class="w-full px-6 lg:px-10 py-3.5 transition">
+                <div class="flex justify-between items-center mx-auto max-w-screen-xl">
+                    <Logo :dark="true"/>
                 </div>
             </div>
             <Modal v-if="modal.show" @close="closeConfirmModal" @confirm="logoutUser" confirmText="log out" :loading="config.loading">
@@ -69,6 +94,7 @@ const logoutUser =  async () => {
                 </template>
             </Modal>
         </nav>
+        <div class="opacity-0 h-12"></div>
         <MessageStream />
     </header>
 </template>

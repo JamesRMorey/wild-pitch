@@ -15,7 +15,7 @@ export function base64ToFile(base64String, filename, mimeType) {
     
     // Create a File object from the Blob with a specified filename
     const file = new File([blob], filename, { type: mimeType });
-    
+
     return file;
 }
 
@@ -74,4 +74,11 @@ export function getFileExtensionFromBlob(blob) {
   
 export function randomInt( min, max ) {
     return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+export function getAspectRatio( image ) {
+    const w = image.naturalWidth;
+    const h = image.naturalHeight;
+
+    return w/h;
 }

@@ -6,7 +6,7 @@ import router from './router';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUpRightFromSquare, faExclamation, faFilter, faMap, faHeartBroken, faPaw, faPersonFalling, faLeaf, faSpa, faHouseFlag, faPerson, faFaceGrinStars, faWater, faPersonSwimming, faSnowflake, faTree, faCow, faPersonHiking, faMountain, faBinoculars, faHillRockslide, faFaceMehBlank, faChair, faEye, faHeart, faTent, faHamburger, faUser, faEdit, faAdd, faRemove, faCamera, faCameraRetro, faUpload, faArrowLeft, faArrowRight, faChevronLeft, faChevronRight, faM } from '@fortawesome/free-solid-svg-icons'
+import { faImage, faSave, faRightLeft, faRotateRight, faRotateLeft, faCrop, faUpRightFromSquare, faExclamation, faFilter, faMap, faHeartBroken, faPaw, faPersonFalling, faLeaf, faSpa, faHouseFlag, faPerson, faFaceGrinStars, faWater, faPersonSwimming, faSnowflake, faTree, faCow, faPersonHiking, faMountain, faBinoculars, faHillRockslide, faFaceMehBlank, faChair, faEye, faHeart, faTent, faHamburger, faUser, faEdit, faAdd, faRemove, faCamera, faCameraRetro, faUpload, faArrowLeft, faArrowRight, faChevronLeft, faChevronRight, faM, faS } from '@fortawesome/free-solid-svg-icons'
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 library.add(faHeart);
@@ -48,6 +48,12 @@ library.add(faMap);
 library.add(faExclamation);
 library.add(faInstagram)
 library.add(faUpRightFromSquare);
+library.add(faCrop);
+library.add(faRotateLeft);
+library.add(faRotateRight);
+library.add(faRightLeft);
+library.add(faSave);
+library.add(faImage);
 
 const pinia = createPinia();
 const app = createApp(App);

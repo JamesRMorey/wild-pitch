@@ -13,6 +13,11 @@ const props = defineProps({
         type: Boolean,
         required: false,
         default: false
+    },
+    showClose: {
+        type: Boolean,
+        required: false,
+        default: true
     }
 })
 
@@ -47,9 +52,9 @@ onUnmounted(() => {
             <div class="bg-white p-10 rounded-2xl inline-flex flex-col gap-3">
                 <slot name="title"></slot>
                 <slot name="content"></slot>
-                <div class="inline-flex flex-row justify-end gap-3 mt-4">
+                <div v-if="confirmText || showClose" class="inline-flex flex-row justify-end gap-3 mt-4">
                     <custom-button v-if="confirmText" :text="confirmText" @press="handleConfirm" :loading="loading"/>
-                    <custom-button text="close" @press="handleClose"/>
+                    <custom-button v-if="showClose" text="close" @press="handleClose"/>
                 </div>
             </div>
         </div>
@@ -69,5 +74,4 @@ onUnmounted(() => {
     align-items: center;
     z-index: 1000000;
 }
-
 </style>

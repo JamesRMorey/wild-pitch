@@ -25,10 +25,11 @@ const props = defineProps({
 <template>
     <div class="px-0 py-10 lg:px-32 lg:py-12 inline-flex gap-10 inline-flex grid lg:grid-cols-2 items-center">
         <div class="lg:px-5 inline-flex justify-center items-center" :class="inverted ? 'lg:order-last' : ''">
-            <div 
-                :style="{ backgroundImage: `url(${image})`}"
+            <img
+                :src="image" 
                 class="h-auto sm:h-64 lg:h-auto aspect-video lg:aspect-square w-full bg-cover bg-center rounded-2xl shadow"
-            ></div>
+                loading="lazy"
+            />
         </div>
         <div class="inline-flex flex-col gap-5">
             <h2 v-if="title" class="text-5xl font-semibold">{{ title }}</h2>
