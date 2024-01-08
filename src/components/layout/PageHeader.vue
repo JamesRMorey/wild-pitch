@@ -43,11 +43,12 @@ onMounted(() => {
 });
 
 const handleScroll = ( e ) => {
-    if ( window.scrollY > window.innerHeight/4 ) {
-        headerIsSticky.value = true;
-    }
+    const threshold = window.innerHeight/4;
+    if ( headerIsSticky.value == true && window.scrollY > threshold ) return;
 
-    if ( window.scrollY == 0 ) {
+    if ( window.scrollY > threshold ) {
+        headerIsSticky.value = true;
+    } else {
         headerIsSticky.value = false
     }
 }
@@ -58,8 +59,7 @@ const handleScroll = ( e ) => {
     <header>
         <nav class="bg-white border-gray-200">
             <!-- main header -->
-            <div class="bg-white z-100 w-full px-6 lg:px-10 shadow transition-all z-[1000] py-4"
-                :class="headerIsSticky ? 'opacity-0' : 'opacity-100'"
+            <div class="bg-white z-100 w-full px-6 lg:px-10 shadow z-[1000] py-4"
             >
                 <div class="flex justify-between items-center mx-auto max-w-screen-xl">
                     <router-link :to="{ name: 'home' }" aria-label="home" class="flex items-center">
