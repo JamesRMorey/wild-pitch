@@ -72,7 +72,7 @@ const save = () => {
 <template>
     <Modal @close="handleClose" :showClose="false">
         <template v-slot:content>
-            <div class="relative">
+            <div class="">
                 <div class="justify-between w-full inline-flex items-center gap-10 mb-5">
                     <div class="text-2xl">
                         We like squares, please :)
@@ -85,7 +85,7 @@ const save = () => {
                         <IconButton @press="handleCrop" icon="fa-crop" class="bg-white"/>
                     </div>
                 </div>
-                <div class="relative max-h-[50vh] max-w-[75vw]">
+                <div class="relative max-h-[100%] max-w-[75vw]">
                     <div v-if="crop.image" class="absolute z-10 right-5 bottom-5 inline-flex border-dashed border-2 border-white">
                         <img :src="crop.image" class="h-32 w-auto"/>
                         <div class="bg-black bg-opacity-50 p-2 flex flex-col justify-between">
