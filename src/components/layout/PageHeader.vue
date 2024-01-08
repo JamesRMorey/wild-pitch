@@ -94,7 +94,7 @@ const handleScroll = ( e ) => {
                 </template>
             </Modal>
         </nav>
-        <div class="opacity-0 h-12"></div>
+        <div class="opacity-0 h-3"></div>
         <MessageStream />
     </header>
 </template>
