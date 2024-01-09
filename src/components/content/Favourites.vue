@@ -75,7 +75,6 @@ const prevSlide = () => {
 }
 
 const goToSlide = ( slideIndex ) => {
-    console.log(slideIndex)
     sliderRef.value.goToSlide( slideIndex*perPage.value + 1 );
 }
 
@@ -95,7 +94,7 @@ const goToSlide = ( slideIndex ) => {
                 :visible-slides="perPage"
                 slide-multiple
                 :gap="3"
-                :slide-ratio="1 / 6"
+                :slide-ratio="1 / 4"
                 :dragging-distance="200"
                 :draggable="true"
                 :breakpoints="{ 800: { visibleSlides: perPage, slideMultiple: perPage } }"
@@ -111,9 +110,14 @@ const goToSlide = ( slideIndex ) => {
                         class="rounded-xl"
                 >
                     <template #content>
-                        <div class="h-full flex truncate flex-col justify-start items-start bg-cover bg-center rounded-xl cursor-pointer" @click="() => router.push({ name: 'pitch-show', params: { pitchId: pitch.id } })">
-                            <img :src="pitch.images[0].src" class="h-4/5 w-full object-center object-cover rounded-xl hover:brightness-75 transition-all ease-in-out"/>
-                            <div class="flex text-md font-semibold truncate ... mt-1">{{ pitch.title }}</div>
+                        <div class="h-full flex flex-col justify-start items-start bg-cover bg-center rounded-xl cursor-pointer" 
+                             @click="() => router.push({ name: 'pitch-show', params: { pitchId: pitch.id } })"
+                        >
+                            <div class="flex bg-cover bg-center rounded-xl w-full flex-col h-full hover:brightness-75 transition-all ease-in-out" 
+                                 :style="{ backgroundImage: `url(${pitch.images[0].src})`}"
+                            >
+                            </div>
+                            <div class="flex-grow-0 flex-shrink flex text-md font-semibold truncate mt-1">{{ pitch.title }}</div>
                         </div>
                     </template>
                 </VueperSlide>
