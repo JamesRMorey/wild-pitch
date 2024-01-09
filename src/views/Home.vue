@@ -90,7 +90,7 @@ const handleBoxPress = ( i ) => {
                 <ImageWithBoxGrid :boxes="topLocationsBoxes" image="/backgrounds/square/square_2.webp" @boxPress="handleBoxPress"/>
             </div>
             <div class="py-8 md:py-12 inline-flex flex-col">
-                <TextCtaSplit :cta-1="{ text: 'find out more', link: 'register' }" :cta-2="{ text: 'sign up now', link: 'register' }" title="Join The Wild Pitch Community!" text="Find your next adventure from one of our amazing members" />
+                <TextCtaSplit :cta-1="{ text: 'find out more', link: { name: 'register' } }" :cta-2="{ text: 'sign up now', link: { name: 'register' } }" title="Join The Wild Pitch Community!" text="Find your next adventure from one of our amazing members" />
             </div>
             <div class="py-8 md:py-12 inline-flex flex-col">
                 <NewsLetterSignUp />

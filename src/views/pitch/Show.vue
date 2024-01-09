@@ -7,6 +7,7 @@ import { useAuthStore } from '../../stores/auth';
 
 import { ref, onMounted } from 'vue';
 import PageLayout from '../../components/layout/PageLayout.vue';
+import TextCtaSplit from '../../components/cta/TextCtaSplit.vue';
 
 const route = useRoute();
 const api = new Api();
@@ -74,7 +75,7 @@ onMounted(() => {
             <div class="pt-5 pb-8">
                 <ImageGrid :images="pitch.images.map((image) => image.src)" />
             </div>
-            <div class="inline-flex gap-5 pb-32 w-full flex-col lg:flex-row">
+            <div class="inline-flex gap-5 w-full flex-col lg:flex-row">
                 <div class="flex-col inline-flex gap-10 w-full lg:w-3/5">
                     <div class="flex-col inline-flex gap-3">
                         <div class="text-xl font-semibold">What To Expect</div>
@@ -117,6 +118,9 @@ onMounted(() => {
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="py-8 md:py-12 inline-flex flex-col w-full">
+            <TextCtaSplit :cta-1="{ text: 'find out more', link: { name: 'register' } }" :cta-2="{ text: 'sign up now', link: { name: 'register' } }" title="Join The Wild Pitch Community!" text="Find your next adventure from one of our amazing members" />
         </div>
     </PageLayout>
 </template>
