@@ -70,8 +70,8 @@ document.addEventListener('click', handleDocumentClick);
     <div class="inline-flex flex-col relative w-full">
         <div class="bg-gray-100 rounded-full px-5 py-4 md:py-2.5 inline-flex items-center gap-5 w-full" ref="searchDiv">
             <input class="grow shrink basis-0 w-full sm:w-96 md:w-96 lg:w-96 bg-transparent text-gray" placeholder="an awesome place called..." v-model="text" @click="showLocations = true"/>
-            <button class="rounded-full bg-white items-center justify-center px-5 py-2.5 hover:bg-gray-200 hidden md:block" @click="handleSearch" >
-                <div class="text-md">search</div>
+            <button class="rounded-full bg-green hover:bg-green-dark transition-all ease-in-out items-center justify-center px-5 py-2.5 text-white hidden md:block" @click="handleSearch" >
+                <div class="text-lg">search</div>
             </button>
         </div>
         <div class="relative md:mt-2 inline-flex">

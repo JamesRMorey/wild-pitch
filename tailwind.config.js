@@ -4,15 +4,15 @@ module.exports = {
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {
-          colors: {
-            'light-green': '#EDF1D6',
-            'mid-green': '#9DC08B',
-            'dark-green': '#609966',
-            'dark-grey': '#40513B',
-            'black': '#212121',
-            'white': '#ffffff',
-            'grey': '#808080e2',
-          }
+            colors: {
+                transparent: 'transparent',
+                current: 'currentColor',
+                green: {
+                  light: '#EDF1D6',
+                  DEFAULT: '#9DC08B',
+                  dark: '#609966',
+                },
+            }
         },
       },
     variants: {
@@ -20,4 +20,3 @@ module.exports = {
     },
     plugins: [],
   }
-

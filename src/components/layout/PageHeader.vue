@@ -20,6 +20,7 @@ const modal = ref({
 })
 
 const headerIsSticky = ref(false);
+const hideSticky = ref(true);
 
 const closeConfirmModal = async () => {
     modal.value.show = false;
@@ -44,6 +45,13 @@ onMounted(() => {
 
 const handleScroll = ( e ) => {
     const threshold = window.innerHeight/4;
+
+    if ( window.scrollY > threshold / 2) {
+        hideSticky.value = false;
+    } else {
+        hideSticky.value = true;
+    }
+
     if ( headerIsSticky.value == true && window.scrollY > threshold ) return;
 
     if ( window.scrollY > threshold ) {
@@ -59,14 +67,14 @@ const handleScroll = ( e ) => {
     <header>
         <nav class="bg-white border-gray-200">
             <!-- main header -->
-            <div class="bg-white z-100 w-full px-6 lg:px-10 shadow z-[1000] py-4"
+            <div class="bg-white z-100 w-full px-6 lg:px-10 z-[10000] py-4"
             >
                 <div class="flex justify-between items-center mx-auto max-w-screen-xl">
                     <router-link :to="{ name: 'home' }" aria-label="home" class="flex items-center">
                         <Logo/>
                     </router-link>
                     <div class="inline-flex items-center gap-3">
-                        <router-link :to="{ name: 'pitch-listing' }" aria-label="pitch listing" class="hidden md:block text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
+                        <router-link :to="{ name: 'pitch-listing' }" aria-label="pitch listing" class="bg-green transition-all ease-in-out hidden md:block text-white hover:bg-green-dark font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 cursor-pointer">
                             Find A Pitch
                         </router-link>
                         <IconButton icon="fa-user" @press="router.push({ name: 'account-home' })" aria-label="go to my account"/>
@@ -80,24 +88,18 @@ const handleScroll = ( e ) => {
                 </div>
             </div>
             <!-- sticky header -->
-            <div class="fixed top-0 bg-white z-100 w-full px-6 lg:px-10 shadow transition-all ease-in z-[10000] py-2"
-                :class="headerIsSticky ? 'opacity-100' : 'opacity-0'"
+            <div class="fixed top-0 bg-gray-800 z-100 w-full px-6 lg:px-10 transition-all ease-in z-[10000] py-2"
+                :class="headerIsSticky ? 'opacity-100' : 'opacity-0', hideSticky ? 'hidden' : 'block'"
             >
-                <div class="flex justify-between items-center mx-auto max-w-screen-xl">
+                <div class="flex justify-between items-center mx-auto max-w-screen-xl text-white">
                     <router-link :to="{ name: 'home' }" aria-label="home" class="flex items-center">
-                        <Logo/>
+                        <Logo :dark="true"/>
                     </router-link>
                     <div class="inline-flex items-center gap-3">
-                        <router-link :to="{ name: 'pitch-listing' }" aria-label="pitch listing" class="hidden md:block text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
+                        <router-link :to="{ name: 'pitch-listing' }" aria-label="pitch listing" class="hidden md:block focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
                             Find A Pitch
                         </router-link>
-                        <IconButton icon="fa-user" @press="router.push({ name: 'account-home' })" aria-label="go to my account"/>
-                        <div tabindex="0" @click="() => modal.show = true" v-if="authStore.user" class="cursor-pointer text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
-                            Log out
-                        </div>
-                        <router-link v-if="!authStore.user" :to="{ name: 'login' }" aria-label="login" class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
-                            Log in
-                        </router-link>
+                        <!-- <IconButton icon="fa-user" @press="router.push({ name: 'account-home' })" aria-label="go to my account"/> -->
                     </div>
                 </div>
             </div>

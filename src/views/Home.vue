@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import PageHeader from '../components/layout/PageHeader.vue';
 import PageFooter from '../components/layout/PageFooter.vue';
@@ -6,10 +7,13 @@ import BannerWithSearch from '../components/banners/BannerWithSearch.vue';
 import TextImageSplit from '../components/content/TextImageSplit.vue';
 import Container from '../components/layout/Container.vue';
 import BannerSlim from '../components/banners/BannerSlim.vue';
-import HeaderWithText from '../components/content/HeaderWithText.vue';
+import HeaderWithText from '../components/content/headers/HeaderWithText.vue';
 import Favourites from '../components/content/Favourites.vue';
-import TopLocations from '../components/content/TopLocations.vue';
 import Header from '../components/content/Header.vue';
+import IconBoxes from '../components/content/IconBoxes.vue';
+import ImageWithBoxGrid from '../components/content/ImageWithBoxGrid.vue';
+import TextCtaSplit from '../components/cta/TextCtaSplit.vue';
+import NewsLetterSignUp from '../components/functional/NewsLetterSignUp.vue';
 
 const router = useRouter();
 
@@ -19,6 +23,28 @@ const handleSearch = ( location ) => {
     } else {
         router.push('/pitches')
     }
+}
+
+const featureBoxes = ref([
+    { text: 'Amazing Pitches', icon: 'fa-tent', link: 'pitch-listing' },
+    { text: 'Upload Your Own', icon: 'fa-house-flag', link: 'account-home' },
+    { text: 'Find A New Spot', icon: 'fa-binoculars', link: 'pitch-listing' },
+    { text: 'Gear Reviews', icon: 'fa-person-hiking', link: 'account-home' },
+    { text: 'Journal', icon: 'fa-book', link: 'account-home' },
+    { text: 'Trip Ideas', icon: 'fa-face-grin-stars', link: 'account-home' },
+    { text: 'Our Favourite Spots', icon: 'fa-heart', link: 'account-home' },
+]);
+
+const topLocationsBoxes = ref([
+    { title: 'The Lake District', text: 'Picturesque lakes, rolling mountains, and charming valleys, attracting hikers, boaters, and nature enthusiasts,', icon: 'fa-water', link: 'pitch-listing', buttonText: 'View Pitches', image: '/images/lake_district_1.webp', locationId: 35665 },
+    { title: 'Dartmoor', text: 'Known for vast open moorlands, granite tors, and ancient ruins, perfect for exploring nature\'s wild side.', icon: 'fa-binoculars', link: 'pitch-listing', buttonText: 'View Pitches', image: '/images/dartmoor_camping_1.webp', locationId: 17981 },
+    { title: 'Snowdonia National Park', text: 'Majestic mountains, deep valleys, and serene lakes, offering adventure and stunning camping spots.', icon: 'fa-mountain', link: 'pitch-listing', buttonText: 'View Pitches', image: '/images/tryfan_1.webp', locationId: 57159 },
+    { title: 'The Peak District', text: 'Features rolling hills, limestone valleys, and gritstone edges, ideal for hiking, climbing and camping.', icon: 'fa-cow', link: 'pitch-listing', buttonText: 'View Pitches', image: '/images/peaks_1.webp', locationId: 48740 },
+])
+
+const handleBoxPress = ( i ) => {
+    const boxPressed = topLocationsBoxes.value[i];
+    handleSearch( { id: boxPressed.locationId } );
 }
 
 </script>
@@ -34,12 +60,14 @@ const handleSearch = ( location ) => {
             </template>
         </BannerWithSearch>
         <Container class="px-5 py-6">
+            <IconBoxes title="Join Our Community" text="Why you need to sign up to wild pitch :)" :boxes="featureBoxes" class="my-10"/>
+            <hr/>
             <TextImageSplit 
                 text="Wild Pitch is a community collection of the best wild camping spots in the UK. We always found it a stuggle searching facebook groups and forums to find a good spot for our next trip, and so, Wild Pitch was born! Our service is totally free to use, so why not create an account and upload some of your favourite spots?" 
                 image="/backgrounds/square/square_2.webp" 
                 title="Wild Pitch"
             />
-            <TextImageSplit 
+            <!-- <TextImageSplit 
                 text="We rely on our community of campers to upload the UK's finest spots. If you have an amazing pitch, or have just come back from an awesome trip and you'd like to let the UK know about it, this is the place to do it. All our pitches are verified to the best of our ability by our admin team to ensure you get the best experience when using our service." 
                 image="/backgrounds/square/square_3.webp" 
                 title="Community"
@@ -49,21 +77,26 @@ const handleSearch = ( location ) => {
                 text="We are a small team of weekend wild camping enthusiasts! We love everything about getting outdoors, we just found it a little harder than it should be to find a great spot. " 
                 image="/backgrounds/square/square_1.webp" 
                 title="About Us"
-            />
-            <div class="flex-1 flex"></div>
+            /> -->
         </Container>
-        <BannerSlim title="Find Your Next Pitch" :link="{ name: 'pitch-listing' }"/>
+        <BannerSlim title="Your Next Adventure" :link="{ name: 'pitch-listing' }"/>
         <Container>
             <div class="py-8 pt-12 md:py-12 gap-12 inline-flex flex-col">
                 <HeaderWithText title="Some of our favourites" text="Check out some our admin teams favourite pitches. Theses are places we've visited ourselves and loved so much we wanted to share them with you."/>
                 <Favourites />
             </div>
-            <div class="py-8 md:py-12 gap-12 pb-16 lg:pb-32 inline-flex flex-col">
-                <Header title="Top Locations" />
-                <TopLocations @locationClick="( locationId ) => handleSearch({ id: locationId })"/>
+            <hr/>
+            <div class="py-8 md:py-12 gap-12 inline-flex flex-col">
+                <ImageWithBoxGrid :boxes="topLocationsBoxes" image="/backgrounds/square/square_2.webp" @boxPress="handleBoxPress"/>
+            </div>
+            <div class="py-8 md:py-12 inline-flex flex-col">
+                <TextCtaSplit :cta-1="{ text: 'find out more', link: 'register' }" :cta-2="{ text: 'sign up now', link: 'register' }" title="Join the Wild Pitch community!" text="Find your next adventure from one of our amazing members" />
+            </div>
+            <div class="py-8 md:py-12 inline-flex flex-col">
+                <NewsLetterSignUp />
             </div>
         </Container>
-        <BannerSlim />
+
         <PageFooter />
     </div>
 </template>

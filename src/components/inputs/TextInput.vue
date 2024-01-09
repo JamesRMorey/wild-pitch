@@ -28,6 +28,15 @@ const props = defineProps({
         type: Boolean,
         required: false,
         default: false
+    },
+    placeholder: {
+        type: String,
+        required: false
+    },
+    required: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 });
 
@@ -40,7 +49,7 @@ const val = ref(value.value);
 <template>
     <div class="flex-col inline-flex gap-3">
         <div v-if="label.length" class="text-lg">{{ label }}</div>
-        <input @click="emit('clear')" @input="emit('update:value', val)" :type="type" class="bg-gray-100 rounded-full py-3 px-5" :class="errors?.length ? 'border-2 border-red-400' : ''" :placeholder="label.toLowerCase()" v-model="val" />
+        <input @click="emit('clear')" @input="emit('update:value', val)" :type="type" class="bg-gray-100 rounded-full py-3 px-5" :class="errors?.length ? 'border-2 border-red-400' : ''" :placeholder="placeholder ?? label.toLowerCase()" v-model="val" :required="required"/>
         <ErrorText v-if="errors?.length && !hideErrorText" :text="errors[0]" />
     </div>
 </template>

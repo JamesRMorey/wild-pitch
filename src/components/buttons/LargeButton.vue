@@ -28,17 +28,12 @@ const handleClick = () => {
 
 <template>
         <button @click="handleClick" 
-            class="transition-all ease-in-out cursor-pointer text-sm px-6 lg:px-8 py-2 lg:py-2.5 font-medium"
-            :class="type == 'primary' ? 'bg-green hidden md:block text-white hover:bg-green-dark rounded-lg' : '',
-                    type == 'round' ? 'rounded-full bg-green text-white hover:bg-green-dark' : ''
-                   " 
+            class="px-12 py-4 rounded-xl font-bold capitalize transition-all ease-in-out"
+            :class="type == 'primary' ? 'bg-green text-white hover:bg-green-dark ' : '', type == 'secondary' ? 'bg-gray-100 text-black hover:bg-gray-400 hover:text-white' : ''" 
             v-bind="$attrs"
         >
             <div
                 class="justify-center inline-flex items-center gap-3"
-                :class="type == 'primary' ? 'text-md font-semibold' : '',
-                        type == 'round' ? 'text-md font-semibold' : ''
-                       "
             >
                 {{ text }} <PulseLoader v-if="loading" color="#ffffff" size="10px"/>
             </div>

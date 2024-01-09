@@ -22,7 +22,8 @@
     "vue-draggable-next": "^2.2.1",
     "vue-router": "^4.2.4",
     "vue-spinner": "^1.0.4",
-    "vue-spinners": "^1.0.2"
+    "vue-spinners": "^1.0.2",
+    "vueperslides": "^3.5.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.4",

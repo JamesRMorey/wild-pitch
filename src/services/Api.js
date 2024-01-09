@@ -283,4 +283,18 @@ export default class Api {
         })
     }
 
+    async signUpNewsletter( email ) {
+        return new Promise(async ( resolve, reject ) => {
+            await this.getCSRF();
+            await axios.post( 'api/newsletter/sign-up', {
+                email: email
+            })
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error );
+            })
+        })
+    }
 }
