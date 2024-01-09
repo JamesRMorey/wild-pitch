@@ -113,7 +113,7 @@ const goToSlide = ( slideIndex ) => {
                         <div class="h-full flex flex-col justify-start items-start bg-cover bg-center rounded-xl cursor-pointer" 
                              @click="() => router.push({ name: 'pitch-show', params: { pitchId: pitch.id } })"
                         >
-                            <div class="flex bg-cover bg-center rounded-xl w-full flex-col h-full hover:brightness-75 transition-all ease-in-out" 
+                            <div class="flex border-4 border-gray-800 bg-cover bg-center rounded-xl w-full flex-col h-full hover:brightness-75 transition-all ease-in-out" 
                                  :style="{ backgroundImage: `url(${pitch.images[0].src})`}"
                             >
                             </div>
