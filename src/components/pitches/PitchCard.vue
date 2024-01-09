@@ -71,7 +71,7 @@ const unSavePitch = async ( id ) => {
 
 <template>
     <div class="w-full inline-flex flex-col gap-3 justify-center bg-center bg-cover">
-        <router-link :to="'/pitches/pitch/' + pitchId" class="w-full rounded-xl bg-center bg-cover aspect-square text-right p-4" :style="{ backgroundImage: `url(${img})`}">
+        <router-link :to="{ name: 'pitch-show', params: { pitchId: pitch.id } }" class="w-full rounded-xl bg-center bg-cover aspect-square text-right p-4" :style="{ backgroundImage: `url(${img})`}">
             <div v-if="authStore.user">
                 <font-awesome-icon v-if="saved" icon="fa-solid fa-heart" class="cursor-pointer" size="lg" @click="() => unSavePitch( pitchId )"/>
                 <font-awesome-icon v-else icon="fa-solid fa-heart-broken" class="cursor-pointer" size="lg" @click="() => savePitch( pitchId )"/>

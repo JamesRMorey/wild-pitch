@@ -6,7 +6,9 @@ import NoResults from '../functional/NoResults.vue';
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
 import SliderNavBar from '../sliders/SliderNavBar.vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const api = new Api();
 
 const props = defineProps({
@@ -109,14 +111,16 @@ const goToSlide = ( slideIndex ) => {
                         class="rounded-xl"
                 >
                     <template #content>
-                        <div class="h-full flex justify-center items-center bg-cover bg-center rounded-xl" >
-                            <img :src="pitch.images[0].src" class="h-full w-full object-center object-cover rounded-xl hover:brightness-75 transition-all ease-in-out"/>
+                        <div class="h-full flex truncate flex-col justify-start items-start bg-cover bg-center rounded-xl cursor-pointer" @click="() => router.push({ name: 'pitch-show', params: { pitchId: pitch.id } })">
+                            <img :src="pitch.images[0].src" class="h-4/5 w-full object-center object-cover rounded-xl hover:brightness-75 transition-all ease-in-out"/>
+                            <div class="flex text-md font-semibold truncate ... mt-1">{{ pitch.title }}</div>
                         </div>
                     </template>
                 </VueperSlide>
             </VueperSlides>
             <SliderNavBar 
-                :num-slides="favouritePitches.length%3" 
+                v-if="favouritePitches.length > perPage"
+                :num-slides="favouritePitches.length%perPage" 
                 :active="slider.index" 
                 :per-page="perPage"
                 @next="nextSlide"

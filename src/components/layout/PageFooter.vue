@@ -6,7 +6,7 @@ import Logo from './Logo.vue';
 
 <template>
     <footer class="bg-gray-800">
-        <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8 text-white">
+        <div class="mx-auto w-full max-w-screen-xl p-4 py-16 lg:py-24 text-white">
             <div class="md:flex md:justify-between">
             <div class="mb-6 md:mb-0">
                 <router-link :to="{ name: 'home' }" >
@@ -15,6 +15,24 @@ import Logo from './Logo.vue';
             </div>
             <div class="grid grid-cols-3 gap-8 sm:gap-6 sm:grid-cols-3">
                 <div>
+                    <h2 class="mb-6 text-sm font-semibold uppercase">Pages</h2>
+                    <ul class="font-medium">
+                        <li class="mb-4">
+                            <a href="/" target="_blank" class="hover:underline ">Home</a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/" target="_blank" class="hover:underline ">Pitches</a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/" target="_blank" class="hover:underline ">Account</a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/" target="_blank" class="hover:underline ">Pitches</a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/" target="_blank" class="hover:underline ">Pitches</a>
+                        </li>
+                    </ul>
                 </div>
                 <div>
                     <h2 class="mb-6 text-sm font-semibold uppercase">Follow us</h2>

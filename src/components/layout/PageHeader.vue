@@ -100,6 +100,11 @@ const handleScroll = ( e ) => {
                             Find A Pitch
                         </router-link>
                         <!-- <IconButton icon="fa-user" @press="router.push({ name: 'account-home' })" aria-label="go to my account"/> -->
+                        <font-awesome-icon icon="fa-solid fa-user" 
+                            class="text-white cursor-pointer"
+                            @click="router.push({ name: 'account-home' })" 
+                        />
+
                     </div>
                 </div>
             </div>
