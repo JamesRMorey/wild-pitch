@@ -73,7 +73,7 @@ const unSavePitch = async ( id ) => {
     <div class="w-full inline-flex flex-col gap-3 justify-center bg-center bg-cover group">
         <div class="w-full rounded-xl bg-center bg-cover aspect-square text-right relative">
             <router-link :to="{ name: 'pitch-show', params: { pitchId: pitchId } }">
-                <img :src="img" class="object-cover object-center flex w-full rounded-xl aspect-square" />
+                <img :src="img" class="object-cover object-center flex w-full rounded-xl aspect-square hover:brightness-75 transition-all ease-in-out" />
             </router-link>
             <div v-if="authStore.user" class="absolute top-3 right-3 bg-white hover: bg-gray-100 rounded-full aspect-square w-9 flex items-center justify-center hover:text-red-600"
                 :class="saved ? 'text-red-600 hover:text-gray-800' : ''"
