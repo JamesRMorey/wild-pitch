@@ -14,6 +14,10 @@ import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 import Map from '../../components/pitches/Map.vue';
 import { LControl, LCircle } from '@vue-leaflet/vue-leaflet';
 import IconButton from '../../components/buttons/IconButton.vue';
+import ImageWithBoxGrid from '../../components/content/ImageWithBoxGrid.vue';
+import NewsLetterSignUp from '../../components/functional/NewsLetterSignUp.vue';
+import TextCtaSplit from '../../components/cta/TextCtaSplit.vue';
+import HeaderWithText from '../../components/content/headers/HeaderWithText.vue';
 
 const api = new Api();
 
@@ -133,6 +137,19 @@ const handleMapModeClick = () => {
     router.replace({ query: newQuery });
 }
 
+const topLocationsBoxes = ref([
+    { title: 'The Lake District', text: 'Picturesque lakes, rolling mountains, and charming valleys, attracting hikers, boaters, and nature enthusiasts,', icon: 'fa-water', link: 'pitch-listing', buttonText: 'View Pitches', image: '/images/lake_district_1.webp', locationId: 35665 },
+    { title: 'Dartmoor', text: 'Known for vast open moorlands, granite tors, and ancient ruins, perfect for exploring nature\'s wild side.', icon: 'fa-binoculars', link: 'pitch-listing', buttonText: 'View Pitches', image: '/images/dartmoor_camping_1.webp', locationId: 17981 },
+    { title: 'Snowdonia National Park', text: 'Majestic mountains, deep valleys, and serene lakes, offering adventure and stunning camping spots.', icon: 'fa-mountain', link: 'pitch-listing', buttonText: 'View Pitches', image: '/images/tryfan_1.webp', locationId: 57159 },
+    { title: 'The Peak District', text: 'Features rolling hills, limestone valleys, and gritstone edges, ideal for hiking, climbing and camping.', icon: 'fa-cow', link: 'pitch-listing', buttonText: 'View Pitches', image: '/images/peaks_1.webp', locationId: 48740 },
+]);
+
+const handleBoxPress = ( i ) => {
+    const boxPressed = topLocationsBoxes.value[i];
+    handleSearch( { id: boxPressed.locationId } );
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
 onMounted(async () => {
     if ( locationId ) {
         await getLocation( locationId )
@@ -148,7 +165,10 @@ onMounted(async () => {
         <PageHeader />
         <BannerSlim title="Pitches"/>
         <Container>
-            <div class="inline-flex w-full flex-col sm:flex-row justify-center items-center pt-16 z-10 gap-5" style="z-index: 10000;" v-if="config.loaded">
+            <div class="pt-8 md:pt-12 gap-12 inline-flex flex-col">
+                <HeaderWithText title="Adventure Calls!" text="Type in your location, click it to search pitches around that area. When you've found one you like, head off on your adventure :)"/>
+            </div>
+            <div class="inline-flex w-full flex-col sm:flex-row justify-center items-center pt-16 z-10 gap-5" v-if="config.loaded">
                 <LocationSearchBar class="md:w-1/2" @search="handleSearch" :initialText="selectedLocation.name ?? ''"/>
                 <div class="inline-flex gap-3 w-full sm:w-auto justify-end">
                     <IconButton @press="() => filters.show = !filters.show" :active="filters.show" icon="fa-filter"/>
@@ -164,7 +184,7 @@ onMounted(async () => {
                             v-model="filters.radius"
                             class="w-full mt-2 border-2 border-gray-200 bg-gray-100 rounded-md px-3 py-2 font-semibold"
                             @change="handleSearch( selectedLocation, 1 )"
-                            >
+                        >
                             <option value="5">5km</option>
                             <option value="15">15km</option>
                             <option value="30">30km</option>
@@ -215,6 +235,16 @@ onMounted(async () => {
                             <font-awesome-icon v-else icon="fa-solid fa-chevron-right" size="xl" class="p-3 text-transparent aspect-square rounded-full"/>
                         </div>
                     </div>
+                </div>
+            </div>
+            <hr />
+            <div class="flex-col flex gap-12 py-8 md:py-12">
+                <div class="gap-12 inline-flex flex-col">
+                    <HeaderWithText title="Need Some Ideas?" text="These places are super popular withour users, and for good reason!"/>
+                    <ImageWithBoxGrid :boxes="topLocationsBoxes" image="/backgrounds/square/square_2.webp" @boxPress="handleBoxPress"/>
+                </div>
+                <div class="inline-flex flex-col">
+                    <NewsLetterSignUp />
                 </div>
             </div>
         </Container>

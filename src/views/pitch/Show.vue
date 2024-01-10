@@ -84,7 +84,7 @@ onMounted(() => {
                     <div v-if="pitch.features.length > 0" class="flex-col inline-flex gap-3">
                         <div class="text-xl font-semibold">Features</div>
                             <div class="border-gray-200">
-                            <div v-for="( feature, i ) in pitch.features" class="inline-flex m-1 rounded-full p-2 px-4 hover:bg-gray-200 bg-gray-100 cursor-pointer gap-2 justify-center items-center">
+                            <div v-for="( feature, i ) in pitch.features" class="inline-flex m-1 transition-all ease-in-out rounded-full p-2 px-4 hover:bg-gray-200 bg-gray-100 cursor-pointer gap-2 justify-center items-center">
                                 <font-awesome-icon :icon="'fa-solid ' + feature.icon" />
                                 <div>{{ feature.label }}</div>
                             </div>
@@ -105,7 +105,10 @@ onMounted(() => {
                             <Map :latitude="pitch.latitude" :longitude="pitch.longitude" :markers="[{ lat: pitch.latitude, lng: pitch.longitude }]"/>
                         </div>
                         <div class="py-2 inline-flex justify-between items-center">
-                            <a class="bg-gray-100 hover:bg-gray-200 cursor-pointer px-5 py-2 rounded-2xl gap-3 inline-flex justify-between items-center" :href="'https://www.google.com/maps?q=' + pitch.latitude + ',' + pitch.longitude" target="_blank">Google Maps <font-awesome-icon icon="fa-solid fa-up-right-from-square"></font-awesome-icon></a>
+                            <a class="bg-gray-100 hover:bg-gray-200 transition-all ease-in-out cursor-pointer px-5 py-2 rounded-2xl gap-3 inline-flex justify-between items-center" :href="'https://www.google.com/maps?q=' + pitch.latitude + ',' + pitch.longitude" target="_blank">
+                                Google Maps 
+                                <font-awesome-icon icon="fa-solid fa-up-right-from-square"></font-awesome-icon>
+                            </a>
                             <div>( {{ pitch.latitude }} , {{ pitch.longitude }} )</div>
                         </div>
                     </div>

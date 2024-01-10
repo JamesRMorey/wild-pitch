@@ -59,25 +59,21 @@ const handleBoxPress = ( i ) => {
                 </div>
             </template>
         </BannerWithSearch>
-        <Container class="px-5 py-6">
-            <IconBoxes title="Join Our Community" text="Why you need to sign up to wild pitch :)" :boxes="featureBoxes" class="my-10"/>
-            <hr/>
-            <TextImageSplit 
-                text="Wild Pitch is a community collection of the best wild camping spots in the UK. We always found it a stuggle searching facebook groups and forums to find a good spot for our next trip, and so, Wild Pitch was born! Our service is totally free to use, so why not create an account and upload some of your favourite spots?" 
-                image="/backgrounds/square/square_2.webp" 
-                title="Wild Pitch"
-            />
-            <!-- <TextImageSplit 
-                text="We rely on our community of campers to upload the UK's finest spots. If you have an amazing pitch, or have just come back from an awesome trip and you'd like to let the UK know about it, this is the place to do it. All our pitches are verified to the best of our ability by our admin team to ensure you get the best experience when using our service." 
-                image="/backgrounds/square/square_3.webp" 
-                title="Community"
-                :inverted="true"
-            />
-            <TextImageSplit 
-                text="We are a small team of weekend wild camping enthusiasts! We love everything about getting outdoors, we just found it a little harder than it should be to find a great spot. " 
-                image="/backgrounds/square/square_1.webp" 
-                title="About Us"
-            /> -->
+        <Container class="px-5 py-12">
+            <div class="flex flex-col gap-12">
+                <div class="flex flex-col gap-8">
+                    <IconBoxes title="Join Our Community" text="Why you need to sign up to wild pitch :)" :boxes="featureBoxes"/>
+                    <hr/>
+                </div>
+                <TextImageSplit 
+                    text="Wild Pitch is a community collection of the best wild camping spots in the UK. We always found it a stuggle searching facebook groups and forums to find a good spot for our next trip, and so, Wild Pitch was born! Our service is totally free to use, so why not create an account and upload some of your favourite spots?" 
+                    image="/backgrounds/square/square_2.webp" 
+                    title="Wild Pitch"
+                />
+                <div class="inline-flex flex-col">
+                    <TextCtaSplit :cta-1="{ text: 'find out more', link: { name: 'register' } }" :cta-2="{ text: 'sign up now', link: { name: 'register' } }" title="Join The Wild Pitch Community!" text="Find your next adventure from one of our amazing members" />
+                </div>
+            </div>
         </Container>
         <BannerSlim title="Your Next Adventure" :link="{ name: 'pitch-listing' }"/>
         <Container>
@@ -88,9 +84,6 @@ const handleBoxPress = ( i ) => {
             <hr/>
             <div class="py-8 md:py-12 gap-12 inline-flex flex-col">
                 <ImageWithBoxGrid :boxes="topLocationsBoxes" image="/backgrounds/square/square_2.webp" @boxPress="handleBoxPress"/>
-            </div>
-            <div class="py-8 md:py-12 inline-flex flex-col">
-                <TextCtaSplit :cta-1="{ text: 'find out more', link: { name: 'register' } }" :cta-2="{ text: 'sign up now', link: { name: 'register' } }" title="Join The Wild Pitch Community!" text="Find your next adventure from one of our amazing members" />
             </div>
             <div class="py-8 md:py-12 inline-flex flex-col">
                 <NewsLetterSignUp />

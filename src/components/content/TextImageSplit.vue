@@ -23,7 +23,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="px-0 py-10 lg:px-32 lg:py-12 inline-flex">
+    <div class="px-0 lg:px-32 inline-flex">
         <div class="bg-gray-100 rounded-3xl gap-10 inline-flex grid lg:grid-cols-2 items-center p-8">
             <div class="inline-flex justify-center items-center" :class="inverted ? 'lg:order-last' : ''">
                 <img

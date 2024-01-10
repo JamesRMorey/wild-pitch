@@ -17,6 +17,6 @@ const props = defineProps({
     <div class="inline-flex items-center flex-col md:flex-row gap-5">
             <h2 class="text-4xl font-semibold text-green-dark">{{ title }}</h2>
             <div class="w-1 h-full bg-green-dark rounded-xl"></div>
-            <div class="">{{ text }}</div>
+            <div class="grow shrink basis-0">{{ text }}</div>
         </div>
 </template>
