@@ -79,7 +79,7 @@ onMounted(() => {
                 <div class="flex-col inline-flex gap-10 w-full lg:w-3/5">
                     <div class="flex-col inline-flex gap-3">
                         <div class="text-xl font-semibold">What To Expect</div>
-                        <div v-html="pitch.description" class="whitespace-pre-line"></div>
+                        <div v-html="pitch.description" class="whitespace-pre-line bg-gray-100 p-5 rounded-xl"></div>
                     </div>
                     <div v-if="pitch.features.length > 0" class="flex-col inline-flex gap-3">
                         <div class="text-xl font-semibold">Features</div>
