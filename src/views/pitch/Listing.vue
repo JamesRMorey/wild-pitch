@@ -75,14 +75,15 @@ const getLocation = async ( id ) => {
     })
 }
 
-const getPitches = ( page=1 ) => {
+const getPitches = async ( page=1 ) => {
     router.replace({ query: { locationId : selectedLocation.value.id, page: page, radius: filters.value.radius, mapMode: map.value.show } });
-    api.getPitchesForLocation( selectedLocation.value.id, page, filters.value )
+    await api.getPitchesForLocation( selectedLocation.value.id, page, filters.value )
         .then(( response ) => {
             loading.value = false;
             const { data } = response;
             updatePitches( data );
             updatePaginator( response );
+            console.log( data );
         })
         .catch(( error ) => {
             loading.value = false

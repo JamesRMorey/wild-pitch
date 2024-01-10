@@ -4,6 +4,7 @@ import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
 import SliderNavBar from './SliderNavBar.vue';
 import { useRouter } from 'vue-router';
+import PitchCard from '../pitches/PitchCard.vue';
 
 const router = useRouter();
 
@@ -49,7 +50,7 @@ const goToSlide = ( slideIndex ) => {
         :visible-slides="perPage"
         slide-multiple
         :gap="3"
-        :slide-ratio="1 / 4"
+        :slide-ratio="1 / 3"
         :dragging-distance="200"
         :draggable="true"
         :breakpoints="{ 800: { visibleSlides: perPage, slideMultiple: perPage } }"
@@ -65,18 +66,8 @@ const goToSlide = ( slideIndex ) => {
                 class="rounded-xl"
         >
             <template #content>
-                <div class="h-full flex flex-col justify-start items-start bg-cover bg-center rounded-xl cursor-pointer group" 
-                        @click="() => router.push({ name: 'pitch-show', params: { pitchId: pitch.id } })"
-                >
-                    <div class="p-4 bg-gray-100 rounded-xl flex flex-col h-full w-full gap-2 group-hover:bg-gray-200 transition-all ease-in-out">
-                        <div class="flex bg-cover bg-center rounded-xl w-full flex-col h-full group-hover:brightness-75 transition-all ease-in-out" 
-                            :style="{ backgroundImage: `url(${pitch.images[0].src})`}"
-                        >
-                        </div>
-                        <div class="flex justify items-center">
-                            <div class="text-md font-semibold truncate h-full ...">{{ pitch.title }}</div>
-                        </div>
-                    </div>
+                <div class="flex">
+                    <PitchCard :title="pitch.title" :description="pitch.description" :img="pitch?.images[0]?.src" :pitchId="pitch.id" :is-saved="pitch.is_saved" :features="pitch.features"/>
                 </div>
             </template>
         </VueperSlide>

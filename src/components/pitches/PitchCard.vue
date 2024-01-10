@@ -70,26 +70,32 @@ const unSavePitch = async ( id ) => {
 </script>
 
 <template>
-    <div class="w-full inline-flex flex-col gap-3 justify-center bg-center bg-cover">
-        <router-link :to="{ name: 'pitch-show', params: { pitchId: pitch.id } }" class="w-full rounded-xl bg-center bg-cover aspect-square text-right p-4" :style="{ backgroundImage: `url(${img})`}">
-            <div v-if="authStore.user">
+    <div class="w-full inline-flex flex-col gap-3 justify-center bg-center bg-cover group">
+        <div class="w-full rounded-xl bg-center bg-cover aspect-square text-right relative">
+            <router-link :to="{ name: 'pitch-show', params: { pitchId: pitchId } }">
+                <img :src="img" class="object-cover object-center flex w-full rounded-xl aspect-square" />
+            </router-link>
+            <div v-if="authStore.user" class="absolute top-3 right-3 bg-white hover: bg-gray-100 rounded-full aspect-square w-9 flex items-center justify-center hover:text-red-600"
+                :class="saved ? 'text-red-600 hover:text-gray-800' : ''"
+            >
                 <font-awesome-icon v-if="saved" icon="fa-solid fa-heart" class="cursor-pointer" size="lg" @click="() => unSavePitch( pitchId )"/>
                 <font-awesome-icon v-else icon="fa-solid fa-heart-broken" class="cursor-pointer" size="lg" @click="() => savePitch( pitchId )"/>
             </div>
-        </router-link>
-        <div class="inline-flex flex-col">
+        </div>
+        
+        <div class="flex flex-col justify-between items-between gap-5">
             <div class="inline-flex flex-col">
                 <div class="text-lg font-semibold capitalize truncate ...">{{ title }}</div>
                 <div class="text-grey truncate ...">{{ description }}</div>
             </div>
-            <div class="inline-flex justify-between">
-                <div v-if="features.length" class="inline-flex gap-1 items-end px-2 truncate ...">
-                    <div v-for="( feature, i ) in features.slice(0,6)">
-                        <font-awesome-icon :icon="feature.icon" />
+            <div class="flex justify-between items-end">
+                <div v-if="features.length" class="flex gap-1 items-end px-2 truncate ... p-2 bg-gray-800 rounded-xl">
+                    <div v-for="( feature, i ) in features.slice(0,5)">
+                        <font-awesome-icon :icon="feature.icon" class="text-white"/>
                     </div>
                 </div>
                 <div v-else></div>
-                <router-link :to="'/pitches/pitch/' + pitchId"  class="mt-5 bg-gray-100 px-3 py-1 rounded-xl hover:bg-gray-200 text-right">
+                <router-link :to="{ name: 'pitch-show', params: { pitchId: pitchId } }"  class="flex h-full items-center bg-green text-white px-5 py-1 rounded-xl hover:bg-green-dark transition-all ease-in-out text-right font-semibold">
                     view
                 </router-link>
             </div>
