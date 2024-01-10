@@ -1,7 +1,4 @@
 <script setup>
-import { randomInt } from '../../services/Helpers';
-import { slims } from '../../services/Consts';
-import { ref } from 'vue';
 
 const props = defineProps({
     title: {
@@ -12,11 +9,13 @@ const props = defineProps({
     link: {
         type: Object,
         required: false,
+    },
+    background: {
+        type: String,
+        required: true,
+        default: '/backgrounds/slim/slim_1.webp'
     }
 });
-
-const random = ref(randomInt(0, slims.length-1));
-const background = slims[random.value];
 
 </script>
 

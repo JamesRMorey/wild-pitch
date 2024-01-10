@@ -1,18 +1,17 @@
 <script setup>
 import LocationSearchBar from '../functional/LocationSearchBar.vue';
-import { randomInt } from '../../services/Helpers';
-import { backgrounds } from '../../services/Consts';
-import { ref } from 'vue';
 
 const props = defineProps({
     subTitle: {
         type: String,
         required: false
+    },
+    background: {
+        type: String,
+        required: true,
+        default: 'backgrounds/background_3.webp'
     }
 })
-
-const random = ref(randomInt(0, backgrounds.length-1));
-const background = backgrounds[random.value];
 
 const emit = defineEmits([ 'search' ]);
 

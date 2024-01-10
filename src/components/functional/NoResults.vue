@@ -1,15 +1,14 @@
 <script setup>
-    import { randomInt } from '../../services/Helpers';
-    import { squares } from '../../services/Consts';
-    const props = defineProps({
-        text: {
-            type: String,
-            required: false,
-            default: "We've got no results! If you know somewhere around here why not add it?"
-        }
-    })
+const props = defineProps({
+    text: {
+        type: String,
+        required: false,
+        default: "We've got no results! If you know somewhere around here why not add it?"
+    }
+});
 
-    const image = squares[randomInt(0, squares.length-1)];
+const image = '/backgrounds/square/square_2.webp'
+
 </script>
 
 <template>
