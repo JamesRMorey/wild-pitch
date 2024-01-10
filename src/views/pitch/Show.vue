@@ -9,14 +9,16 @@ import { ref, onMounted } from 'vue';
 import PageLayout from '../../components/layout/PageLayout.vue';
 import TextCtaSplit from '../../components/cta/TextCtaSplit.vue';
 import BackBar from '../../components/layout/BackBar.vue';
+import PitchSlider from '../../components/sliders/PitchSlider.vue';
+import HeaderWithText from '../../components/content/headers/HeaderWithText.vue';
 
 const route = useRoute();
 const api = new Api();
 const { pitchId } = route.params;
 const authStore = useAuthStore();
 
-const getPitch = () => {
-    api.getPitch( pitchId )
+const getPitch = async () => {
+    await api.getPitch( pitchId )
         .then(( response ) => {
             updatePitch( response );
         })
@@ -25,7 +27,18 @@ const getPitch = () => {
         })
 }
 
+const getOthersInArea = async () => {
+    api.getPitchesInArea( pitchId )
+        .then(( response ) => {
+            pitchesInArea.value = response;
+        })
+        .catch(( error ) => {
+
+        })
+}
+
 const pitch = ref(null);
+const pitchesInArea = ref([]);
 
 const updatePitch = ( data ) => {
     pitch.value = data;
@@ -53,6 +66,7 @@ const unSavePitch = async ( id ) => {
 
 onMounted(() => {
     getPitch();
+    getOthersInArea();
 });
 
 </script>
@@ -123,6 +137,11 @@ onMounted(() => {
                     </div>
                 </div>
             </div>
+        </div>
+        <div v-if="pitchesInArea.length > 0" class="py-8 md:py-12 inline-flex flex-col w-full gap-8">
+            <hr/>
+            <HeaderWithText title="In The Area" text="Other pitches around this one" />
+            <PitchSlider :pitches="pitchesInArea" />
         </div>
         <div class="py-8 md:py-12 inline-flex flex-col w-full">
             <TextCtaSplit :cta-1="{ text: 'find out more', link: { name: 'register' } }" :cta-2="{ text: 'sign up now', link: { name: 'register' } }" title="Join The Wild Pitch Community!" text="Find your next adventure from one of our amazing members" />

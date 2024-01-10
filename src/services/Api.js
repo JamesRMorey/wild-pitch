@@ -297,4 +297,16 @@ export default class Api {
             })
         })
     }
+
+    async getPitchesInArea( pitchId ) {
+        return new Promise(async ( resolve, reject ) => {
+            await axios.get( 'api/pitches/' + pitchId + '/others-in-area' )
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error );
+            })
+        })
+    }
 }
