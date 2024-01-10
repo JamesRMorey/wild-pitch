@@ -74,7 +74,7 @@ const goToSlide = ( slideIndex ) => {
     </VueperSlides>
     <SliderNavBar 
         v-if="pitches.length > perPage"
-        :num-slides="pitches.length%perPage" 
+        :num-slides="Math.ceil( pitches.length/perPage )" 
         :active="slider.index" 
         :per-page="perPage"
         @next="nextSlide"

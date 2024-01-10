@@ -8,6 +8,7 @@ import { useAuthStore } from '../../stores/auth';
 import { ref, onMounted } from 'vue';
 import PageLayout from '../../components/layout/PageLayout.vue';
 import TextCtaSplit from '../../components/cta/TextCtaSplit.vue';
+import BackBar from '../../components/layout/BackBar.vue';
 
 const route = useRoute();
 const api = new Api();
@@ -58,8 +59,9 @@ onMounted(() => {
 
 <template>
     <PageLayout>
-        <div v-if="pitch">
-            <div class="pt-8 inline-flex w-full justify-between items-center">
+        <div v-if="pitch" class="pt-8 ">
+            <BackBar :back-to="{ name: 'pitch-listing' }" class="mb-2"/>
+            <div class="inline-flex w-full justify-between items-center">
                 <div class="text-3xl font-semibold truncate...">{{ pitch.title }}</div>
                 <div v-if="authStore.user">
                     <div v-if="!pitch.is_saved" class="inline-flex gap-2 items-center hover:bg-gray-100 py-2 cursor-pointer px-5 rounded-xl" @click="() => savePitch( pitchId )">

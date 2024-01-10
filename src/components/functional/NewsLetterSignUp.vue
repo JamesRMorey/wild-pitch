@@ -41,7 +41,7 @@ const handleSubmit = async ( e ) => {
                     Join Our Newsletter List!
                 </div>
                 <div class="text-white text-lg">
-                    Camping gear offers, reviews, tips and <span class="text-green">wild pitch community trips</span>. It could all be yours :)
+                    Camping gear offers, reviews, tips and <router-link :to="{ name: 'home' }" class="link">Wild Pitch Community Trips</router-link>. It could all be yours :)
                 </div>
             </div>
             <div v-else class="flex-col grow shrink basis-0 gap-2 flex" >
@@ -49,13 +49,18 @@ const handleSubmit = async ( e ) => {
                     Thankyou For Joining Our Community!
                 </div>
                 <div class="text-white text-lg">
-                    Camping gear offers, reviews, tips and <span class="text-green">wild pitch community trips</span>. We hope to see you soon :)
+                    Camping gear offers, reviews, tips and <router-link :to="{ name: 'home' }" class="link">Wild Pitch Community Trips</router-link>. We hope to see you soon :)
                 </div>
             </div>
         </div>
-        <form v-if="config.submitted === false" @submit="handleSubmit" class="flex items-start gap-4">
-            <TextInput class="w-96" v-model:value="data.email" placeholder="email@wild-pitch.co.uk" type="email" :required="true" :errors="config.errors?.email"/>
-            <CustomButton type="round" text="Sign Up" class="flex h-12 items-center justify-center w-48" :loading="config.submitting"/>
+        <form v-if="config.submitted === false" @submit="handleSubmit" class="flex items-start gap-4 flex flex-col">
+            <div class="flex gap-4">
+                <TextInput class="w-96" v-model:value="data.email" placeholder="email@wild-pitch.co.uk" type="email" :required="true" :errors="config.errors?.email"/>
+                <CustomButton type="round" text="Sign Up" class="flex h-12 items-center justify-center w-48" :loading="config.submitting"/>
+            </div>
+            <div class="text-white text-xs">
+                By clicking Sign Up you're confirming that you agree with our <router-link :to="{ name: 'privacy' }" class="link">Terms and Conditions.</router-link>
+            </div>
         </form>
     </div>
 </template>
