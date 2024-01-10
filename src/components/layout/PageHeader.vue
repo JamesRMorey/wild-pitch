@@ -78,9 +78,9 @@ const handleScroll = ( e ) => {
                             Find A Pitch
                         </router-link>
                         <IconButton icon="fa-user" @press="router.push({ name: 'account-home' })" aria-label="go to my account"/>
-                        <div tabindex="0" @click="() => modal.show = true" v-if="authStore.user" class="cursor-pointer text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none transition-all ease-in-out">
+                        <!-- <div tabindex="0" @click="() => modal.show = true" v-if="authStore.user" class="cursor-pointer text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none transition-all ease-in-out">
                             Log out
-                        </div>
+                        </div> -->
                         <router-link v-if="!authStore.user" :to="{ name: 'login' }" aria-label="login" class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none transition-all ease-in-out">
                             Log in
                         </router-link>
