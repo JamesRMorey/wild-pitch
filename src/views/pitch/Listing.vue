@@ -241,7 +241,7 @@ onMounted(async () => {
             <hr />
             <div class="flex-col flex gap-12 py-8 md:py-12">
                 <div class="gap-12 inline-flex flex-col">
-                    <HeaderWithText title="Need Some Ideas?" text="These places are super popular withour users, and for good reason!"/>
+                    <HeaderWithText title="Need Some Ideas?" text="These places are super popular with our users, and for good reason! These places have some of the best wild camping spots the UK has to offer "/>
                     <ImageWithBoxGrid :boxes="topLocationsBoxes" image="/backgrounds/square/square_2.webp" @boxPress="handleBoxPress"/>
                 </div>
                 <div class="inline-flex flex-col">

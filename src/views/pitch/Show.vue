@@ -5,7 +5,7 @@ import ImageGrid from '../../components/image/ImageGrid.vue';
 import Map from '../../components/pitches/Map.vue';
 import { useAuthStore } from '../../stores/auth';
 
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import PageLayout from '../../components/layout/PageLayout.vue';
 import TextCtaSplit from '../../components/cta/TextCtaSplit.vue';
 import BackBar from '../../components/layout/BackBar.vue';
@@ -78,13 +78,13 @@ onMounted(() => {
             <div class="inline-flex w-full justify-between items-center">
                 <div class="text-3xl font-semibold truncate...">{{ pitch.title }}</div>
                 <div v-if="authStore.user">
-                    <div v-if="!pitch.is_saved" class="inline-flex gap-2 items-center hover:bg-gray-100 py-2 cursor-pointer px-5 rounded-xl" @click="() => savePitch( pitchId )">
+                    <div v-if="!pitch.is_saved" class="inline-flex gap-2 items-center hover:bg-gray-100 py-2 cursor-pointer px-5 rounded-xl transition-all ease-in-out" @click="() => savePitch( pitchId )">
                         <div class="font-semibold text-lg">save</div>
-                        <font-awesome-icon icon="fa-solid fa-heart-broken" />
+                        <font-awesome-icon icon="fa-solid fa-heart-broken" class="group-hover:text-gray-800"/>
                     </div>
-                    <div v-else class="inline-flex gap-2 items-center hover:bg-gray-100 py-2 cursor-pointer px-5 rounded-xl" @click="() => unSavePitch( pitchId )">
+                    <div v-else class="inline-flex gap-2 items-center hover:bg-gray-100 py-2 cursor-pointer px-5 rounded-xl group transition-all ease-in-out" @click="() => unSavePitch( pitchId )">
                         <div class="font-semibold text-lg">saved</div>
-                        <font-awesome-icon icon="fa-solid fa-heart" />
+                        <font-awesome-icon icon="fa-solid fa-heart" class="text-red-600 group-hover:text-gray-800" />
                     </div>
                 </div>
             </div>
@@ -106,11 +106,14 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
-                    <div v-if="pitch.user" class="border-t border-b border-gray-200 p-5 hidden lg:inline-flex gap-5 ">
-                        <div class="rounded-full h-full aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.webp')"></div>
+                    <div v-if="pitch.user" class="bg-gray-800 rounded-2xl px-6 py-10 hidden lg:inline-flex gap-5 text-white">
+                        <div class="aspect-square rounded-full bg-white p-1 h-20">
+                            <div class="rounded-full h-full aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.webp')"></div>
+                        </div>
                         <div class="inline-flex flex-col">
-                            <div class="text-xl font-semibold capitalize">Posted By {{ pitch.user.name }}</div>
+                            <div class="text-xl font-semibold capitalize">Posted By <router-link :to="{ name: 'home' }" class="link">{{ pitch.user.name }}</router-link></div>
                             <div class="text-gray-300 text-md">Member since 2023</div>
+                            <div class="text-gray-300 text-sm">Check out other pitches by this user <router-link :to="{ name: 'home' }" class="link">here</router-link></div>
                         </div>
                     </div>
                 </div>
@@ -129,11 +132,14 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <div v-if="pitch.user" class="border-t border-b border-gray-200 p-5 inline-flex gap-5 inline-flex lg:hidden">
-                    <div class="rounded-full h-full w-16 aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.webp')"></div>
+                <div v-if="pitch.user" class="bg-gray-800 rounded-2xl px-6 py-10 lg:hidden inline-flex gap-5 text-white">
+                    <div class="aspect-square rounded-full bg-white p-1 h-20">
+                        <div class="rounded-full h-full aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.webp')"></div>
+                    </div>
                     <div class="inline-flex flex-col">
-                        <div class="text-xl font-semibold capitalize">Posted By {{ pitch.user.name }}</div>
+                        <div class="text-xl font-semibold capitalize">Posted By <router-link :to="{ name: 'home' }" class="link">{{ pitch.user.name }}</router-link></div>
                         <div class="text-gray-300 text-md">Member since 2023</div>
+                        <div class="text-gray-300 text-sm">Check out other pitches by this user <router-link :to="{ name: 'home' }" class="link">here</router-link></div>
                     </div>
                 </div>
             </div>
