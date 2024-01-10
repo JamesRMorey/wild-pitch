@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref, onUnmounted, watch } from 'vue';
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
 import SliderNavBar from './SliderNavBar.vue';
@@ -22,7 +22,8 @@ const slider = ref({
     index: 1,
     slide: 0
 });
-const perPage = ref(4)
+const perPage = ref(3);
+const slideRatio = ref(1/3);
 
 const slideChangeHandler = ( e ) => {
     const { currentSlide } = e;
@@ -42,6 +43,36 @@ const goToSlide = ( slideIndex ) => {
     sliderRef.value.goToSlide( slideIndex*perPage.value + 1 );
 }
 
+const handleResize = ( e ) => {
+    if ( window.innerWidth <= 600 ) {
+        perPage.value = 1;
+    } else if ( window.innerWidth <= 992 ) {
+        perPage.value = 2;
+    } else {
+        perPage.value = 4
+    }
+}
+
+watch( perPage, ( value ) => {
+    if ( value == 4 ) {
+        slideRatio.value = 1/3;
+    } else if ( value == 2 ) {
+        slideRatio.value = 0.76
+    } else if ( value ==1 ) {
+        slideRatio.value = 1.28;
+    }
+});
+
+
+onMounted(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+});
+
+onUnmounted(() => {
+    window.removeEventListener('resize', handleResize)
+})
+
 </script>
 
 <template>
@@ -50,7 +81,7 @@ const goToSlide = ( slideIndex ) => {
         :visible-slides="perPage"
         slide-multiple
         :gap="3"
-        :slide-ratio="1 / 3"
+        :slide-ratio="slideRatio"
         :dragging-distance="200"
         :draggable="true"
         :breakpoints="{ 800: { visibleSlides: perPage, slideMultiple: perPage } }"

@@ -34,7 +34,7 @@ const handleSubmit = async ( e ) => {
 </script>
 
 <template>
-    <div class="bg-gray-800 px-12 py-32 rounded-3xl flex justify-between gap-10">
+    <div class="bg-gray-800 px-12 py-32 rounded-3xl flex flex-col lg:flex-row justify-between gap-10">
         <div>
             <div v-if="config.submitted === false" class="flex-col grow shrink basis-0 gap-2 flex" >
                 <div class="text-white text-3xl font-bold">
@@ -54,9 +54,9 @@ const handleSubmit = async ( e ) => {
             </div>
         </div>
         <form v-if="config.submitted === false" @submit="handleSubmit" class="flex items-start gap-4 flex flex-col">
-            <div class="flex gap-4">
-                <TextInput class="w-96" v-model:value="data.email" placeholder="email@wild-pitch.co.uk" type="email" :required="true" :errors="config.errors?.email"/>
-                <CustomButton type="round" text="Sign Up" class="flex h-12 items-center justify-center w-48" :loading="config.submitting"/>
+            <div class="flex gap-4 w-full flex-col lg:flex-row">
+                <TextInput class="w-full lg:w-96" v-model:value="data.email" placeholder="email@wild-pitch.co.uk" type="email" :required="true" :errors="config.errors?.email"/>
+                <CustomButton type="round" text="Sign Up" class="flex h-12 items-center justify-center w-full lg:w-48" :loading="config.submitting"/>
             </div>
             <div class="text-white text-xs">
                 By clicking Sign Up you're confirming that you agree with our <router-link :to="{ name: 'privacy' }" class="link">Terms and Conditions.</router-link>

@@ -89,7 +89,6 @@ const handleBoxPress = ( i ) => {
                 <NewsLetterSignUp />
             </div>
         </Container>
-
         <PageFooter />
     </div>
 </template>

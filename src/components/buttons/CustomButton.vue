@@ -29,7 +29,7 @@ const handleClick = () => {
 <template>
         <button @click="handleClick" 
             class="transition-all ease-in-out cursor-pointer text-sm px-6 lg:px-8 py-2 lg:py-2.5 font-medium"
-            :class="type == 'primary' ? 'bg-green hidden md:block text-white hover:bg-green-dark rounded-lg' : '',
+            :class="type == 'primary' ? 'bg-green block text-white hover:bg-green-dark rounded-lg' : '',
                     type == 'round' ? 'rounded-full bg-green text-white hover:bg-green-dark' : ''
                    " 
             v-bind="$attrs"

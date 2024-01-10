@@ -28,7 +28,7 @@ const handleClick = () => {
 
 <template>
         <button @click="handleClick" 
-            class="px-12 py-4 rounded-xl font-bold capitalize transition-all ease-in-out"
+            class="w-full p-6 lg:px-12 py-4 rounded-xl font-bold capitalize transition-all ease-in-out"
             :class="type == 'primary' ? 'bg-green text-white hover:bg-green-dark ' : '', type == 'secondary' ? 'bg-gray-100 text-black hover:bg-gray-400 hover:text-white' : ''" 
             v-bind="$attrs"
         >
