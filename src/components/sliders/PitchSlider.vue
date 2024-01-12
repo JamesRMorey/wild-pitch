@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted, ref, onUnmounted, toRefs } from 'vue';
-import 'vueperslides/dist/vueperslides.css'
 import SliderNavBar from './SliderNavBar.vue';
 import { useRouter } from 'vue-router';
 import PitchCard from '../pitches/PitchCard.vue';
