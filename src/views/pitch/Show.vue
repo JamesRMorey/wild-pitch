@@ -73,7 +73,7 @@ onMounted(() => {
 
 <template>
     <PageLayout>
-        <div v-if="pitch" class="pt-8 ">
+        <div v-if="pitch" class="pt-2 ">
             <BackBar class="mb-2"/>
             <div class="inline-flex w-full justify-between items-center">
                 <div class="text-3xl font-semibold truncate...">{{ pitch.title }}</div>
