@@ -1,8 +1,6 @@
 <script setup>
 import { toRefs, computed } from 'vue';
 
-
-
 const props = defineProps({
     numSlides: {
         type: Number,
@@ -16,6 +14,11 @@ const props = defineProps({
     active: {
         type: Number,
         required: true
+    },
+    showArrows: {
+        type: Boolean,
+        required: false,
+        default: true
     }
 });
 
@@ -39,14 +42,16 @@ const prevDisabled = computed(() => {
 
 <template>
     <div class="flex justify-between items-start">
-        <div class="flex justify-start gap-2 items-center">
+        <div class="flex justify-start gap-2 items-center h-5">
             <div v-for="i in numDots" 
                 class="p-2 bg-gray-200 rounded-full transition-all ease-in-out" 
-                :class="active == i-1 ? 'bg-green-dark' : 'cursor-pointer hover:bg-green'"
+                :class="active == i-1 ? 'bg-green-dark p-2.5' : 'cursor-pointer hover:bg-green'"
                 @click="() => emit( 'bulletPress', i-1 )"
             ></div>
         </div>
-        <div class="gap-2 items-center justify-center hidden sm:flex">
+        <div class="gap-2 items-center justify-center hidden" 
+            :class="!showArrows ? 'hidden' : 'sm:flex'"
+            >
             <button class="flex items-center justify-center bg-green p-4 rounded-full aspect-square w-12 transition-all ease-in-out" 
                 :class="prevDisabled ? 'bg-opacity-50 cursor-default' : 'hover:bg-green-dark cursor-pointer'"
                 @click="() => !prevDisabled ? emit( 'prev' ) : null"

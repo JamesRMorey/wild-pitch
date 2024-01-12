@@ -2,28 +2,52 @@
 import { onMounted, ref, onUnmounted, toRefs } from 'vue';
 import SliderNavBar from './SliderNavBar.vue';
 import { useRouter } from 'vue-router';
-import PitchCard from '../pitches/PitchCard.vue';
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import '@splidejs/vue-splide/css';
 
 const router = useRouter();
 
 const props = defineProps({
-    pitches: {
+    images: {
         type: Array,
         required: true
     },
+    perPageLg: {
+        type: Number,
+        required: false,
+        default: 4,
+    },
+    perPageMd: {
+        type: Number,
+        required: false,
+        default: 3,
+    },
+    perPageSm: {
+        type: Number,
+        required: false,
+        default: 2,
+    },
+    perPageXs: {
+        type: Number,
+        required: false,
+        default: 1,
+    },
+    showArrows: {
+        type: Boolean,
+        required: false,
+        default: false
+    }
 });
 
 const emit = defineEmits([ 'slide', 'next', 'prev' ]);
 
-const { pitches } = toRefs( props );
+const { images, perPageLg, perPageMd, perPageSm, perPageXs } = toRefs( props );
 
 const sliderRef = ref();
 const slider = ref({
     index: 0,
 });
-const perPage = ref(3);
+const perPage = ref(perPageLg.value);
 
 const slideChangeHandler = ( e ) => {
     const currentSlide = e;
@@ -32,7 +56,7 @@ const slideChangeHandler = ( e ) => {
 }
 
 const nextSlide = () => {
-    if ( slider.value.index == ( pitches.value.length - perPage.value ) ) return;
+    if ( slider.value.index == ( images.value.length - perPage.value ) ) return;
 
     sliderRef.value.go(slider.value.index + 1);
     slider.value.index += 1;
@@ -51,13 +75,13 @@ const goToSlide = ( slideIndex ) => {
 
 const handleResize = ( e ) => {
     if ( window.innerWidth < 500 ) {
-        perPage.value = 1;
+        perPage.value = perPageXs.value;
     } else if ( window.innerWidth <= 770 ) {
-        perPage.value = 2;
+        perPage.value = perPageSm.value;
     } else if ( window.innerWidth <= 992 ) {
-        perPage.value = 3;
+        perPage.value = perPageMd.value;
     } else {
-        perPage.value = 4
+        perPage.value = perPageLg.value;
     }
 }
 
@@ -81,28 +105,28 @@ onUnmounted(() => {
             perPage: perPage,
             gap: 30,
             arrows: false,
-            bullets: false,
             pagination: false
         }" 
         aria-label="Vue Splide Example"
         ref="sliderRef"
     >
         <SplideSlide
-            v-for="(pitch, i) in pitches"
+            v-for="(img, i) in images"
             :key="i"
-            :title="pitch.title"
             class="rounded-xl"
         >
-            <PitchCard :title="pitch.title" :description="pitch.description" :img="pitch?.images[0]?.src" :pitchId="pitch.id" :is-saved="pitch.is_saved" :features="pitch.features"/>
+            <img :src="img"  class="w-full aspect-square rounded-xl"/>
         </SplideSlide>
     </Splide>
     <SliderNavBar 
-        v-if="pitches.length > perPage"
-        :num-slides="pitches.length" 
+        v-if="images.length > perPage"
+        :num-slides="images.length" 
         :active="slider.index" 
         :per-page="perPage"
         @next="nextSlide"
         @prev="prevSlide"
         @bulletPress="( e ) => goToSlide( e )"
+        :show-arrows="false"
+        class="mt-2"
     />
 </template>
