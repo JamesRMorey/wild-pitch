@@ -74,8 +74,8 @@ onUnmounted(() => {
 <template>
     <teleport to='body'>
         <div class="modal flex justify-center items-center" ref="overlayRef" @click="handleOverlayClick">
-            <div class="flex mx-auto container items-center justify-center flex-col gap-3 lg:w-3/4 xl:w-1/2">
-                <div class="w-full justify-center flex flex-col items-center gap-5 p-10 ">
+            <div class="flex mx-auto container items-center justify-center flex-col gap-3 ">
+                <div class="justify-center flex flex-col items-center gap-5 p-10 w-full md:w-3/4 xl:h-[75vh] xl:w-auto aspect-square">
                     <Splide 
                         :options="{ 
                             rewind: true,
