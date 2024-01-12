@@ -7,6 +7,7 @@ import PageHeader from '../PageHeader.vue';
 import PageFooter from '../PageFooter.vue';
 import Container from '../Container.vue';
 import BannerSlim from '../../banners/BannerSlim.vue';
+import BackBar from '../BackBar.vue';
 
 const props = defineProps({
     headerText: {
@@ -37,7 +38,8 @@ const { buttons } = toRefs( props );
     <div class="min-h-screen flex flex-col">
         <PageHeader />
             <Container>
-                <div class="inline-flex py-8 justify-between items-center">
+                <BackBar />
+                <div class="inline-flex pb-8 pt-3 justify-between items-center">
                     <div class="flex-col inline-flex">
                         <div v-if="headerText" class="text-3xl inline-flex capitalize">{{ headerText }}</div>
                         <div v-if="subtitleText" class="inline-flex">{{ subtitleText }}</div>

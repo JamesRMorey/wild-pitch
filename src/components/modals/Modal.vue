@@ -48,13 +48,15 @@ onUnmounted(() => {
 
 <template>
     <teleport to='body'>
-        <div class="mx-auto container modal p-5 lg:p-60" ref="overlayRef" @click="handleOverlayClick">
-            <div class="bg-white p-10 rounded-2xl inline-flex flex-col gap-3 max-h-full">
-                <slot name="title"></slot>
-                <slot name="content"></slot>
-                <div v-if="confirmText || showClose" class="inline-flex flex-row justify-end gap-3 mt-4">
-                    <custom-button v-if="confirmText" :text="confirmText" @press="handleConfirm" :loading="loading"/>
-                    <custom-button v-if="showClose" text="close" @press="handleClose"/>
+        <div class="modal p-5 lg:p-60" ref="overlayRef" @click="handleOverlayClick">
+            <div class="mx-auto container justify-center flex items-center">
+                <div class="bg-white p-10 rounded-2xl inline-flex flex-col gap-3 max-h-full">
+                    <slot name="title"></slot>
+                    <slot name="content"></slot>
+                    <div v-if="confirmText || showClose" class="inline-flex flex-row justify-end gap-3 mt-4">
+                        <custom-button v-if="confirmText" :text="confirmText" @press="handleConfirm" :loading="loading"/>
+                        <custom-button v-if="showClose" text="close" @press="handleClose"/>
+                    </div>
                 </div>
             </div>
         </div>
