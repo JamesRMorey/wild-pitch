@@ -13,6 +13,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@splidejs/vue-splide": "^0.6.12",
     "@vue-leaflet/vue-leaflet": "^0.10.1",
     "axios": "^1.5.1",
     "lodash": "^4.17.21",
@@ -22,8 +23,7 @@
     "vue-draggable-next": "^2.2.1",
     "vue-router": "^4.2.4",
     "vue-spinner": "^1.0.4",
-    "vue-spinners": "^1.0.2",
-    "vueperslides": "^3.5.1"
+    "vue-spinners": "^1.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.4",

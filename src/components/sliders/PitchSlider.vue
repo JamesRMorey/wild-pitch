@@ -1,10 +1,11 @@
 <script setup>
-import { onMounted, ref, onUnmounted, watch } from 'vue';
-import { VueperSlides, VueperSlide } from 'vueperslides'
+import { onMounted, ref, onUnmounted, toRefs } from 'vue';
 import 'vueperslides/dist/vueperslides.css'
 import SliderNavBar from './SliderNavBar.vue';
 import { useRouter } from 'vue-router';
 import PitchCard from '../pitches/PitchCard.vue';
+import { Splide, SplideSlide } from '@splidejs/vue-splide';
+import '@splidejs/vue-splide/css';
 
 const router = useRouter();
 
@@ -17,56 +18,55 @@ const props = defineProps({
 
 const emit = defineEmits([ 'slide', 'next', 'prev' ]);
 
+const { pitches } = toRefs( props );
+
 const sliderRef = ref();
 const slider = ref({
-    index: 1,
-    slide: 0
+    index: 0,
 });
 const perPage = ref(3);
-const slideRatio = ref(1/3);
 
 const slideChangeHandler = ( e ) => {
-    const { currentSlide } = e;
-    slider.value.index = parseInt( currentSlide.index/perPage.value ) + 1;
-    slider.value.slide = currentSlide.index;
+    const currentSlide = e;
+    sliderRef.value.go( currentSlide );
+    slider.value.index = currentSlide;
 }
 
 const nextSlide = () => {
-    sliderRef.value.goToSlide(slider.value.slide + perPage.value);
+    if ( slider.value.index == ( pitches.value.length - perPage.value ) ) return;
+
+    sliderRef.value.go(slider.value.index + 1);
+    slider.value.index += 1;
 }
 
 const prevSlide = () => {
-    sliderRef.value.goToSlide(slider.value.slide - perPage.value);
+    if ( slider.value.index == 0 ) return;
+
+    sliderRef.value.go(slider.value.index - 1);
+    slider.value.index -= 1;
 }
 
 const goToSlide = ( slideIndex ) => {
-    sliderRef.value.goToSlide( slideIndex*perPage.value + 1 );
+    sliderRef.value.go( slideIndex );
 }
 
 const handleResize = ( e ) => {
-    if ( window.innerWidth <= 600 ) {
+    if ( window.innerWidth < 500 ) {
         perPage.value = 1;
-    } else if ( window.innerWidth <= 992 ) {
+    } else if ( window.innerWidth <= 770 ) {
         perPage.value = 2;
+    } else if ( window.innerWidth <= 992 ) {
+        perPage.value = 3;
     } else {
         perPage.value = 4
     }
 }
 
-watch( perPage, ( value ) => {
-    if ( value == 4 ) {
-        slideRatio.value = 1/3;
-    } else if ( value == 2 ) {
-        slideRatio.value = 0.76
-    } else if ( value ==1 ) {
-        slideRatio.value = 1.28;
-    }
-});
-
-
 onMounted(() => {
     window.addEventListener('resize', handleResize);
     handleResize();
+    // Check if you are using the correct ref in your methods
+    sliderRef.value.splide.on('moved', slideChangeHandler);
 });
 
 onUnmounted(() => {
@@ -76,36 +76,30 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <VueperSlides 
-        class="no-shadow"
-        :visible-slides="perPage"
-        slide-multiple
-        :gap="3"
-        :slide-ratio="slideRatio"
-        :dragging-distance="200"
-        :draggable="true"
-        :breakpoints="{ 800: { visibleSlides: perPage, slideMultiple: perPage } }"
-        :arrows="false"
-        :bullets="false"
-        @slide="slideChangeHandler"
+    <Splide 
+        :options="{ 
+            rewind: true,
+            perPage: perPage,
+            gap: 30,
+            arrows: false,
+            bullets: false,
+            pagination: false
+        }" 
+        aria-label="Vue Splide Example"
         ref="sliderRef"
     >
-        <VueperSlide
+        <SplideSlide
             v-for="(pitch, i) in pitches"
-                :key="i"
-                :title="pitch.title"
-                class="rounded-xl"
+            :key="i"
+            :title="pitch.title"
+            class="rounded-xl"
         >
-            <template #content>
-                <div class="flex">
-                    <PitchCard :title="pitch.title" :description="pitch.description" :img="pitch?.images[0]?.src" :pitchId="pitch.id" :is-saved="pitch.is_saved" :features="pitch.features"/>
-                </div>
-            </template>
-        </VueperSlide>
-    </VueperSlides>
+            <PitchCard :title="pitch.title" :description="pitch.description" :img="pitch?.images[0]?.src" :pitchId="pitch.id" :is-saved="pitch.is_saved" :features="pitch.features"/>
+        </SplideSlide>
+    </Splide>
     <SliderNavBar 
         v-if="pitches.length > perPage"
-        :num-slides="Math.ceil( pitches.length/perPage )" 
+        :num-slides="pitches.length" 
         :active="slider.index" 
         :per-page="perPage"
         @next="nextSlide"

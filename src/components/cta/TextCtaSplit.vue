@@ -26,7 +26,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="bg-gray-800 px-12 py-16 rounded-3xl flex flex-col lg:flex-row justify-between gap-10">
+    <div class="bg-gray-800 px-8 md:px-12 py-16 rounded-3xl flex flex-col lg:flex-row justify-between gap-10">
         <div class="flex-col gap-3 lg:gap-0 flex">
             <div class="text-green text-3xl font-bold">
                 {{ title }}

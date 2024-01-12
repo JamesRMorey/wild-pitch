@@ -37,7 +37,7 @@ const changeImage = ( i ) => {
                 />
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-8 w-full col-span-1">
-                <div v-for="( box, i ) in boxes" class="p-5 bg-gray-100 aspect-square rounded-2xl flex flex-col justify-center h-full" 
+                <div v-for="( box, i ) in boxes" class="p-8 bg-gray-100 aspect-square rounded-2xl flex flex-col justify-center h-full" 
                     :class="i >= 2 ? 'lg:hidden xl:flex' : ''"
                     @mouseenter="changeImage( i )"
                 >
@@ -46,7 +46,7 @@ const changeImage = ( i ) => {
                             <font-awesome-icon :icon="'fa-solid ' + box.icon " size="lg" class="text-green-dark"/>
                             <div class="text-lg font-bold">{{ box.title }}</div>
                         </div>
-                        <div>{{ box.text }}</div>
+                        <div class="text-sm">{{ box.text }}</div>
                     </div>
                     <div class="flex justify-end">
                         <CustomButton :text="box.buttonText" @press="emit( 'boxPress', i )"/>

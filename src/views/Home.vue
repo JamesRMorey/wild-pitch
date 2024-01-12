@@ -36,7 +36,7 @@ const featureBoxes = ref([
 ]);
 
 const topLocationsBoxes = ref([
-    { title: 'The Lake District', text: 'Picturesque lakes, rolling mountains, and charming valleys, attracting hikers, boaters, and nature enthusiasts,', icon: 'fa-water', link: 'pitch-listing', buttonText: 'View Pitches', image: '/images/lake_district_1.webp', locationId: 35665 },
+    { title: 'The Lake District', text: 'Picturesque lakes, rolling mountains, and charming valleys, attracting hikers, boaters, and nature enthusiasts.', icon: 'fa-water', link: 'pitch-listing', buttonText: 'View Pitches', image: '/images/lake_district_1.webp', locationId: 35665 },
     { title: 'Dartmoor', text: 'Known for vast open moorlands, granite tors, and ancient ruins, perfect for exploring nature\'s wild side.', icon: 'fa-binoculars', link: 'pitch-listing', buttonText: 'View Pitches', image: '/images/dartmoor_camping_1.webp', locationId: 17981 },
     { title: 'Snowdonia National Park', text: 'Majestic mountains, deep valleys, and serene lakes, offering adventure and stunning camping spots.', icon: 'fa-mountain', link: 'pitch-listing', buttonText: 'View Pitches', image: '/images/tryfan_1.webp', locationId: 57159 },
     { title: 'The Peak District', text: 'Features rolling hills, limestone valleys, and gritstone edges, ideal for hiking, climbing and camping.', icon: 'fa-cow', link: 'pitch-listing', buttonText: 'View Pitches', image: '/images/peaks_1.webp', locationId: 48740 },
@@ -59,7 +59,7 @@ const handleBoxPress = ( i ) => {
                 </div>
             </template>
         </BannerWithSearch>
-        <Container class="px-5 py-12">
+        <Container class="py-12">
             <div class="flex flex-col gap-12">
                 <div class="flex flex-col gap-8">
                     <IconBoxes title="Join Our Community" text="Why you need to sign up to wild pitch :)" :boxes="featureBoxes"/>
@@ -76,16 +76,14 @@ const handleBoxPress = ( i ) => {
             </div>
         </Container>
         <BannerSlim title="Your Next Adventure" :link="{ name: 'pitch-listing' }"/>
-        <Container>
-            <div class="py-8 pt-12 md:py-12 gap-12 inline-flex flex-col">
-                <HeaderWithText title="Some of our favourites" text="Check out some our admin teams favourite pitches. Theses are places we've visited ourselves and loved so much we wanted to share them with you."/>
-                <Favourites />
-            </div>
-            <hr/>
-            <div class="py-8 md:py-12 gap-12 inline-flex flex-col">
+        <Container class="py-12">
+            <div class="flex flex-col gap-12">
+                <div class="gap-12 inline-flex flex-col">
+                    <HeaderWithText title="Some of our favourites" text="Check out some our admin teams favourite pitches. Theses are places we've visited ourselves and loved so much we wanted to share them with you."/>
+                    <Favourites />
+                </div>
+                <hr/>
                 <ImageWithBoxGrid :boxes="topLocationsBoxes" image="/backgrounds/square/square_2.webp" @boxPress="handleBoxPress"/>
-            </div>
-            <div class="py-8 md:py-12 inline-flex flex-col">
                 <NewsLetterSignUp />
             </div>
         </Container>

@@ -34,7 +34,7 @@ const handleSubmit = async ( e ) => {
 </script>
 
 <template>
-    <div class="bg-gray-800 px-12 py-32 rounded-3xl flex flex-col lg:flex-row justify-between gap-10">
+    <div class="bg-gray-800 px-8 md:px-12 py-32 rounded-3xl flex flex-col lg:flex-row justify-between gap-10">
         <div>
             <div v-if="config.submitted === false" class="flex-col grow shrink basis-0 gap-2 flex" >
                 <div class="text-white text-3xl font-bold">

@@ -1,4 +1,6 @@
 <script setup>
+import { toRefs, computed } from 'vue';
+
 
 
 const props = defineProps({
@@ -19,25 +21,41 @@ const props = defineProps({
 
 const emit = defineEmits([ 'next', 'prev', 'bulletPress' ]);
 
+const { numSlides, perPage, active } = toRefs( props )
+
+const numDots = computed(() => {
+    return Math.abs( numSlides.value - perPage.value + 1 );
+});
+
+const nextDisabled = computed(() => {
+    return active.value == numSlides.value - perPage.value;
+});
+
+const prevDisabled = computed(() => {
+    return active.value == 0;
+})
+
 </script>
 
 <template>
     <div class="flex justify-between items-start">
         <div class="flex justify-start gap-2 items-center">
-            <div v-for="i in numSlides" 
+            <div v-for="i in numDots" 
                 class="p-2 bg-gray-200 rounded-full transition-all ease-in-out" 
-                :class="active == i ? 'bg-green-dark' : 'cursor-pointer hover:bg-green'"
-                @click="() => emit( 'bulletPress', i )"
+                :class="active == i-1 ? 'bg-green-dark' : 'cursor-pointer hover:bg-green'"
+                @click="() => emit( 'bulletPress', i-1 )"
             ></div>
         </div>
-        <div class="flex gap-2 items-center justify-center">
-            <button class="hover:bg-green-dark flex items-center justify-center bg-green p-4 rounded-full aspect-square cursor-pointer w-12 transition-all ease-in-out" 
-                @click="emit( 'prev' )"
+        <div class="gap-2 items-center justify-center hidden sm:flex">
+            <button class="flex items-center justify-center bg-green p-4 rounded-full aspect-square w-12 transition-all ease-in-out" 
+                :class="prevDisabled ? 'bg-opacity-50 cursor-default' : 'hover:bg-green-dark cursor-pointer'"
+                @click="() => !prevDisabled ? emit( 'prev' ) : null"
             >
                 <font-awesome-icon icon="fa-solid fa-chevron-left" class="text-white" />
             </button>
-            <button class="hover:bg-green-dark flex items-center justify-center bg-green p-4 rounded-full aspect-square cursor-pointer w-12 transition-all ease-in-out" 
-                @click="emit( 'next' )"
+            <button class="flex items-center justify-center bg-green p-4 rounded-full aspect-square w-12 transition-all ease-in-out" 
+                :class="nextDisabled ? 'bg-opacity-50 cursor-default' : 'hover:bg-green-dark cursor-pointer'"
+                @click="() => !nextDisabled ? emit( 'next' ) : null"
             >
                 <font-awesome-icon icon="fa-solid fa-chevron-right"  class="text-white"/>
             </button>
