@@ -73,7 +73,7 @@ onMounted(() => {
 
 <template>
     <PageLayout>
-        <div v-if="pitch" class="pt-2 ">
+        <div v-if="pitch" class="pt-2 transition-all ease-in-out">
             <BackBar class="mb-2"/>
             <div class="inline-flex w-full justify-between items-center">
                 <div class="text-3xl font-semibold truncate...">{{ pitch.title }}</div>
@@ -119,7 +119,6 @@ onMounted(() => {
                 </div>
                 <div class="inline-flex flex-col gap-5 w-full lg:w-2/5">
                     <div class="flex-col inline-flex gap-3">
-                        <!-- <div class="font-semibold text-xl">Map</div> -->
                         <div class="inline-flex aspect-square flex-col">
                             <Map :latitude="pitch.latitude" :longitude="pitch.longitude" :markers="[{ lat: pitch.latitude, lng: pitch.longitude }]"/>
                         </div>
@@ -140,6 +139,20 @@ onMounted(() => {
                         <div class="text-xl font-semibold capitalize">Posted By <router-link :to="{ name: 'user-profile', params: { userId: pitch.user.id } }" class="link">{{ pitch.user.name }}</router-link></div>
                         <div class="text-gray-300 text-md">Member since 2023</div>
                         <div class="text-gray-300 text-sm">Check out other pitches by this user <router-link :to="{ name: 'user-profile', params: { userId: pitch.user.id } }" class="link">here</router-link></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-else class="pt-2 transition-all ease-in-out">
+            <BackBar class="mb-2"/>
+            <div class="inline-flex w-full justify-between items-center">
+                <div class="text-3xl font-semibold truncate... w-1/2 bg-gray-100 h-10"></div>
+            </div>
+            <div class="pt-5 pb-8">
+                <div class="w-full flex-col md:grid md:grid-cols-2 gap-3 hidden md:inline-flex">
+                    <div class="w-full bg-gray-100 rounded-xl overflow-hidden object-center object-cover aspect-square text-right cursor-pointer hover:brightness-75 transition-all ease-in-out"></div>
+                    <div class="hidden md:grid grid-cols-2 gap-3">
+                        <div v-for="i in 4"  class="w-full bg-gray-100 rounded-xl object-cover object-center aspect-square relative cursor-pointer hover:brightness-50 transition-all ease-in-out"></div>
                     </div>
                 </div>
             </div>
