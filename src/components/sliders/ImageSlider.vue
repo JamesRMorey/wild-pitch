@@ -107,7 +107,6 @@ onUnmounted(() => {
             arrows: false,
             pagination: false
         }" 
-        aria-label="Vue Splide Example"
         ref="sliderRef"
     >
         <SplideSlide

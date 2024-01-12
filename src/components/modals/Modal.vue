@@ -48,7 +48,7 @@ onUnmounted(() => {
 
 <template>
     <teleport to='body'>
-        <div class="modal p-5 lg:p-60" ref="overlayRef" @click="handleOverlayClick">
+        <div class="mx-auto container modal p-5 lg:p-60" ref="overlayRef" @click="handleOverlayClick">
             <div class="bg-white p-10 rounded-2xl inline-flex flex-col gap-3">
                 <slot name="title"></slot>
                 <slot name="content"></slot>
