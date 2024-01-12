@@ -83,7 +83,6 @@ const getPitches = async ( page=1 ) => {
             const { data } = response;
             updatePitches( data );
             updatePaginator( response );
-            console.log( data );
         })
         .catch(( error ) => {
             loading.value = false

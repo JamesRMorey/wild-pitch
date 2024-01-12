@@ -93,7 +93,7 @@ onUnmounted(() => {
                         >
                             <img 
                                 :src="img"  
-                                class="w-full aspect-square rounded-xl cursor-grab"
+                                class="w-full aspect-square rounded-xl cursor-grab object-center object-cover"
                             />
                         </SplideSlide>
                     </Splide>
