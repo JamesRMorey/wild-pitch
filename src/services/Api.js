@@ -309,4 +309,16 @@ export default class Api {
             })
         })
     }
+
+    async getUserProfile( userId ) {
+        return new Promise(async ( resolve, reject ) => {
+            await axios.get( 'api/profile/user/' + userId  )
+            .then(( response ) => {
+                resolve( response.data );
+            })
+            .catch(( error ) => {
+                reject( error );
+            })
+        })
+    }
 }

@@ -111,9 +111,9 @@ onMounted(() => {
                             <div class="rounded-full h-full aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.webp')"></div>
                         </div>
                         <div class="inline-flex flex-col">
-                            <div class="text-xl font-semibold capitalize">Posted By <router-link :to="{ name: 'home' }" class="link">{{ pitch.user.name }}</router-link></div>
+                            <div class="text-xl font-semibold capitalize">Posted By <router-link :to="{ name: 'user-profile', params: { userId: pitch.user.id } }" class="link">{{ pitch.user.name }}</router-link></div>
                             <div class="text-gray-300 text-md">Member since 2023</div>
-                            <div class="text-gray-300 text-sm">Check out other pitches by this user <router-link :to="{ name: 'home' }" class="link">here</router-link></div>
+                            <div class="text-gray-300 text-sm">Check out other pitches by this user <router-link :to="{ name: 'user-profile', params: { userId: pitch.user.id } }" class="link">here</router-link></div>
                         </div>
                     </div>
                 </div>
@@ -137,9 +137,9 @@ onMounted(() => {
                         <div class="rounded-full h-full aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.webp')"></div>
                     </div>
                     <div class="inline-flex flex-col">
-                        <div class="text-xl font-semibold capitalize">Posted By <router-link :to="{ name: 'home' }" class="link">{{ pitch.user.name }}</router-link></div>
+                        <div class="text-xl font-semibold capitalize">Posted By <router-link :to="{ name: 'user-profile', params: { userId: pitch.user.id } }" class="link">{{ pitch.user.name }}</router-link></div>
                         <div class="text-gray-300 text-md">Member since 2023</div>
-                        <div class="text-gray-300 text-sm">Check out other pitches by this user <router-link :to="{ name: 'home' }" class="link">here</router-link></div>
+                        <div class="text-gray-300 text-sm">Check out other pitches by this user <router-link :to="{ name: 'user-profile', params: { userId: pitch.user.id } }" class="link">here</router-link></div>
                     </div>
                 </div>
             </div>

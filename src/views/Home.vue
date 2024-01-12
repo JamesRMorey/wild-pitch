@@ -66,7 +66,7 @@ const handleBoxPress = ( i ) => {
                     <hr/>
                 </div>
                 <TextImageSplit 
-                    text="Wild Pitch is a community collection of the best wild camping spots in the UK. We always found it a stuggle searching facebook groups and forums to find a good spot for our next trip, and so, Wild Pitch was born! Our service is totally free to use, so why not create an account and upload some of your favourite spots?" 
+                    text="Wild Pitch is a community collection of the best wild camping spots in the UK. <br/><br/> We always found it a stuggle searching facebook groups and forums to find a good spot for our next trip, and so, Wild Pitch was born! <br/><br/> Our service is totally free to use, so why not create an account and upload some of your favourite spots?" 
                     image="/backgrounds/square/square_2.webp" 
                     title="Wild Pitch"
                 />

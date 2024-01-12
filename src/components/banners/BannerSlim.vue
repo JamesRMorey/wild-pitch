@@ -28,7 +28,7 @@ const props = defineProps({
         >
             <div class="absolute z-10 bg-gray-800 bg-opacity-50 text-white group-hover:bg-opacity-100 shadow group-hover:text-white group-hover:px-10 group-hover:py-3 py-2 px-6 rounded-full transition-all ease-in-out">{{ title }}</div>
         </div>
-        <div class="absolute top-0 bottom-2 left-0 right-0 bg-green-light bg-opacity-0 z-0 group-hover:bg-opacity-30 transition-all ease-in-out"></div>
+        <div class="absolute top-0 bottom-0 left-0 right-0 bg-green-light bg-opacity-0 z-0 group-hover:bg-opacity-30 transition-all ease-in-out"></div>
     </router-link>
     <div v-else class="relative" >
         <div

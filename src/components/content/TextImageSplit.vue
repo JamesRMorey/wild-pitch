@@ -34,7 +34,7 @@ const props = defineProps({
             </div>
             <div class="inline-flex flex-col gap-2 lg:gap-5">
                 <h2 v-if="title" class="text-5xl font-semibold">{{ title }}</h2>
-                <div>{{ text }}</div>
+                <div v-html="text"></div>
             </div>
         </div>
     </div>

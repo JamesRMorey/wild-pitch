@@ -27,7 +27,6 @@ const modal = ref({
 const getUser = async () => {
     await api.getUser()
         .then(( response ) => {
-            console.log(response)
             user.value = response;
             config.value.loaded = true;
         })
@@ -41,7 +40,6 @@ const handleSubmit = async ( e ) => {
     config.value.submitting = true;
     await api.updateUser( user.value )
         .then(( response ) => {
-            console.log(response);
             config.value.submitting = false;
             router.push({ name: 'account-home' })
         })
