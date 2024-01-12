@@ -97,7 +97,10 @@ const router = createRouter({
         component: UserDetails,
         meta: { auth: true }
     }
-  ]
+  ],
+  scrollBehavior () {
+      return { top: 0, left: 0 }
+  }
 })
 
 router.beforeEach(async (to) => {    
