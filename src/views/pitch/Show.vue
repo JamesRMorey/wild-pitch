@@ -73,12 +73,13 @@ onMounted(() => {
 
 <template>
     <PageLayout>
-        <div v-if="pitch" class="pt-2 transition-all ease-in-out">
+        <div class="pt-2 transition-all ease-in-out">
             <BackBar class="mb-2"/>
             <div class="inline-flex w-full justify-between items-center">
-                <div class="text-3xl font-semibold truncate...">{{ pitch.title }}</div>
+                <div v-if="pitch?.title" class="text-3xl font-semibold truncate...">{{ pitch.title }}</div>
+                <div v-else class="text-3xl font-semibold truncate... text-transparent bg-gray-100 w-2/5">loading</div>
                 <div v-if="authStore.user">
-                    <div v-if="!pitch.is_saved" class="inline-flex gap-2 items-center hover:bg-gray-100 py-2 cursor-pointer px-5 rounded-xl transition-all ease-in-out" @click="() => savePitch( pitchId )">
+                    <div v-if="!pitch?.is_saved" class="inline-flex gap-2 items-center hover:bg-gray-100 py-2 cursor-pointer px-5 rounded-xl transition-all ease-in-out" @click="() => savePitch( pitchId )">
                         <div class="font-semibold text-lg">save</div>
                         <font-awesome-icon icon="fa-solid fa-heart-broken" class="group-hover:text-gray-800"/>
                     </div>
@@ -89,15 +90,15 @@ onMounted(() => {
                 </div>
             </div>
             <div class="pt-5 pb-8">
-                <ImageGrid :images="pitch.images.map((image) => image.src)" />
+                <ImageGrid :images="pitch?.images?.map((image) => image.src)" />
             </div>
             <div class="inline-flex gap-5 w-full flex-col lg:flex-row">
                 <div class="flex-col inline-flex gap-10 w-full lg:w-3/5">
                     <div class="flex-col inline-flex gap-3">
                         <div class="text-xl font-semibold">What To Expect</div>
-                        <div v-html="pitch.description" class="whitespace-pre-line bg-gray-100 p-5 rounded-xl"></div>
+                        <div v-if="pitch?.description" v-html="pitch?.description" class="whitespace-pre-line bg-gray-100 p-5 rounded-xl"></div>
                     </div>
-                    <div v-if="pitch.features.length > 0" class="flex-col inline-flex gap-3">
+                    <div v-if="pitch?.features.length > 0" class="flex-col inline-flex gap-3">
                         <div class="text-xl font-semibold">Features</div>
                             <div class="border-gray-200">
                             <div v-for="( feature, i ) in pitch.features" class="inline-flex m-1 transition-all ease-in-out rounded-full p-2 px-4 hover:bg-gray-200 bg-gray-100 cursor-pointer gap-2 justify-center items-center">
@@ -106,7 +107,7 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
-                    <div v-if="pitch.user" class="bg-gray-800 rounded-2xl px-6 py-10 hidden lg:inline-flex gap-5 text-white">
+                    <div v-if="pitch?.user" class="bg-gray-800 rounded-2xl px-6 py-10 hidden lg:inline-flex gap-5 text-white">
                         <div class="aspect-square rounded-full bg-white p-1 h-20">
                             <div class="rounded-full h-full aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.webp')"></div>
                         </div>
@@ -117,7 +118,7 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <div class="inline-flex flex-col gap-5 w-full lg:w-2/5">
+                <div v-if="pitch?.latitude && pitch?.longitude" class="inline-flex flex-col gap-5 w-full lg:w-2/5">
                     <div class="flex-col inline-flex gap-3">
                         <div class="inline-flex aspect-square flex-col">
                             <Map :latitude="pitch.latitude" :longitude="pitch.longitude" :markers="[{ lat: pitch.latitude, lng: pitch.longitude }]"/>
@@ -131,7 +132,7 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <div v-if="pitch.user" class="bg-gray-800 rounded-2xl px-6 py-10 lg:hidden inline-flex gap-5 text-white">
+                <div v-if="pitch?.user" class="bg-gray-800 rounded-2xl px-6 py-10 lg:hidden inline-flex gap-5 text-white">
                     <div class="aspect-square rounded-full bg-white p-1 h-20">
                         <div class="rounded-full h-full aspect-square bg-cover bg-center" style="background-image: url('/logos/icon.webp')"></div>
                     </div>
@@ -143,7 +144,7 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-        <div v-else class="pt-2 transition-all ease-in-out">
+        <!-- <div v-else class="pt-2 transition-all ease-in-out">
             <BackBar class="mb-2"/>
             <div class="inline-flex w-full justify-between items-center">
                 <div class="text-3xl font-semibold truncate... w-1/2 bg-gray-100 h-10"></div>
@@ -156,7 +157,7 @@ onMounted(() => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div v-if="pitchesInArea.length > 0" class="py-8 md:py-12 inline-flex flex-col w-full gap-8">
             <hr/>
             <HeaderWithText title="In The Area" text="Other pitches around this one" />
