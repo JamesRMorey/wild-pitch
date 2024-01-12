@@ -89,8 +89,8 @@ const unSavePitch = async ( id ) => {
                 <div class="text-grey truncate ...">{{ description }}</div>
             </div>
             <div class="flex justify-between items-end">
-                <div v-if="features.length" class="flex gap-1 items-end px-2 truncate ... p-2 bg-gray-800 rounded-xl">
-                    <div v-for="( feature, i ) in features.slice(0,5)">
+                <div v-if="features.length" class="flex gap-2 items-end px-2 truncate ... p-2 bg-gray-800 rounded-xl">
+                    <div v-for="( feature, i ) in features.slice(0,4)">
                         <font-awesome-icon :icon="feature.icon" class="text-white"/>
                     </div>
                 </div>

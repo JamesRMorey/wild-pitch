@@ -87,7 +87,7 @@ const save = () => {
                 </div>
                 <div class="relative max-h-[100%] max-w-[75vw]">
                     <div v-if="crop.image" class="absolute z-10 right-5 bottom-5 inline-flex border-dashed border-2 border-white">
-                        <img :src="crop.image" class="h-32 w-auto"/>
+                        <img :src="crop.image" class="h-32 w-auto object-cover object-center"/>
                         <div class="bg-black bg-opacity-50 p-2 flex flex-col justify-between">
                             <span class="text-white">
                                 <div v-text="'Width: ' + crop.width +'px'"></div>

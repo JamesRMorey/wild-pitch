@@ -103,7 +103,7 @@ onUnmounted(() => {
         :options="{ 
             rewind: true,
             perPage: perPage,
-            gap: 30,
+            gap: 20,
             arrows: false,
             pagination: false
         }" 
@@ -114,7 +114,7 @@ onUnmounted(() => {
             :key="i"
             class="rounded-xl"
         >
-            <img :src="img"  class="w-full aspect-square rounded-xl"/>
+            <img :src="img"  class="w-full aspect-square rounded-xl object-cover object-center"/>
         </SplideSlide>
     </Splide>
     <SliderNavBar 

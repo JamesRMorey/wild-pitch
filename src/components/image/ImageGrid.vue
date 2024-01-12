@@ -28,7 +28,7 @@ const slider = ref({
     <div class="w-full flex-col md:grid md:grid-cols-2 gap-3 hidden md:inline-flex">
         <img :src="thumbnail" class="w-full rounded-xl overflow-hidden object-center object-cover aspect-square text-right cursor-pointer hover:brightness-75 transition-all ease-in-out" @click="() => slider = { show: true, index: 0 }"/>
         <div class="hidden md:grid grid-cols-2 gap-3">
-            <img v-for="(image, i) in otherImages" :src="image" loading="lazy" class="w-full rounded-xl bg-center bg-cover aspect-square relative cursor-pointer hover:brightness-50 transition-all ease-in-out" @click="() => slider = { show: true, index: i+1 }"/>
+            <img v-for="(image, i) in otherImages" :src="image" loading="lazy" class="w-full rounded-xl object-cover object-center aspect-square relative cursor-pointer hover:brightness-50 transition-all ease-in-out" @click="() => slider = { show: true, index: i+1 }"/>
         </div>
     </div>
     <div class="block md:hidden">

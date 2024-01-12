@@ -81,7 +81,7 @@ onUnmounted(() => {
                             rewind: true,
                             perPage: 1,
                             gap: 5,
-                            arrows: false,
+                            arrows: true,
                             pagination: false
                         }" 
                         ref="sliderRef"

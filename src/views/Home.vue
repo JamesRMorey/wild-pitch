@@ -9,7 +9,7 @@ import Container from '../components/layout/Container.vue';
 import BannerSlim from '../components/banners/BannerSlim.vue';
 import HeaderWithText from '../components/content/headers/HeaderWithText.vue';
 import Favourites from '../components/content/Favourites.vue';
-import Header from '../components/content/Header.vue';
+import ImageGrid from '../components/image/ImageGrid.vue';
 import IconBoxes from '../components/content/IconBoxes.vue';
 import ImageWithBoxGrid from '../components/content/ImageWithBoxGrid.vue';
 import TextCtaSplit from '../components/cta/TextCtaSplit.vue';
@@ -85,6 +85,11 @@ const handleBoxPress = ( i ) => {
                 <hr/>
                 <ImageWithBoxGrid :boxes="topLocationsBoxes" image="/backgrounds/square/square_2.webp" @boxPress="handleBoxPress"/>
                 <NewsLetterSignUp />
+                <hr />
+                <div class="gap-12 inline-flex flex-col">
+                    <HeaderWithText title="Happy Campers!" text="Some adventures from the Wild Pitch gang."/>
+                    <ImageGrid :images="[ '/images/IMG_0995.webp', '/images/IMG_3368.webp', '/images/IMG_4299.webp', '/images/IMG_3352.webp', '/images/IMG_0982.webp', '/images/IMG_4337.webp', '/images/IMG_4862.webp',]" />
+                </div>
             </div>
         </Container>
         <PageFooter />
