@@ -9,6 +9,7 @@ import PitchCard from '../components/pitches/PitchCard.vue';
 import ImageGrid from '../components/image/ImageGrid.vue';
 import NewsLetterSignUp from '../components/functional/NewsLetterSignUp.vue';
 import TextCtaSplit from '../components/cta/TextCtaSplit.vue';
+import BackBar from '../components/layout/BackBar.vue';
 
 const route = useRoute();
 const api = new Api();
@@ -36,7 +37,16 @@ onMounted(() => {
 <template>
     <PageLayout>
         <div class="pb-10 flex flex-col gap-6">
-            <div class="grid grid-cols-5 gap-5 py-6 px-10">
+            <BackBar />
+            <div class="flex flex-row gap-5">
+                <img :src="dark ? '/logos/icon-white.webp' : '/logos/icon.webp'" class="h-24" alt="wild pitch logo"/>
+                <div class="flex flex-col">
+                    <div class="text-2xl">{{ profile.name }}</div>
+                    <div class="text-md">We think these pitches are pretty awesome.</div>
+                    <div class="text-md">Create your own pitches <router-link :to="{ name: 'account-home' }" class="link">here</router-link>.</div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 py-6 px-10">
                 <PitchCard 
                     v-for="( pitch, i ) in profile.pitches"
                     :title="pitch.title" 
