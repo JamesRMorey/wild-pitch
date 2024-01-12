@@ -72,7 +72,7 @@ const save = () => {
 <template>
     <Modal @close="handleClose" :showClose="false">
         <template v-slot:content>
-            <div class="">
+            <div>
                 <div class="justify-between w-full inline-flex items-center gap-10 mb-5">
                     <div class="text-2xl">
                         We like squares, please :)
@@ -96,14 +96,19 @@ const save = () => {
                             <CustomButton text="Save" @press="save" />
                         </div>
                     </div>
-                    <Cropper
-                        class="cropper"
-                        :src="src"
-                        :stencil-props="{
-                            aspectRatio: 1/1
-                        }"
-                        ref="cropperRef"
-                    />     
+                    <div class="h-96 self-stretch">
+                        <div class="h-full">
+                            <Cropper
+                            class="cropper"
+                            :src="src"
+                            :stencil-props="{
+                                aspectRatio: 1/1
+                            }"
+                            
+                            ref="cropperRef"
+                        />  
+                        </div>
+                    </div>  
                 </div>    
             </div>
         </template>
