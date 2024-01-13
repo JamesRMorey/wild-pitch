@@ -73,6 +73,12 @@ const isLoaded = computed(() => {
     return pitch?.value;
 });
 
+watch( pitchId.value, () => {
+    console.log('awdaw')
+    getPitch();
+    getOthersInArea();
+});
+
 </script>
 
 <template>
