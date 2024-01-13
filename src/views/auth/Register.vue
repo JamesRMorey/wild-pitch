@@ -65,7 +65,7 @@ const handleSubmit = async ( e ) => {
                                 <TextInput v-model:value="formData.confirmPassword" type="password" :errors="config.errors?.password" :hideErrorText="true" label="Confirm Password" @clear="config.errors.password = null" />
                             </div>
                             <div class="inline-flex justify-end pt-5">
-                                <CustomButton text="register" :loading="config.submitting"/>
+                                <CustomButton text="Register" :loading="config.submitting"/>
                             </div>
                             <div>
                                 <div>

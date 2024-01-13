@@ -65,7 +65,7 @@ const handleSubmit = async ( e ) => {
                                 <router-link class="underline" :to="{ name: 'forgot-password' }">forgot password?</router-link>
                             </div>
                             <div class="inline-flex justify-end pt-5">
-                                <CustomButton text="login" :loading="config.submitting"/>
+                                <CustomButton text="Login" :loading="config.submitting"/>
                             </div>
                             <div>
                                 <div>
