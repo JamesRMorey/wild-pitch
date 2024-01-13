@@ -1,9 +1,10 @@
 <script setup>
-import { onMounted, ref, onUnmounted, toRefs } from 'vue';
+import { onMounted, ref, onUnmounted, toRefs, computed } from 'vue';
 import SliderNavBar from './SliderNavBar.vue';
 import { useRouter } from 'vue-router';
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import '@splidejs/vue-splide/css';
+import ImageSliderModal from '../modals/ImageSliderModal.vue';
 
 const router = useRouter();
 
@@ -43,6 +44,7 @@ const emit = defineEmits([ 'slide', 'next', 'prev' ]);
 
 const { images, perPageLg, perPageMd, perPageSm, perPageXs } = toRefs( props );
 
+const modalSlider = ref({ show: false, index: 0 });
 const sliderRef = ref();
 const slider = ref({
     index: 0,
@@ -96,6 +98,10 @@ onUnmounted(() => {
     window.removeEventListener('resize', handleResize)
 })
 
+const isLoaded = computed(() => {
+    return images?.value?.length > 0;
+});
+
 </script>
 
 <template>
@@ -110,11 +116,20 @@ onUnmounted(() => {
         ref="sliderRef"
     >
         <SplideSlide
+            v-if="isLoaded"
             v-for="(img, i) in images"
             :key="i"
             class="rounded-xl"
+            @click="() => modalSlider = { show: true, index: i }"
         >
-            <img :src="img"  class="w-full aspect-square rounded-xl object-cover object-center"/>
+            <img v-i :src="img"  class="w-full aspect-square rounded-xl object-cover object-center"/>
+        </SplideSlide>
+        <SplideSlide
+            v-else
+            v-for="i in 4"
+            class="rounded-xl"
+        >
+            <div class="bg-gray-100 w-full aspect-square rounded-xl object-cover object-center"></div>
         </SplideSlide>
     </Splide>
     <SliderNavBar 
@@ -127,5 +142,11 @@ onUnmounted(() => {
         @bulletPress="( e ) => goToSlide( e )"
         :show-arrows="false"
         class="mt-2"
+    />
+    <ImageSliderModal
+        v-if="modalSlider.show"
+        :images="images"
+        @close="modalSlider.show = false"
+        :open-index="modalSlider.index"
     />
 </template>

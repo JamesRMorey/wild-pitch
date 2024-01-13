@@ -35,14 +35,18 @@ const slider = ref({
     index: 0
 });
 
+const isLoaded = computed(() => {
+    return images?.value?.length > 0 && thumbnail?.value?.length > 0;
+})
+
 </script>
 
 <template>
     <div class="w-full flex-col md:grid md:grid-cols-2 gap-3 hidden md:inline-flex">
-        <img v-if="thumbnail" :src="thumbnail" class="w-full rounded-xl overflow-hidden object-center object-cover aspect-square text-right cursor-pointer hover:brightness-75 transition-all ease-in-out" @click="() => slider = { show: true, index: 0 }"/>
+        <img v-if="isLoaded" :src="thumbnail" class="w-full rounded-xl overflow-hidden object-center object-cover aspect-square text-right cursor-pointer hover:brightness-75 transition-all ease-in-out" @click="() => slider = { show: true, index: 0 }"/>
         <div v-else class="w-full bg-gray-100 rounded-xl overflow-hidden object-center object-cover aspect-square text-right cursor-pointer hover:brightness-75 transition-all ease-in-out"></div>
         <div class="hidden md:grid grid-cols-2 gap-3">
-            <img v-if="images?.length > 0" v-for="(image, i) in otherImages" :src="image" loading="lazy" class="w-full rounded-xl object-cover object-center aspect-square relative cursor-pointer hover:brightness-50 transition-all ease-in-out" @click="() => slider = { show: true, index: i+1 }"/>
+            <img v-if="isLoaded" v-for="(image, i) in otherImages" :src="image" loading="lazy" class="w-full rounded-xl object-cover object-center aspect-square relative cursor-pointer hover:brightness-50 transition-all ease-in-out" @click="() => slider = { show: true, index: i+1 }"/>
             <div v-else v-for="i in 4"  class="w-full bg-gray-100 rounded-xl object-cover object-center aspect-square relative cursor-pointer hover:brightness-50 transition-all ease-in-out"></div>
         </div>
     </div>
