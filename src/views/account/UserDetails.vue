@@ -92,7 +92,7 @@ onMounted(() => {
         <!-- <div class="inline-flex justify-end items-end">
                     <CustomButton text="Delete Account" @press="handleDeletePress"/>
                 </div> -->
-        <Modal v-if="modal.show" @close="modal.show = false" @confirm="deleteUser()" confirmText="yep, i'm off, cya!">
+        <Modal v-if="modal.show" @close="modal.show = false" @confirm="deleteUser()" confirmText="Yep, i'm off, cya!">
             <template v-slot:title>
                 <div class="text-lg font-semibold">Woah! Hold on a sec</div>
             </template>

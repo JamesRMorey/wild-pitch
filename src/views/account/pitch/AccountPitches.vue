@@ -2,7 +2,7 @@
 import AccountLayout from '../../../components/layout/account/AccountLayout.vue';
 import AccountPitchCard from '../../../components/account/AccountPitchCard.vue';
 import Api from '../../../services/Api';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import Map from '../../../components/pitches/Map.vue';
 import { LControl } from '@vue-leaflet/vue-leaflet';
@@ -10,6 +10,7 @@ import Modal from '../../../components/modals/Modal.vue';
 import IconButton from '../../../components/buttons/IconButton.vue';
 import NoResults from '../../../components/functional/NoResults.vue';
 import Alert from '../../../components/functional/Alert.vue';
+import PitchCardLoader from '../../../components/loaders/PitchCardLoader.vue';
 
 const api = new Api();
 const router = useRouter();
@@ -112,12 +113,16 @@ onMounted(() => {
     getPitches();
 })
 
+const isLoaded = computed(() => {
+    return pitches.value.length > 0;
+})
+
 </script>
 
 <template>
-    <AccountLayout headerText="my pitches" subtitleText="manage, add and remove your listings" :buttons="pageButtons" :loading="config.loading">
+    <AccountLayout headerText="my pitches" subtitleText="manage, add and remove your listings" :buttons="pageButtons">
         <div class="inline-flex justify-start pb-4">
-            <IconButton v-if="pitches.length" class="block" icon="fa-map" @press="handleMapButtonClick" :active="map.show" />
+            <IconButton class="block" icon="fa-map" @press="handleMapButtonClick" :active="map.show" />
         </div>
         <div v-if="map.show" class="inline-flex">
             <div class="w-full aspect-[4/6] md:aspect-video mb-6">
@@ -140,14 +145,27 @@ onMounted(() => {
         </div>
         <div v-else class="inline-flex flex-col gap-10">
             <Alert class="mt-2" text="Only approved pitches are displayed here, typically within 24 hours. We appreciate your patience as our team ensures quality content. If you have any questions, feel free to reach out." />
-            <div v-if="pitches.length" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 md:px-8 mb-16">
-                <AccountPitchCard v-if="pitches.length" v-for="( pitch, i ) in pitches" @destroy="handleDestroy" :id="pitch.id" :description="pitch.description" :title="pitch.title" :img="pitch?.images[0]?.src" :features="pitch.features"/>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 md:px-8 mb-16">
+                <AccountPitchCard 
+                    v-if="isLoaded" 
+                    v-for="( pitch, i ) in pitches" 
+                    @destroy="handleDestroy" 
+                    :id="pitch.id" 
+                    :description="pitch.description" 
+                    :title="pitch.title" 
+                    :img="pitch?.images[0]?.src" 
+                    :features="pitch.features"
+                />
+                <PitchCardLoader 
+                    v-if="!isLoaded"
+                    v-for="i in 10"
+                />
             </div>
-            <div v-else class="inline-flex justify-center items-center w-full">
+            <!-- <div v-else class="inline-flex justify-center items-center w-full">
                 <NoResults :text="'You dont have any pitches, why not add one now?'" />
-            </div>
+            </div> -->
         </div>
-        <Modal v-if="modal.show" @close="closeConfirmModal" @confirm="deletePitch( modal.pitch.id )" confirmText="yep, delete it">
+        <Modal v-if="modal.show" @close="closeConfirmModal" @confirm="deletePitch( modal.pitch.id )" confirmText="Yep, delete it">
             <template v-slot:title>
                 <div class="text-lg font-semibold">Woah! Hold on a sec</div>
             </template>

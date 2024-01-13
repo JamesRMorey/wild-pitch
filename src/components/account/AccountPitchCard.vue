@@ -41,30 +41,27 @@ const destroy = async () => {
 </script>
 
 <template>
-    <div class="w-full inline-flex flex-col gap-3 justify-center bg-center bg-cover">
-        <router-link :to="'/pitches/pitch/' + id" class="w-full rounded-xl bg-center bg-cover aspect-square" :style="{ backgroundImage: `url(${img})`}">
-        </router-link>
-        <div class="inline-flex flex-col gap-3">
+    <div class="w-full inline-flex flex-col gap-3 justify-center bg-center bg-cover group">
+        <div class="w-full rounded-xl bg-center bg-cover aspect-square text-right relative">
+            <router-link :to="{ name: 'pitch-show', params: { pitchId: id } }">
+                <img :src="img" class="object-cover object-center flex w-full rounded-xl aspect-square hover:brightness-75 transition-all ease-in-out" />
+            </router-link>
+        </div>
+        
+        <div class="flex flex-col justify-between items-between gap-5">
             <div class="inline-flex flex-col">
                 <div class="text-lg font-semibold capitalize truncate ...">{{ title }}</div>
                 <div class="text-grey truncate ...">{{ description }}</div>
             </div>
-            <div class="inline-flex gap-3 justify-between">
-                <div class="inline-flex">
-                    <div v-if="features.length" class="inline-flex gap-1 items-end px-2 truncate ...">
-                        <div v-for="( feature, i ) in features.slice(0,6)">
-                            <font-awesome-icon :icon="feature.icon" />
-                        </div>
+            <div class="flex justify-between items-end">
+                <div v-if="features.length" class="flex gap-2 items-end px-2 truncate ... p-2 bg-gray-800 rounded-xl">
+                    <div v-for="( feature, i ) in features.slice(0,4)">
+                        <font-awesome-icon :icon="feature.icon" class="text-white"/>
                     </div>
-                    <div v-else></div>
                 </div>
-                <div class="inline-flex gap-2">
-                    <router-link :to="'/pitches/pitch/' + id"  class="">
-                        <font-awesome-icon icon="fa-solid fa-eye" class="cursor-pointer" />
-                    </router-link>
-                    <div class="">
-                        <font-awesome-icon icon="fa-solid fa-remove" class="cursor-pointer" @click="destroy"/>
-                    </div>
+                <div v-else></div>
+                <div class="aspect-square flex justify-center items-center hover:bg-gray-100 bg-red-500 hover:bg-red-600 transition-all ease-in-out p-2 rounded-xl text-white aspect-square">
+                    <font-awesome-icon icon="fa-solid fa-remove" class="cursor-pointer" @click="destroy"/>
                 </div>
             </div>
         </div>
