@@ -1,12 +1,10 @@
 <script setup>
-import PageLayout from '../PageLayout.vue';
 import { toRefs } from 'vue';
 import CustomButton from '../../buttons/CustomButton.vue';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 import PageHeader from '../PageHeader.vue';
 import PageFooter from '../PageFooter.vue';
 import Container from '../Container.vue';
-import BannerSlim from '../../banners/BannerSlim.vue';
 import BackBar from '../BackBar.vue';
 
 const props = defineProps({
@@ -27,7 +25,12 @@ const props = defineProps({
         type: Boolean,
         required: false,
         default: false
-    }
+    },
+    showBack: {
+        type: Boolean,
+        required: false,
+        default: true
+    },
 });
 
 const { buttons } = toRefs( props );
@@ -38,7 +41,7 @@ const { buttons } = toRefs( props );
     <div class="min-h-screen flex flex-col">
         <PageHeader />
             <Container>
-                <BackBar />
+                <BackBar v-if="showBack"/>
                 <div class="inline-flex pb-8 pt-3 justify-between items-center">
                     <div class="flex-col inline-flex">
                         <div v-if="headerText" class="text-3xl inline-flex capitalize">{{ headerText }}</div>

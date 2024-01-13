@@ -25,7 +25,7 @@ const menuItems = [
 </script>
 
 <template>
-    <AccountLayout>   
+    <AccountLayout :show-back="false">   
         <div class="">
             <div>
                 <div class="text-3xl">

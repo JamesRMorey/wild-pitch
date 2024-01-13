@@ -6,8 +6,6 @@ import PitchCard from '../pitches/PitchCard.vue';
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import '@splidejs/vue-splide/css';
 
-const router = useRouter();
-
 const props = defineProps({
     pitches: {
         type: Array,
@@ -79,7 +77,7 @@ onUnmounted(() => {
         :options="{ 
             rewind: true,
             perPage: perPage,
-            gap: 30,
+            gap: 20,
             arrows: false,
             bullets: false,
             pagination: false

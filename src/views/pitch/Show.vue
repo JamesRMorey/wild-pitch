@@ -100,7 +100,7 @@ const isLoaded = computed(() => {
             </div>
             <div class="inline-flex gap-5 w-full flex-col lg:flex-row">
                 <div class="flex-col inline-flex gap-10 w-full lg:w-3/5">
-                    
+
                     <div class="flex-col inline-flex gap-3">
                         <div class="text-xl font-semibold">What To Expect</div>
                         <div v-if="isLoaded" v-html="pitch.description" class="whitespace-pre-line bg-gray-100 p-5 rounded-xl"></div>
@@ -145,7 +145,7 @@ const isLoaded = computed(() => {
                         </div>
                     </div>
                 </div>
-                <div v-else class="inline-flex flex-col gap-5 w-full lg:w-2/5 bg-gray-100"></div>
+                <div v-else class="inline-flex flex-col gap-5 w-full lg:w-2/5 bg-gray-100 rounded-xl"></div>
 
                 <div v-if="isLoaded && pitch?.user" class="bg-gray-800 rounded-xl px-6 py-10 lg:hidden inline-flex gap-5 text-white">
                     <div class="aspect-square rounded-full bg-white p-1 h-20">

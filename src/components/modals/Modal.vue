@@ -55,7 +55,7 @@ onUnmounted(() => {
                     <slot name="content"></slot>
                     <div v-if="confirmText || showClose" class="inline-flex flex-row justify-end gap-3 mt-4">
                         <custom-button v-if="confirmText" :text="confirmText" @press="handleConfirm" :loading="loading"/>
-                        <custom-button v-if="showClose" text="close" @press="handleClose"/>
+                        <custom-button v-if="showClose" text="Close" @press="handleClose"/>
                     </div>
                 </div>
             </div>

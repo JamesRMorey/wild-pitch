@@ -18,6 +18,7 @@ import ImageWithBoxGrid from '../../components/content/ImageWithBoxGrid.vue';
 import NewsLetterSignUp from '../../components/functional/NewsLetterSignUp.vue';
 import TextCtaSplit from '../../components/cta/TextCtaSplit.vue';
 import HeaderWithText from '../../components/content/headers/HeaderWithText.vue';
+import Modal from '../../components/modals/Modal.vue';
 
 const api = new Api();
 
@@ -150,13 +151,18 @@ const handleBoxPress = ( i ) => {
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
+const applyFilters = () => {
+    handleSearch( selectedLocation.value, 1 );
+    filters.value.show = false;
+}
+
 onMounted(async () => {
     if ( locationId ) {
         await getLocation( locationId )
         handleSearch(selectedLocation.value, page ?? 1);
     }
     config.value.loaded = true;
-})
+});
 
 </script>
 
@@ -176,23 +182,23 @@ onMounted(async () => {
                 </div>
             </div>
             <div v-if="config.loaded" class="inline-flex pt-8 gap-8 z-1 flex-col lg:flex-col items-center lg:items-start">
-                <div v-if="filters.show" class="w-64 flex-col inline-flex items-start bg-gray-100 shadow p-5 rounded-3xl w-full">
-                    <div class="p-5 rounded-3xl w-full md:w-1/2 lg:w-1/3 bg-white">
-                        <div class="text-lg font">Radius</div>
-                        <select
-                            id="select"
-                            v-model="filters.radius"
-                            class="w-full mt-2 border-2 border-gray-200 bg-gray-100 rounded-md px-3 py-2 font-semibold"
-                            @change="handleSearch( selectedLocation, 1 )"
-                        >
-                            <option value="5">5km</option>
-                            <option value="15">15km</option>
-                            <option value="30">30km</option>
-                            <option value="50">50km</option>
-                            <option value="100">100km</option>
-                        </select>
-                    </div>
-                </div>
+                <Modal v-if="filters.show" confirm-text="Filter" :show-close="false" @confirm="applyFilters" @close="filters.show = false">
+                    <template v-slot:content>
+                        <div class="rounded-3xl bg-white w-full">
+                            <div class="text-lg font">Radius</div>
+                            <div class="flex flex-row justify-between w-full flex-wrap gap-3 mt-2">
+                                <div v-for="( distance, i ) in ['5', '15', '30', '50', '100']" class="flex gap-5 flex-col justify-center items-center">
+                                    <div 
+                                        class="p-3.5 rounded-full cursor-pointer transition-all ease-in-out"
+                                        :class="filters.radius == distance ? 'bg-green' : 'bg-gray-100'"
+                                        @click="() => filters.radius = distance"
+                                    ></div>
+                                    <div>{{ distance }}km</div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </Modal>
                 <div class="inline-flex w-full flex-col">
                     <div v-if="!map.show" class="relative w-full inline-flex items-center justify-center mb-0">
                         <div v-if="loading" class="w-full h-full rounded-2xl z-2 absolute justify-center items-center inline-flex p-32 bg-white opacity-50">

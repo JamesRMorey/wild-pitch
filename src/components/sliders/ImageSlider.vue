@@ -122,7 +122,7 @@ const isLoaded = computed(() => {
             class="rounded-xl"
             @click="() => modalSlider = { show: true, index: i }"
         >
-            <img v-i :src="img"  class="w-full aspect-square rounded-xl object-cover object-center"/>
+            <img v-i :src="img"  class="w-full aspect-square rounded-xl object-cover object-center cursor-pointer hover:brightness-75 transition-all ease-in-out"/>
         </SplideSlide>
         <SplideSlide
             v-else

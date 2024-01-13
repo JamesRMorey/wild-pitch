@@ -100,7 +100,7 @@ const markerClicked = ( index ) => {
 }
 
 const pageButtons = ref([
-    { text: 'add', click: handleAddButtonClick },
+    { text: 'Add', click: handleAddButtonClick },
 ])
 
 const handleMapControlClick = () => {
